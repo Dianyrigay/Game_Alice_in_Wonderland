@@ -14,7 +14,7 @@ class Personaje_Principal(Personaje):
     self.muerto = False
     # variables para el salto
     self.gravedad = 0.5
-    self.potencia_salto = -10
+    self.potencia_salto = -13
     self.limite_velocidad_caida = 15
     self.esta_cayendo = False
 
@@ -109,8 +109,7 @@ class Personaje_Principal(Personaje):
   def verificar_colisiones_enemigos(self, lista_enemigos):
      for enemigo in lista_enemigos:
         if self.rect.colliderect(enemigo):
-          if self.velocidad_y > 0:
-            self.esta_cayendo = False
-            self.velocidad_y = 0
+          # if self.velocidad_y > 0:
+          #   self.esta_cayendo = True
             if not enemigo.muerto:
               enemigo.verificar_colision_personaje_principal(self)

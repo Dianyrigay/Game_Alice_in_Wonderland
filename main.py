@@ -5,7 +5,7 @@ from constantes import *
 from animaciones import *
 
 from Personaje_Principal import Personaje_Principal
-from Personaje_Enemigo import Enemigo
+from Enemigo import EnemigoDisparador, EnemigoMovimientoRango
 from Plataforma import Plataforma
 
 pygame.init()
@@ -40,12 +40,12 @@ items_group = pygame.sprite.Group()
 # Instanciacion del personaje principal
 personaje_alice = Personaje_Principal()
 # Instanciacion de enemigos
-enemigo_plant = Enemigo((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack_izq)
-enemigo_pig = Enemigo((WIDTH_PANTALLA/2, 200), pig_fly)
+enemigo_plant = EnemigoDisparador((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack_izq)
+enemigo_pig = EnemigoMovimientoRango((WIDTH_PANTALLA/2, 200), pig_fly)
 # Instanciacion de plataformas
 plataforma1 = Plataforma(AREA_1, 3, 0, (300, 500), items_group)
 plataforma2 = Plataforma(AREA_1, 2, 0, (550, 450), items_group)
-plataforma3 = Plataforma(AREA_1, 3, 100, (700, 280), items_group)
+plataforma3 = Plataforma(AREA_1, 5, 0, (700, 280), items_group)
 
 lista_plataformas = [piso_rect, plataforma1.rect, plataforma2.rect, plataforma3.rect]
 lista_enemigos = [enemigo_plant]
@@ -101,7 +101,7 @@ while running_game:
           # game_over = True
 
       enemigo_plant.update(pantalla, piso_rect, personaje_alice)
-      enemigo_pig.update(pantalla, piso_rect, personaje_alice)
+      enemigo_pig.update(pantalla, personaje_alice)
 
       if enemigo_plant.cuentaPasos % TIEMPO_ENTRE_DISPAROS == 0:
         enemigo_plant.disparar(balas_group)
