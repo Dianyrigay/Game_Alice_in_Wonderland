@@ -110,7 +110,5 @@ class Personaje_Principal(Personaje):
   def verificar_colisiones_enemigos(self, lista_enemigos):
      for enemigo in lista_enemigos:
         if self.rect.colliderect(enemigo):
-          # if self.velocidad_y > 0:
-          #   self.esta_cayendo = True
             if not enemigo.muerto:
               enemigo.verificar_colision_personaje_principal(self)

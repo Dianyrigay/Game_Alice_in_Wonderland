@@ -6,8 +6,8 @@ FPS = 60
 TIEMPO_ENTRE_DISPAROS = 300
 
 # Movimiento en x del enemigo
-MARGEN_IZQUIERDO = WIDTH_PANTALLA / 3 #400
-MARGEN_DERECHO = MARGEN_IZQUIERDO * 2 #800
+MARGEN_IZQUIERDO = 200
+MARGEN_DERECHO = 600
 
 # Plataforma Nivel 1
 # Nombre        #ruta imagen

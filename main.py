@@ -42,21 +42,21 @@ items_group = pygame.sprite.Group()
 personaje_alice = Personaje_Principal()
 # Instanciacion de enemigos
 enemigo_plant = EnemigoDisparador((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack_izq)
-enemigo_pig = EnemigoMovimientoRango((WIDTH_PANTALLA/2, 200), pig_fly)
+enemigo_pig = EnemigoMovimientoRango((WIDTH_PANTALLA/2, 250), pig_fly)
 # Instanciacion de plataformas
 plataforma1 = Plataforma(AREA_1, 3, 0, (300, 500), items_group)
 plataforma2 = Plataforma(AREA_1, 2, 0, (550, 450), items_group)
 plataforma3 = Plataforma(AREA_1, 5, 0, (700, 280), items_group)
 
 lista_plataformas = [piso_rect, plataforma1.rect, plataforma2.rect, plataforma3.rect]
-lista_enemigos = [enemigo_plant]
+lista_enemigos = [enemigo_plant, enemigo_pig]
 
 running_game = True
 game_over = False
 game_over_image = pygame.image.load("./images/game_over.png")
 game_over_image = pygame.transform.scale(game_over_image, (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 primera_iteracion = True
-timer = 120
+timer = 60
 
 while running_game:
     for event in pygame.event.get():
@@ -84,9 +84,9 @@ while running_game:
         personaje_alice.mover_derecha()
       elif keys[pygame.K_SPACE]:
         personaje_alice.saltar()
-      elif keys[pygame.K_x] and timer <= 0:
+      elif (keys[pygame.K_x] or (keys[pygame.K_RIGHT] and keys[pygame.K_x]) or (keys[pygame.K_RIGHT] and keys[pygame.K_x])) and timer <= 0:
         personaje_alice.disparar(burbujas_group)
-        timer = 180
+        timer = 60
       else:
          personaje_alice.quieto()
 
@@ -100,18 +100,19 @@ while running_game:
       # Colisiones de un sprite con groups
       colision_balas_alice = pygame.sprite.spritecollide(personaje_alice, balas_group, True)
       colision_items = pygame.sprite.spritecollide(personaje_alice, items_group, True)
-      colision_burbuja_enmigos = pygame.sprite.spritecollide(enemigo_plant, burbujas_group, True)
+
+      for enemigo in lista_enemigos:
+        colisiona_enemigo = pygame.sprite.spritecollide(enemigo, burbujas_group, True)
+        if colisiona_enemigo:
+          enemigo.muerto = True
+          lista_enemigos.remove(enemigo)
 
       if colision_balas_alice:
-          # colisión entre el personaje y una bala
           personaje_alice.morir()
           # game_over = True
 
-      if colision_burbuja_enmigos:
-        enemigo_plant.muerto = True
-
       enemigo_plant.update(pantalla, piso_rect, personaje_alice)
-      enemigo_pig.update(pantalla, personaje_alice)
+      enemigo_pig.update(pantalla, piso_rect, personaje_alice)
 
       if enemigo_plant.cuentaPasos % TIEMPO_ENTRE_DISPAROS == 0:
         enemigo_plant.disparar(balas_group)

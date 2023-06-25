@@ -1,2 +1,1 @@
-
-    # delta_tiempo = clock.tick(FPS) / 1000
+lista_enemigos
