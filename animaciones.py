@@ -30,6 +30,9 @@ reescalar_imagen(lista_animaciones_alice, 2.25)
 lista_dead = [dead]
 reescalar_imagen(lista_dead, 2)
 
+burbuja_bala = pygame.image.load('./images/alice/disparo_magic/burbuja.png')
+explosion_burbuja = getSurfaceFromSpriteSheet('./images/alice/disparo_magic/explosion-burbuja.png', 8, 1, 1)
+
 # ENEMIGOS
 
 # plant
@@ -49,6 +52,8 @@ enemy_dead = [pygame.image.load('./images/enemigos/plant/dead-00.gif'),
 
 lista_animaciones_plant = [quieto_front, attack_izq, enemy_dead]
 reescalar_imagen(lista_animaciones_plant, 1.5)
+
+bala_plant = pygame.image.load('./images/enemigos/plant/bala_plant.gif')
 
 # pig
 pig_fly = getSurfaceFromSpriteSheet('./images/enemigos/pig/pig_fly.png', 7, 1, 1)

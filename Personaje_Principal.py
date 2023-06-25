@@ -76,16 +76,17 @@ class Personaje_Principal(Personaje):
     self.animacion = dead
     self.muerto = True
 
-  def disparar(self, balas_group):
-    x = self.rect.centerx
+  def disparar(self, burbujas_group):
     y = self.rect.centery
     if self.izquierda:
+      x = self.rect.left
       direccion = -1
     else:
+      x = self.rect.right
       direccion = 1
     # Instanciacion de balas_group
-    bala = Bala(x, y, direccion, './images/municion_enemiga/bala_plant.py.gif')
-    balas_group.add(bala)
+    burbuja = Bala(x, y, direccion, burbuja_bala)
+    burbujas_group.add(burbuja)
 
   def verificar_colisiones_plataformas(self, lista_plataformas):
     for plataforma in lista_plataformas:

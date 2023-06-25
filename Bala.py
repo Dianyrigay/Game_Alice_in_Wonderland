@@ -1,11 +1,11 @@
 import pygame
 
 class Bala(pygame.sprite.Sprite):
-  def __init__(self, x, y, direccion, ruta_imagen) -> None:
+  def __init__(self, x, y, direccion, imagen) -> None:
     super().__init__()
     # -- Attributos
     self.velocidad = 10
-    self.image = pygame.image.load(ruta_imagen)
+    self.image = imagen
     self.rect = self.image.get_rect(topleft = (0,0))
     self.rect.center = (x,y)
     self.direccion = direccion

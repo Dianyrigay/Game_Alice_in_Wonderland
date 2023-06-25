@@ -50,10 +50,10 @@ class EnemigoDisparador(Enemigo):
   def disparar(self, balas_group):
     x = self.rect.centerx
     y = self.rect.centery
-    direccion = -1  # Disparo hacia la izquierda
-    # Instanciacion de balas_group
+    direccion = -1
     if not self.muerto:
-      bala = Bala(x, y, direccion, './images/municion_enemiga/bala_plant.py.gif')
+    # Instanciacion de balas_group
+      bala = Bala(x, y, direccion, bala_plant)
       balas_group.add(bala)
 
 class EnemigoMovimientoRango(Enemigo):
