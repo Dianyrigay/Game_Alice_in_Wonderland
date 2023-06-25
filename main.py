@@ -19,8 +19,22 @@ pygame.display.set_icon(icono)
 
 # Sistema de puntuaciones
 puntuacion = 0
-# def muestra_texto(pantalla, fuente, texto, color, dimensiones, x ,y):
-#   tipo_letra = pygame.
+
+# Sonidos
+pygame.mixer.init()
+# pygame.mixer.Sound('./sonidos/') # tipo de sonido
+ambiente_fantasy = pygame.mixer.Sound('./sonidos/fantasy-ambient.wav')
+items_win = pygame.mixer.Sound('./sonidos/items-win.wav')
+pig_dead_sound = pygame.mixer.Sound('./sonidos/pig-dead.ogg')
+game_over_sound = pygame.mixer.Sound('./sonidos/game_over.wav')
+
+sonidos = [items_win, pig_dead_sound, game_over_sound]
+
+ambiente_fantasy.set_volume(0.05)
+ambiente_fantasy.play()
+for sonido in sonidos:
+  sonido.set_volume(0.15)
+
 
 fondo_imagenes = []
 for i in range(3):
@@ -111,6 +125,8 @@ while running_game:
       for enemigo in lista_enemigos:
         colisiona_burbujas_enemigo = pygame.sprite.spritecollide(enemigo, burbujas_group, True)
         if colisiona_burbujas_enemigo:
+          if enemigo.animacion == pig_fly:
+            pig_dead_sound.play()
           puntuacion += 50
           enemigo.muerto = True
           lista_enemigos.remove(enemigo)
@@ -119,6 +135,7 @@ while running_game:
           personaje_alice.restar_vidas()
 
       if colision_items:
+        items_win.play()
         puntuacion += 10
 
       enemigo_plant.update(pantalla, piso_rect, personaje_alice)
@@ -143,6 +160,8 @@ while running_game:
       items_group.update()
       items_group.draw(pantalla)
     else:
+      ambiente_fantasy.stop()
+      game_over_sound.play()
       pantalla.blit(game_over_image, (0,0))
 
     escribir_pantalla(pantalla, 'SCORE: ', "white", str(puntuacion).zfill(5), (20, 20))
