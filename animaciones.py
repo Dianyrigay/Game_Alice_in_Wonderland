@@ -25,7 +25,10 @@ dead = [pygame.image.load('./images/alice/dead/dead-01.gif'),
         pygame.image.load('./images/alice/dead/dead-05.gif'),
         pygame.image.load('./images/alice/dead/dead-06.gif')]
 
-lista_animaciones_alice = [quieto_der, camina_der, floating]
+angry = getSurfaceFromSpriteSheet('./images/alice/angry/angry.png', 8, 1, 1)
+
+lista_animaciones_alice = [quieto_der, camina_der, floating, angry]
+
 reescalar_imagen(lista_animaciones_alice, 2.25)
 lista_dead = [dead]
 reescalar_imagen(lista_dead, 2)
@@ -46,11 +49,11 @@ attack_izq = [pygame.image.load('./images/enemigos/plant/attack-00.gif'),
               pygame.image.load('./images/enemigos/plant/attack-03.gif'),
               pygame.image.load('./images/enemigos/plant/attack-04.gif')]
 
-enemy_dead = [pygame.image.load('./images/enemigos/plant/dead-00.gif'),
+plant_dead = [pygame.image.load('./images/enemigos/plant/dead-00.gif'),
         pygame.image.load('./images/enemigos/plant/dead-01.gif'),
         pygame.image.load('./images/enemigos/plant/dead-02.gif')]
 
-lista_animaciones_plant = [quieto_front, attack_izq, enemy_dead]
+lista_animaciones_plant = [quieto_front, attack_izq, plant_dead]
 reescalar_imagen(lista_animaciones_plant, 1.5)
 
 bala_plant = pygame.image.load('./images/enemigos/plant/bala_plant.gif')

@@ -22,19 +22,23 @@ puntuacion = 0
 
 # Sonidos
 pygame.mixer.init()
-# pygame.mixer.Sound('./sonidos/') # tipo de sonido
 ambiente_fantasy = pygame.mixer.Sound('./sonidos/fantasy-ambient.wav')
 items_win = pygame.mixer.Sound('./sonidos/items-win.wav')
 pig_dead_sound = pygame.mixer.Sound('./sonidos/pig-dead.ogg')
 game_over_sound = pygame.mixer.Sound('./sonidos/game_over.wav')
+impact = pygame.mixer.Sound('./sonidos/impact.wav')
+plant_dead_sound = pygame.mixer.Sound('./sonidos/plant-dead.wav')
 
-sonidos = [items_win, pig_dead_sound, game_over_sound]
+sonidos_015 = [items_win, game_over_sound,pig_dead_sound, impact, plant_dead_sound]
+sonidos_005 = [ambiente_fantasy]
 
-ambiente_fantasy.set_volume(0.05)
-ambiente_fantasy.play()
-for sonido in sonidos:
+for sonido in sonidos_005:
+  sonido.set_volume(0.05)
+
+for sonido in sonidos_015:
   sonido.set_volume(0.15)
 
+ambiente_fantasy.play()
 
 fondo_imagenes = []
 for i in range(3):
@@ -66,8 +70,10 @@ enemigo_pig = EnemigoMovimientoRango((WIDTH_PANTALLA/2, 250), pig_fly)
 plataforma1 = Plataforma(AREA_1, 3, 0, (300, 500), items_group)
 plataforma2 = Plataforma(AREA_1, 2, 0, (550, 450), items_group)
 plataforma3 = Plataforma(AREA_1, 5, 0, (700, 280), items_group)
+plataforma4 = Plataforma(AREA_1, 3, 0, (300, 250), items_group)
 
-lista_plataformas = [piso_rect, plataforma1.rect, plataforma2.rect, plataforma3.rect]
+lista_plataformas = [piso_rect, plataforma1.rect, plataforma2.rect, plataforma3.rect, plataforma4.rect]
+plataformas_hongos = [plataforma1, plataforma2, plataforma3]
 lista_enemigos = [enemigo_plant, enemigo_pig]
 
 running_game = True
@@ -75,7 +81,7 @@ game_over = False
 game_over_image = pygame.image.load("./images/game_over.png")
 game_over_image = pygame.transform.scale(game_over_image, (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 primera_iteracion = True
-timer = 60
+# timer = 60
 
 while running_game:
     for event in pygame.event.get():
@@ -84,12 +90,12 @@ while running_game:
             exit()
 
     # delta_tiempo = clock.tick(FPS) / 1000
-    timer -= 1
+    # timer -= 1
 
     keys = pygame.key.get_pressed()
 
+    # -- código de control de movimientos
     if not personaje_alice.esta_cayendo:
-      # -- código de control de movimientos
       if primera_iteracion:
         personaje_alice.flotar()
       elif keys[pygame.K_LEFT] and keys[pygame.K_SPACE]:
@@ -103,9 +109,8 @@ while running_game:
         personaje_alice.mover_derecha()
       elif keys[pygame.K_SPACE]:
         personaje_alice.saltar()
-      elif (keys[pygame.K_x] or (keys[pygame.K_RIGHT] and keys[pygame.K_x]) or (keys[pygame.K_RIGHT] and keys[pygame.K_x])) and timer <= 0:
+      elif (keys[pygame.K_x] or (keys[pygame.K_RIGHT] and keys[pygame.K_x]) or (keys[pygame.K_RIGHT] and keys[pygame.K_x])):
         personaje_alice.disparar(burbujas_group)
-        timer = 60
       else:
          personaje_alice.quieto()
 
@@ -114,29 +119,39 @@ while running_game:
 
     # Level 1
     if not game_over:
-      personaje_alice.update(pantalla, lista_plataformas, lista_enemigos)
       if personaje_alice.muerto:
         game_over = True
 
-      # Colisiones de un sprite con groups
+      # -- Colisiones de sprite con groups
       colision_balas_alice = pygame.sprite.spritecollide(personaje_alice, balas_group, True)
       colision_items = pygame.sprite.spritecollide(personaje_alice, items_group, True)
+      colision_alice_enemigos = pygame.sprite.spritecollide(personaje_alice, lista_enemigos, False)
 
       for enemigo in lista_enemigos:
         colisiona_burbujas_enemigo = pygame.sprite.spritecollide(enemigo, burbujas_group, True)
         if colisiona_burbujas_enemigo:
           if enemigo.animacion == pig_fly:
             pig_dead_sound.play()
+          else:
+            plant_dead_sound.play()
           puntuacion += 50
           enemigo.muerto = True
           lista_enemigos.remove(enemigo)
 
-      if colision_balas_alice:
-          personaje_alice.restar_vidas()
+      if colision_balas_alice or colision_alice_enemigos:
+        impact.play()
+        personaje_alice.rect.x += -50
+        personaje_alice.restar_vidas()
+        if colision_balas_alice:
+          puntuacion -= 20
+        else:
+          puntuacion -= 50
 
       if colision_items:
         items_win.play()
         puntuacion += 10
+
+      personaje_alice.update(pantalla, lista_plataformas, lista_enemigos)
 
       enemigo_plant.update(pantalla, piso_rect, personaje_alice)
       enemigo_pig.update(pantalla, piso_rect, personaje_alice)
@@ -144,10 +159,12 @@ while running_game:
       if enemigo_plant.cuentaPasos % TIEMPO_ENTRE_DISPAROS == 0:
         enemigo_plant.disparar(balas_group)
 
-      # SUPERFICIES
+      # --Plataformas
+
       plataforma1.dibujar(pantalla)
       plataforma2.dibujar(pantalla)
       plataforma3.dibujar(pantalla)
+      plataforma4.dibujar(pantalla)
 
       # actualización y dibujos de Groups
       # balas
@@ -157,14 +174,15 @@ while running_game:
       burbujas_group.update()
       burbujas_group.draw(pantalla)
       # items
-      items_group.update()
-      items_group.draw(pantalla)
+      for plataforma in plataformas_hongos:
+        items_group.update()
+        items_group.draw(pantalla)
     else:
       ambiente_fantasy.stop()
       game_over_sound.play()
       pantalla.blit(game_over_image, (0,0))
 
-    escribir_pantalla(pantalla, 'SCORE: ', "white", str(puntuacion).zfill(5), (20, 20))
+    escribir_pantalla(pantalla, 'SCORE: ', "white", str(puntuacion).zfill(6), (20, 20))
     escribir_pantalla(pantalla, 'VIDAS: ', "white", str(personaje_alice.vidas), (1250, 20))
     pygame.display.update()
 
