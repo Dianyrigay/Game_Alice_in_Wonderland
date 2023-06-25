@@ -35,6 +35,7 @@ piso_rect = piso_surf.get_rect(
 
 # Grupos de sprites
 balas_group = pygame.sprite.Group()
+burbujas_group = pygame.sprite.Group()
 items_group = pygame.sprite.Group()
 
 # Instanciacion del personaje principal
@@ -55,6 +56,7 @@ game_over = False
 game_over_image = pygame.image.load("./images/game_over.png")
 game_over_image = pygame.transform.scale(game_over_image, (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 primera_iteracion = True
+timer = 120
 
 while running_game:
     for event in pygame.event.get():
@@ -63,6 +65,7 @@ while running_game:
             exit()
 
     # delta_tiempo = clock.tick(FPS) / 1000
+    timer -= 1
 
     keys = pygame.key.get_pressed()
 
@@ -81,6 +84,9 @@ while running_game:
         personaje_alice.mover_derecha()
       elif keys[pygame.K_SPACE]:
         personaje_alice.saltar()
+      elif keys[pygame.K_x] and timer <= 0:
+        personaje_alice.disparar(burbujas_group)
+        timer = 180
       else:
          personaje_alice.quieto()
 
@@ -92,13 +98,17 @@ while running_game:
       personaje_alice.update(pantalla, lista_plataformas, lista_enemigos)
 
       # Colisiones de un sprite con groups
-      colision_balas_enemigas = pygame.sprite.spritecollide(personaje_alice, balas_group, True)
+      colision_balas_alice = pygame.sprite.spritecollide(personaje_alice, balas_group, True)
       colision_items = pygame.sprite.spritecollide(personaje_alice, items_group, True)
+      colision_burbuja_enmigos = pygame.sprite.spritecollide(enemigo_plant, burbujas_group, True)
 
-      if colision_balas_enemigas:
+      if colision_balas_alice:
           # colisión entre el personaje y una bala
           personaje_alice.morir()
           # game_over = True
+
+      if colision_burbuja_enmigos:
+        enemigo_plant.muerto = True
 
       enemigo_plant.update(pantalla, piso_rect, personaje_alice)
       enemigo_pig.update(pantalla, personaje_alice)
@@ -115,6 +125,9 @@ while running_game:
       # balas
       balas_group.update()
       balas_group.draw(pantalla)
+      # burbuja
+      burbujas_group.update()
+      burbujas_group.draw(pantalla)
       # items
       items_group.update()
       items_group.draw(pantalla)
