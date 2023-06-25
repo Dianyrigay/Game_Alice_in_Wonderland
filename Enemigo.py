@@ -10,26 +10,26 @@ class Enemigo(Personaje):
     self.posicion = posicion
     self.rect = animacion[0].get_rect(
         midbottom=posicion)
-    self.izquierda = False
+    # self.izquierda = False
     self.animacion = animacion
-    self.muerto = False
+    # self.muerto = False
     self.contador_muerte = 30
 
   def update(self, pantalla, piso_rect, personaje_principal, animacion_muerte):
     self.cuentaPasos += 1
 
     if not self.muerto:
-      self.verificar_colision_personaje_principal(personaje_principal)
+      # self.verificar_colision_personaje_principal(personaje_principal)
       self.animar_personaje(pantalla)
     elif self.muerto and self.contador_muerte > 0:
       self.animacion = animacion_muerte
       self.animar_personaje(pantalla)
       self.contador_muerte -= 1
 
-  def verificar_colision_personaje_principal(self, personaje_principal):
-    if self.rect.colliderect(personaje_principal.rect):
-        if not personaje_principal.muerto:
-          self.muerto = True
+  # def verificar_colision_personaje_principal(self, personaje_principal):
+  #   if self.rect.colliderect(personaje_principal.rect):
+  #       if not personaje_principal.muerto:
+  #         self.muerto = True
 
 class EnemigoDisparador(Enemigo):
   def __init__(self, posicion, animacion) -> None:

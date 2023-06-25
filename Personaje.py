@@ -9,6 +9,7 @@ class Personaje():
     self.animacion = None
     self.velocidad_animacion = 10
     self.izquierda = False
+    self.muerto = False
 
   def animar_personaje(self, pantalla):
     # Asegurar que el índice esté dentro del rango válido

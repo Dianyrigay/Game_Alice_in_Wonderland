@@ -17,6 +17,11 @@ pygame.display.set_caption('Alice in Worderland')
 icono = pygame.image.load('./images/alice/idle/rigth.png')
 pygame.display.set_icon(icono)
 
+# Sistema de puntuaciones
+puntuacion = 0
+# def muestra_texto(pantalla, fuente, texto, color, dimensiones, x ,y):
+#   tipo_letra = pygame.
+
 fondo_imagenes = []
 for i in range(3):
   fondo_imagen = pygame.image.load(f'./images/fondo/area-0{i}.png').convert_alpha()
@@ -96,20 +101,25 @@ while running_game:
     # Level 1
     if not game_over:
       personaje_alice.update(pantalla, lista_plataformas, lista_enemigos)
+      if personaje_alice.muerto:
+        game_over = True
 
       # Colisiones de un sprite con groups
       colision_balas_alice = pygame.sprite.spritecollide(personaje_alice, balas_group, True)
       colision_items = pygame.sprite.spritecollide(personaje_alice, items_group, True)
 
       for enemigo in lista_enemigos:
-        colisiona_enemigo = pygame.sprite.spritecollide(enemigo, burbujas_group, True)
-        if colisiona_enemigo:
+        colisiona_burbujas_enemigo = pygame.sprite.spritecollide(enemigo, burbujas_group, True)
+        if colisiona_burbujas_enemigo:
+          puntuacion += 50
           enemigo.muerto = True
           lista_enemigos.remove(enemigo)
 
       if colision_balas_alice:
-          personaje_alice.morir()
-          # game_over = True
+          personaje_alice.restar_vidas()
+
+      if colision_items:
+        puntuacion += 10
 
       enemigo_plant.update(pantalla, piso_rect, personaje_alice)
       enemigo_pig.update(pantalla, piso_rect, personaje_alice)
@@ -132,9 +142,11 @@ while running_game:
       # items
       items_group.update()
       items_group.draw(pantalla)
-    # else:
-    #   pantalla.blit(game_over_image, (0,0))
+    else:
+      pantalla.blit(game_over_image, (0,0))
 
+    escribir_pantalla(pantalla, 'SCORE: ', "white", str(puntuacion).zfill(5), (20, 20))
+    escribir_pantalla(pantalla, 'VIDAS: ', "white", str(personaje_alice.vidas), (1250, 20))
     pygame.display.update()
 
     primera_iteracion = False

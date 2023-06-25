@@ -10,13 +10,13 @@ class Personaje_Principal(Personaje):
     self.rect = quieto_der[0].get_rect(topleft=(0, 0))
     self.velocidad_x = 0
     self.velocidad_y = 0
-    self.izquierda = False
-    self.muerto = False
+    # self.muerto = False
     # variables para el salto
     self.gravedad = 0.5
     self.potencia_salto = -13
     self.limite_velocidad_caida = 15
     self.esta_cayendo = False
+    self.vidas = 3
 
   def mover_personaje_x(self):
     self.rect.x += self.velocidad_x
@@ -38,7 +38,8 @@ class Personaje_Principal(Personaje):
   def update(self, pantalla, lista_plataformas, lista_enemigos):
     self.cuentaPasos += 1
 
-    if self.muerto:
+    if self.vidas <= 0:
+      self.muerto = True
       self.animacion = dead
     else:
       self.mover_personaje_x()
@@ -46,6 +47,8 @@ class Personaje_Principal(Personaje):
       self.calcular_gravedad()
       self.verificar_colisiones_plataformas(lista_plataformas)
       self.verificar_colisiones_enemigos(lista_enemigos)
+      if self.esta_cayendo:
+        self.animacion = floating
 
     self.animar_personaje(pantalla)
 
@@ -72,9 +75,8 @@ class Personaje_Principal(Personaje):
       self.animacion = quieto_der
       self.velocidad_x = 0
 
-  def morir(self):
-    self.animacion = dead
-    self.muerto = True
+  def restar_vidas(self):
+    self.vidas -= 1
 
   def disparar(self, burbujas_group):
     y = self.rect.centery
@@ -108,7 +110,10 @@ class Personaje_Principal(Personaje):
                     self.velocidad_x = 0
 
   def verificar_colisiones_enemigos(self, lista_enemigos):
-     for enemigo in lista_enemigos:
-        if self.rect.colliderect(enemigo):
-            if not enemigo.muerto:
-              enemigo.verificar_colision_personaje_principal(self)
+    colision_detectada = False
+    for enemigo in lista_enemigos:
+      if self.rect.colliderect(enemigo) :
+        if not enemigo.muerto and not colision_detectada:
+          colision_detectada = True
+          self.restar_vidas()
+          break
