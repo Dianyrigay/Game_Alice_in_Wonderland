@@ -11,9 +11,10 @@ class Enemigo(Personaje):
     self.rect = animacion[0].get_rect(
         midbottom=posicion)
     self.animacion = animacion
-    self.contador_muerte = 30
+    self.cadencia = TIEMPO_ENTRE_DISPAROS
+    self.ultimo_disparo = pygame.time.get_ticks()
 
-  def update(self, pantalla, piso_rect, personaje_principal, animacion_muerte):
+  def update(self, pantalla, animacion_muerte):
     self.cuentaPasos += 1
 
     if not self.muerto:
@@ -26,20 +27,16 @@ class Enemigo(Personaje):
 class EnemigoDisparador(Enemigo):
   def __init__(self, posicion, animacion) -> None:
     super().__init__(posicion, animacion)
+    self.izquierda = True
 
-  def update(self, pantalla, piso_rect, personaje_principal):
-    super().update(pantalla,piso_rect, personaje_principal, plant_dead)
+  def update(self, pantalla, piso_rect, balas_group):
+    super().update(pantalla, plant_dead)
     if not self.muerto:
       self.mover_personaje_x(piso_rect)
+      self.disparar(balas_group)
 
   def disparar(self, balas_group):
-    x = self.rect.centerx
-    y = self.rect.centery
-    direccion = -1
-    if not self.muerto:
-    # Instanciacion de balas_group
-      bala = Bala(x, y, direccion, bala_plant)
-      balas_group.add(bala)
+    super().disparar(balas_group, bala_plant)
 
   def mover_personaje_x(self, piso_rect):
     self.rect.bottom = piso_rect.top
@@ -49,8 +46,8 @@ class EnemigoMovimientoRango(Enemigo):
     super().__init__(posicion, animacion)
     self.velocidad_x = 4
 
-  def update(self, pantalla, piso_rect, personaje_principal):
-    super().update(pantalla, piso_rect, personaje_principal, pig_dead)
+  def update(self, pantalla):
+    super().update(pantalla, pig_dead)
     if not self.muerto:
       self.mover_personaje_x()
 

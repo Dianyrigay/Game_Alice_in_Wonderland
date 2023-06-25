@@ -43,17 +43,13 @@ quieto_front = [pygame.image.load('./images/enemigos/plant/front-00.gif'),
                 pygame.image.load('./images/enemigos/plant/front-01.gif'),
                 pygame.image.load('./images/enemigos/plant/front-02.gif')]
 
-attack_izq = [pygame.image.load('./images/enemigos/plant/attack-00.gif'),
-              pygame.image.load('./images/enemigos/plant/attack-01.gif'),
-              pygame.image.load('./images/enemigos/plant/attack-02.gif'),
-              pygame.image.load('./images/enemigos/plant/attack-03.gif'),
-              pygame.image.load('./images/enemigos/plant/attack-04.gif')]
-
 plant_dead = [pygame.image.load('./images/enemigos/plant/dead-00.gif'),
         pygame.image.load('./images/enemigos/plant/dead-01.gif'),
         pygame.image.load('./images/enemigos/plant/dead-02.gif')]
 
-lista_animaciones_plant = [quieto_front, attack_izq, plant_dead]
+attack = getSurfaceFromSpriteSheet('./images/enemigos/plant/attack.png', 5, 1, 1)
+
+lista_animaciones_plant = [quieto_front, attack, plant_dead]
 reescalar_imagen(lista_animaciones_plant, 1.5)
 
 bala_plant = pygame.image.load('./images/enemigos/plant/bala_plant.gif')

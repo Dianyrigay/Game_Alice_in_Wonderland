@@ -12,18 +12,23 @@ class Personaje_Principal(Personaje):
     self.velocidad_y = 0
     self.gravedad = 0.5
     self.potencia_salto = -13
-    self.limite_velocidad_caida = 15
     self.esta_cayendo = False
     self.vidas = 3
-    self.cadencia = TIEMPO_ENTRE_DISPAROS
-    self.ultimo_disparo = pygame.time.get_ticks()
-    self.contador_muerte = 30
+    self.cadencia = 10
 
   def mover_personaje_x(self):
     self.rect.x += self.velocidad_x
 
+    if self.rect.left < 0:
+        self.rect.left = 0
+    elif self.rect.right > WIDTH_PANTALLA:
+        self.rect.right = WIDTH_PANTALLA
+
   def mover_personaje_y(self):
     self.rect.y += self.velocidad_y
+
+    if self.rect.bottom > HEIGHT_PANTALLA:
+      self.rect.bottom = HEIGHT_PANTALLA
 
   def calcular_gravedad(self):
     if self.velocidad_y == 0:
@@ -36,7 +41,7 @@ class Personaje_Principal(Personaje):
     if self.rect.bottom == HEIGHT_PANTALLA - ALTURA_PISO and self.velocidad_y >= 0:
       self.velocidad_y = 0
 
-  def update(self, pantalla, lista_plataformas, lista_enemigos):
+  def update(self, pantalla, lista_plataformas):
     self.cuentaPasos += 1
 
     if self.vidas > 0:
@@ -66,7 +71,7 @@ class Personaje_Principal(Personaje):
 
   def flotar(self):
     self.animacion = floating
-    self.velocidad_y = 1
+    self.velocidad_y = 4
 
   def mover_izquierda(self):
     self.animacion = camina_der
@@ -88,19 +93,7 @@ class Personaje_Principal(Personaje):
     self.vidas -= 1
 
   def disparar(self, burbujas_group):
-    disparo_ahora = pygame.time.get_ticks()
-    if disparo_ahora - self.ultimo_disparo > self.cadencia:
-      y = self.rect.centery
-      if self.izquierda:
-        x = self.rect.left
-        direccion = -1
-      else:
-        x = self.rect.right
-        direccion = 1
-      # Instanciacion de balas_group
-      burbuja = Bala(x, y, direccion, burbuja_bala)
-      burbujas_group.add(burbuja)
-      self.ultimo_disparo = disparo_ahora
+    super().disparar(burbujas_group, burbuja_bala)
 
   def verificar_colisiones_plataformas(self, lista_plataformas):
     for plataforma in lista_plataformas:

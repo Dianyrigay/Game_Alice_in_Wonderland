@@ -1,5 +1,6 @@
 import pygame
 from sys import exit
+import time
 
 from constantes import *
 from animaciones import *
@@ -17,8 +18,12 @@ pygame.display.set_caption('Alice in Worderland')
 icono = pygame.image.load('./images/alice/idle/rigth.png')
 pygame.display.set_icon(icono)
 
+# Cronómetro del juego
+tiempo_total = 60000  # Duración total del cronómetro en milisegundos
+tiempo_actual = pygame.time.get_ticks()  # Tiempo transcurrido inicialmente
+
 # Sistema de puntuaciones
-puntuacion = 0
+puntuacion = 100
 
 # Sonidos
 pygame.mixer.init()
@@ -51,7 +56,7 @@ def dibujar_fondo():
     for i in fondo_imagenes:
       pantalla.blit(i, ((x * WIDTH_PANTALLA), 0))
 
-# Superficie piso
+# Superficie pisxo
 piso_surf = pygame.Surface((WIDTH_PANTALLA, ALTURA_PISO))
 piso_rect = piso_surf.get_rect(
     topleft=(0, HEIGHT_PANTALLA - piso_surf.get_height()))
@@ -64,7 +69,7 @@ items_group = pygame.sprite.Group()
 # Instanciacion del personaje principal
 personaje_alice = Personaje_Principal()
 # Instanciacion de enemigos
-enemigo_plant = EnemigoDisparador((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack_izq)
+enemigo_plant = EnemigoDisparador((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack)
 enemigo_pig = EnemigoMovimientoRango((WIDTH_PANTALLA/2, 250), pig_fly)
 # Instanciacion de plataformas
 plataforma1 = Plataforma(AREA_1, 3, 0, (300, 500), items_group)
@@ -89,8 +94,9 @@ while running_game:
             running_game = False
             exit()
 
-    # delta_tiempo = clock.tick(FPS) / 1000
-    # timer -= 1
+    tiempo_transcurrido = pygame.time.get_ticks() - tiempo_actual
+    # Convertir a segundos
+    tiempo_restante = max(0, tiempo_total - tiempo_transcurrido) // 1000
 
     keys = pygame.key.get_pressed()
 
@@ -119,7 +125,7 @@ while running_game:
 
     # Level 1
     if not game_over:
-      if personaje_alice.muerto:
+      if personaje_alice.muerto or tiempo_restante == 0:
         game_over = True
 
       # -- Colisiones de sprite con groups
@@ -151,22 +157,19 @@ while running_game:
         items_win.play()
         puntuacion += 10
 
-      personaje_alice.update(pantalla, lista_plataformas, lista_enemigos)
+      personaje_alice.update(pantalla, lista_plataformas)
 
-      enemigo_plant.update(pantalla, piso_rect, personaje_alice)
-      enemigo_pig.update(pantalla, piso_rect, personaje_alice)
-
-      if enemigo_plant.cuentaPasos % TIEMPO_ENTRE_DISPAROS == 0:
-        enemigo_plant.disparar(balas_group)
+      # -- Enemigos
+      enemigo_plant.update(pantalla, piso_rect, balas_group)
+      enemigo_pig.update(pantalla)
 
       # --Plataformas
-
       plataforma1.dibujar(pantalla)
       plataforma2.dibujar(pantalla)
       plataforma3.dibujar(pantalla)
       plataforma4.dibujar(pantalla)
 
-      # actualización y dibujos de Groups
+      # --Actualización y dibujos de Groups
       # balas
       balas_group.update()
       balas_group.draw(pantalla)
@@ -174,16 +177,17 @@ while running_game:
       burbujas_group.update()
       burbujas_group.draw(pantalla)
       # items
-      for plataforma in plataformas_hongos:
-        items_group.update()
-        items_group.draw(pantalla)
+      items_group.update()
+      items_group.draw(pantalla)
+
+      escribir_pantalla(pantalla, 'SCORE: ', "white", str(puntuacion).zfill(6), (20, 20))
+      escribir_pantalla(pantalla, 'VIDAS: ', "white", str(personaje_alice.vidas), (1250, 20))
+      escribir_pantalla(pantalla, '00:', "white", str(tiempo_restante).zfill(2), (WIDTH_PANTALLA/2, 20))
     else:
       ambiente_fantasy.stop()
       game_over_sound.play()
       pantalla.blit(game_over_image, (0,0))
 
-    escribir_pantalla(pantalla, 'SCORE: ', "white", str(puntuacion).zfill(6), (20, 20))
-    escribir_pantalla(pantalla, 'VIDAS: ', "white", str(personaje_alice.vidas), (1250, 20))
     pygame.display.update()
 
     primera_iteracion = False
