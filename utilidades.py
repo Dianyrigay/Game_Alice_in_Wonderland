@@ -30,3 +30,4 @@ def escribir_pantalla(pantalla, texto, color, cantidad=".", posicion=None):
       pantalla.blit(text_lives, center)
   elif posicion is not None:
       pantalla.blit(text_lives, posicion)
+

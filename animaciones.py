@@ -28,6 +28,12 @@ dead = [pygame.image.load('./images/alice/dead/dead-01.gif'),
 
 angry = getSurfaceFromSpriteSheet('./images/alice/angry/angry.png', 8, 1, 1)
 
+reducir = [pygame.image.load('./images/alice/reduce/shrinking-01.png'),
+           pygame.image.load('./images/alice/reduce/shrinking-02.png'),
+           pygame.image.load('./images/alice/reduce/shrinking-03.png'),
+           pygame.image.load('./images/alice/reduce/shrinking-04.png'),
+           pygame.image.load('./images/alice/reduce/shrinking-05.png'),]
+
 lista_animaciones_alice = [quieto, camina, floating, angry]
 
 reescalar_imagen(lista_animaciones_alice, 2.25)

@@ -67,7 +67,7 @@ burbujas_group = pygame.sprite.Group()
 items_group = pygame.sprite.Group()
 
 # Instanciacion del personaje principal
-personaje_alice = Personaje_Principal()
+player = Personaje_Principal()
 # Instanciacion de enemigos
 enemigo_plant = EnemigoDisparador((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack)
 enemigo_pig = EnemigoMovimientoRango((WIDTH_PANTALLA/2, 250), pig_fly)
@@ -100,37 +100,40 @@ while running_game:
     keys = pygame.key.get_pressed()
 
     # -- código de control de movimientos
-    if not personaje_alice.esta_cayendo:
+    if not player.esta_cayendo:
       if primera_iteracion:
-        personaje_alice.flotar()
+        player.flotar()
       elif keys[pygame.K_LEFT] and keys[pygame.K_SPACE]:
-        # TODO debo arreglar que sigue caminando sola despues
-        personaje_alice.saltar()
+        player.saltar()
       elif keys[pygame.K_LEFT]:
-        personaje_alice.mover_izquierda()
+        player.mover_izquierda()
       elif keys[pygame.K_RIGHT] and keys[pygame.K_SPACE]:
-        personaje_alice.saltar()
+        player.saltar()
       elif keys[pygame.K_RIGHT]:
-        personaje_alice.mover_derecha()
+        player.mover_derecha()
       elif keys[pygame.K_SPACE]:
-        personaje_alice.saltar()
+        player.saltar()
       elif (keys[pygame.K_x] or (keys[pygame.K_RIGHT] and keys[pygame.K_x]) or (keys[pygame.K_RIGHT] and keys[pygame.K_x])):
-        personaje_alice.disparar(burbujas_group)
+        player.disparar(burbujas_group)
       else:
-        personaje_alice.quieto()
+        if player.contador_cambio_animacion <= 0 and player.animacion == angry:
+          player.quieto()
+          player.contador_cambio_animacion = 30
+        elif player.animacion != angry:
+          player.quieto()
 
     # Background
     dibujar_fondo()
 
     # Level 1
     if not game_over:
-      if personaje_alice.muerto or tiempo_restante == 0:
+      if player.muerto or tiempo_restante == 0:
         game_over = True
 
       # -- Colisiones de sprite con groups
-      colision_alice_balas = pygame.sprite.spritecollide(personaje_alice, balas_group, True)
-      colision_alice_items = pygame.sprite.spritecollide(personaje_alice, items_group, True)
-      colision_alice_enemigos = pygame.sprite.spritecollide(personaje_alice, lista_enemigos, False)
+      colision_alice_balas = pygame.sprite.spritecollide(player, balas_group, True)
+      colision_alice_items = pygame.sprite.spritecollide(player, items_group, True)
+      colision_alice_enemigos = pygame.sprite.spritecollide(player, lista_enemigos, False)
 
       for enemigo in lista_enemigos:
         colisiona_burbujas_enemigo = pygame.sprite.spritecollide(enemigo, burbujas_group, True)
@@ -145,13 +148,13 @@ while running_game:
 
       if colision_alice_balas or colision_alice_enemigos:
         impact.play()
-        personaje_alice.rect.x += -50
-        personaje_alice.animacion = angry
-        personaje_alice.restar_vidas()
+        player.animacion = angry
+        player.restar_vidas()
         if colision_alice_balas:
           puntuacion -= 20
         else:
           puntuacion -= 50
+          player.rect.x += -50
 
       if colision_alice_items:
         for item in colision_alice_items:
@@ -159,11 +162,11 @@ while running_game:
             portal = Portal(WIDTH_PANTALLA - 100, HEIGHT_PANTALLA - ALTURA_PISO, open_portal)
             game_win = True
           if item.animacion == pocion_reduce:
-            personaje_alice.animacion = angry
+            player.reducir()
         items_win.play()
         puntuacion += 10
 
-      personaje_alice.update(pantalla, lista_plataformas)
+      player.update(pantalla, lista_plataformas)
 
       if game_win:
         portal.update(pantalla)
@@ -190,7 +193,7 @@ while running_game:
       items_group.draw(pantalla)
 
       escribir_pantalla(pantalla, 'SCORE: ', "white", str(puntuacion).zfill(6), (20, 20))
-      escribir_pantalla(pantalla, 'VIDAS: ', "white", str(personaje_alice.vidas), (1250, 20))
+      escribir_pantalla(pantalla, 'VIDAS: ', "white", str(player.vidas), (1250, 20))
       escribir_pantalla(pantalla, '00:', "white", str(tiempo_restante).zfill(2), (WIDTH_PANTALLA/2, 20))
     else:
       ambiente_fantasy.stop()

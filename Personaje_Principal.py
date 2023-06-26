@@ -15,6 +15,7 @@ class Personaje_Principal(Personaje):
     self.esta_cayendo = False
     self.vidas = 3
     self.cadencia = 10
+    self.contador_cambio_animacion = 30
 
   def mover_personaje_x(self):
     self.rect.x += self.velocidad_x
@@ -57,6 +58,9 @@ class Personaje_Principal(Personaje):
     else:
       self.muerto = True
 
+    if self.animacion == angry or self.animacion == reducir:
+       self.contador_cambio_animacion -= 1
+
     self.animar_personaje(pantalla)
 
   # control de moivimientos del Personaje:
@@ -87,12 +91,20 @@ class Personaje_Principal(Personaje):
     self.velocidad_x = 0
 
   def restar_vidas(self):
-    #TODO arreglar porque no se esta reproduciendo
     self.animacion = angry
     self.vidas -= 1
 
   def disparar(self, burbujas_group):
     super().disparar(burbujas_group, burbuja_bala)
+
+  def reducir(self):
+    x = self.rect.x
+    y = self.rect.y
+    self.animacion = reducir
+    reescalar_imagen(lista_animaciones_alice, 0.35)
+    #TODO reducir la burbuja tambien, ver donde debo reducirla
+    # reescalar_imagen([[burbuja_bala]],0.01)
+    self.rect = quieto[0].get_rect(topleft=(x, y))
 
   def verificar_colisiones_plataformas(self, lista_plataformas):
     for plataforma in lista_plataformas:
