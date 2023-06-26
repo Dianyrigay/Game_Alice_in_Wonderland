@@ -1,17 +1,17 @@
 from constantes import *
 from animaciones import *
+
 from Personaje import Personaje
-from Bala import Bala
 
 class Personaje_Principal(Personaje):
   def __init__(self) -> None:
     super().__init__()
     # -- Attributos
-    self.rect = quieto_der[0].get_rect(topleft=(0, 0))
+    self.rect = quieto[0].get_rect(topleft=(0, 0))
     self.velocidad_x = 0
     self.velocidad_y = 0
-    self.gravedad = 0.5
-    self.potencia_salto = -13
+    self.gravedad = 0.9
+    self.potencia_salto = -19
     self.esta_cayendo = False
     self.vidas = 3
     self.cadencia = 10
@@ -42,7 +42,7 @@ class Personaje_Principal(Personaje):
       self.velocidad_y = 0
 
   def update(self, pantalla, lista_plataformas):
-    self.cuentaPasos += 1
+    self.cuenta_pasos += 1
 
     if self.vidas > 0:
       self.mover_personaje_x()
@@ -52,11 +52,10 @@ class Personaje_Principal(Personaje):
       if self.esta_cayendo:
         self.animacion = floating
     elif self.vidas <= 0 and self.contador_muerte > 0:
-      self.contador_muerte -= 1
       self.animacion = dead
+      self.contador_muerte -= 1
     else:
       self.muerto = True
-
 
     self.animar_personaje(pantalla)
 
@@ -71,20 +70,20 @@ class Personaje_Principal(Personaje):
 
   def flotar(self):
     self.animacion = floating
-    self.velocidad_y = 4
+    self.velocidad_y = 5
 
   def mover_izquierda(self):
-    self.animacion = camina_der
+    self.animacion = camina
     self.izquierda = True
     self.velocidad_x = -8
 
   def mover_derecha(self):
-    self.animacion = camina_der
+    self.animacion = camina
     self.izquierda = False
     self.velocidad_x = 8
 
   def quieto(self):
-    self.animacion = quieto_der
+    self.animacion = quieto
     self.velocidad_x = 0
 
   def restar_vidas(self):

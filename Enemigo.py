@@ -1,6 +1,6 @@
 from constantes import *
 from animaciones import *
-from Bala import Bala
+
 from Personaje import Personaje
 
 class Enemigo(Personaje):
@@ -15,7 +15,7 @@ class Enemigo(Personaje):
     self.ultimo_disparo = pygame.time.get_ticks()
 
   def update(self, pantalla, animacion_muerte):
-    self.cuentaPasos += 1
+    self.cuenta_pasos += 1
 
     if not self.muerto:
       self.animar_personaje(pantalla)

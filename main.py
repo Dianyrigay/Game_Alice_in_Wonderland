@@ -1,6 +1,5 @@
 import pygame
 from sys import exit
-import time
 
 from constantes import *
 from animaciones import *
@@ -8,6 +7,7 @@ from animaciones import *
 from Personaje_Principal import Personaje_Principal
 from Enemigo import EnemigoDisparador, EnemigoMovimientoRango
 from Plataforma import Plataforma
+from Item import Portal
 
 pygame.init()
 
@@ -72,13 +72,13 @@ personaje_alice = Personaje_Principal()
 enemigo_plant = EnemigoDisparador((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack)
 enemigo_pig = EnemigoMovimientoRango((WIDTH_PANTALLA/2, 250), pig_fly)
 # Instanciacion de plataformas
-plataforma1 = Plataforma(AREA_1, 3, 0, (300, 500), items_group)
-plataforma2 = Plataforma(AREA_1, 2, 0, (550, 450), items_group)
-plataforma3 = Plataforma(AREA_1, 5, 0, (700, 280), items_group)
-plataforma4 = Plataforma(AREA_1, 3, 0, (300, 250), items_group)
+plataforma1 = Plataforma(AREA_1, 3, 0, (300, 500), items_group, hongo_violet)
+plataforma2 = Plataforma(AREA_1, 2, 0, (550, 450), items_group, hongo_yellow)
+plataforma3 = Plataforma(AREA_1, 5, 0, (700, 280), items_group, taza1)
+plataforma4 = Plataforma(AREA_1, 3, 0, (270, 250), items_group, key_yellow)
+plataforma5 = Plataforma(AREA_1, 1, 0, (1200, 500), items_group, pocion_reduce)
 
-lista_plataformas = [piso_rect, plataforma1.rect, plataforma2.rect, plataforma3.rect, plataforma4.rect]
-plataformas_hongos = [plataforma1, plataforma2, plataforma3]
+lista_plataformas = [piso_rect, plataforma1.rect, plataforma2.rect, plataforma3.rect, plataforma4.rect, plataforma5.rect]
 lista_enemigos = [enemigo_plant, enemigo_pig]
 
 running_game = True
@@ -86,7 +86,7 @@ game_over = False
 game_over_image = pygame.image.load("./images/game_over.png")
 game_over_image = pygame.transform.scale(game_over_image, (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 primera_iteracion = True
-# timer = 60
+game_win = False
 
 while running_game:
     for event in pygame.event.get():
@@ -95,7 +95,6 @@ while running_game:
             exit()
 
     tiempo_transcurrido = pygame.time.get_ticks() - tiempo_actual
-    # Convertir a segundos
     tiempo_restante = max(0, tiempo_total - tiempo_transcurrido) // 1000
 
     keys = pygame.key.get_pressed()
@@ -118,7 +117,7 @@ while running_game:
       elif (keys[pygame.K_x] or (keys[pygame.K_RIGHT] and keys[pygame.K_x]) or (keys[pygame.K_RIGHT] and keys[pygame.K_x])):
         personaje_alice.disparar(burbujas_group)
       else:
-         personaje_alice.quieto()
+        personaje_alice.quieto()
 
     # Background
     dibujar_fondo()
@@ -129,8 +128,8 @@ while running_game:
         game_over = True
 
       # -- Colisiones de sprite con groups
-      colision_balas_alice = pygame.sprite.spritecollide(personaje_alice, balas_group, True)
-      colision_items = pygame.sprite.spritecollide(personaje_alice, items_group, True)
+      colision_alice_balas = pygame.sprite.spritecollide(personaje_alice, balas_group, True)
+      colision_alice_items = pygame.sprite.spritecollide(personaje_alice, items_group, True)
       colision_alice_enemigos = pygame.sprite.spritecollide(personaje_alice, lista_enemigos, False)
 
       for enemigo in lista_enemigos:
@@ -144,21 +143,30 @@ while running_game:
           enemigo.muerto = True
           lista_enemigos.remove(enemigo)
 
-      if colision_balas_alice or colision_alice_enemigos:
+      if colision_alice_balas or colision_alice_enemigos:
         impact.play()
         personaje_alice.rect.x += -50
+        personaje_alice.animacion = angry
         personaje_alice.restar_vidas()
-        if colision_balas_alice:
+        if colision_alice_balas:
           puntuacion -= 20
         else:
           puntuacion -= 50
 
-      if colision_items:
+      if colision_alice_items:
+        for item in colision_alice_items:
+          if item.animacion == key_yellow:
+            portal = Portal(WIDTH_PANTALLA - 100, HEIGHT_PANTALLA - ALTURA_PISO, open_portal)
+            game_win = True
+          if item.animacion == pocion_reduce:
+            personaje_alice.animacion = angry
         items_win.play()
         puntuacion += 10
 
       personaje_alice.update(pantalla, lista_plataformas)
 
+      if game_win:
+        portal.update(pantalla)
       # -- Enemigos
       enemigo_plant.update(pantalla, piso_rect, balas_group)
       enemigo_pig.update(pantalla)
@@ -168,6 +176,7 @@ while running_game:
       plataforma2.dibujar(pantalla)
       plataforma3.dibujar(pantalla)
       plataforma4.dibujar(pantalla)
+      plataforma5.dibujar(pantalla)
 
       # --Actualización y dibujos de Groups
       # balas

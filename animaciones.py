@@ -1,10 +1,11 @@
 import pygame
+
 from utilidades import *
 
 # Alice
-quieto_der = [pygame.image.load('./images/alice/idle/rigth.png')]
+quieto = [pygame.image.load('./images/alice/idle/rigth.png')]
 
-camina_der = [pygame.image.load('./images/alice/walk/rigth-00.png'),
+camina = [pygame.image.load('./images/alice/walk/rigth-00.png'),
               pygame.image.load('./images/alice/walk/rigth-01.png'),
               pygame.image.load('./images/alice/walk/rigth-02.png'),
               pygame.image.load('./images/alice/walk/rigth-03.png'),
@@ -27,7 +28,7 @@ dead = [pygame.image.load('./images/alice/dead/dead-01.gif'),
 
 angry = getSurfaceFromSpriteSheet('./images/alice/angry/angry.png', 8, 1, 1)
 
-lista_animaciones_alice = [quieto_der, camina_der, floating, angry]
+lista_animaciones_alice = [quieto, camina, floating, angry]
 
 reescalar_imagen(lista_animaciones_alice, 2.25)
 lista_dead = [dead]
@@ -57,3 +58,14 @@ bala_plant = pygame.image.load('./images/enemigos/plant/bala_plant.gif')
 # pig
 pig_fly = getSurfaceFromSpriteSheet('./images/enemigos/pig/pig_fly.png', 7, 1, 1)
 pig_dead = getSurfaceFromSpriteSheet('./images/enemigos/pig/pig_dead.png', 7, 1, 1)
+
+# ITEMS
+hongo_yellow = './images/items/hongo-yellow.png'
+hongo_violet = './images/items/hongo-violet.png'
+pocion_reduce = './images/items/pocion.png'
+key_yellow = './images/items/key-00.png'
+taza1 = './images/items/taza1.png'
+
+# PORTAL
+open_portal = getSurfaceFromSpriteSheet('./images/portal/open.png', 10, 1, 1)
+loop_portal = getSurfaceFromSpriteSheet('./images/portal/loop.png', 5, 1, 1)
