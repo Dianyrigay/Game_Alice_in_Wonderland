@@ -81,4 +81,8 @@ loop_portal = obtener_surface_de_spriteSheet('./images/portal/loop.png', 5, 1, 1
 # TRAMPAS
 
 # mirror
-mirror = obtener_surface_de_spriteSheet('./images/trampas/mirror.png', 5, 1, 1)
+mirror = [pygame.image.load('./images/trampas/mirror/0.png').convert_alpha(),
+           pygame.image.load('./images/trampas/mirror/1.png').convert_alpha(),
+           pygame.image.load('./images/trampas/mirror/2.png').convert_alpha(),
+           pygame.image.load('./images/trampas/mirror/3.png').convert_alpha(),
+           pygame.image.load('./images/trampas/mirror/4.png').convert_alpha()]

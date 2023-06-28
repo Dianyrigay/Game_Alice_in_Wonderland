@@ -1,14 +1,15 @@
 import pygame
 from constantes import *
 from animaciones import *
-from Item import Item
+from Item import Item, Trap
 
 class Platform:
-  def __init__(self, ruta_imagen, cantidad, separacion, x, y, items_group, animacion_items) -> None:
+  def __init__(self, ruta_imagen, cantidad, separacion, x, y, group, animacion_items = None) -> None:
     # -- Attributos
     self.cantidad = cantidad
     self.separacion = separacion
     self.ruta_imagen = ruta_imagen
+    self.animacion_items = animacion_items
     self.x = x
     self.y = y
     self.image = pygame.transform.rotozoom(
@@ -17,18 +18,21 @@ class Platform:
     self.rect.width = self.image.get_width() * self.cantidad + \
         self.separacion * (self.cantidad - 1)
     # Crear los objetos Item una sola vez
-    self.items = items_group
+    self.group = group
 
     for i in range(self.cantidad):
-        y_item = self.rect.top - 30
-        if animacion_items == (key_yellow or pocion_reduce):
-          x_item = self.rect.left + self.rect.width / 2
-          item = Item(x_item, y_item, animacion_items)
+        y_item = self.rect.top - 10
+        if type(self.animacion_items) == type(str()):
+            if self.animacion_items == (key_yellow or pocion_reduce):
+                x_item = self.rect.left + self.rect.width / 2
+                item = Item(x_item, y_item, self.animacion_items)
+            else:
+                x_item = self.rect.left + i * (self.image.get_width() + self.separacion)
+                item = Item(x_item, y_item, self.animacion_items)
         else:
-          x_item = self.rect.left + i * (self.image.get_width() + self.separacion)
-          item = Item(x_item, y_item, animacion_items)
-
-        self.items.add(item)
+            x_item = self.rect.left + self.rect.width / 2
+            item = Trap(x_item, y_item, self.animacion_items)
+        self.group.add(item)
 
   def dibujar(self, pantalla):
     self.rect.x = self.x
@@ -36,7 +40,11 @@ class Platform:
     for _ in range(self.cantidad):
       pantalla.blit(self.image, (x, self.rect.y))
       x += self.image.get_width() + self.separacion
-    self.items.draw(pantalla)
+    if type(self.animacion_items) == type(str()):
+        self.group.draw(pantalla)
+    else:
+        self.group.update(pantalla)
+
 
 
 class MovingPlatform(Platform):

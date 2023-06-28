@@ -8,7 +8,7 @@ from Player import Player
 from Enemigo import Enemy_Shooter, Enemy_Moving
 from Platform import Platform
 from collitions import Collition
-from Item import Portal
+from Item import Portal, Trap
 
 pygame.init()
 
@@ -49,6 +49,7 @@ piso_rect = piso_surf.get_rect(
 bullets_group = pygame.sprite.Group()
 bubbles_group = pygame.sprite.Group()
 items_group = pygame.sprite.Group()
+traps_group = pygame.sprite.Group()
 
 # Instanciacion del personaje principal
 player = Player()
@@ -56,14 +57,15 @@ player = Player()
 enemigo_plant = Enemy_Shooter((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack)
 enemigo_pig = Enemy_Moving((WIDTH_PANTALLA/2, 250), pig_fly)
 # Instanciacion de plataformas
-plataforma1 = Platform(AREA_1, 3, 0, 300, 500, items_group, hongo_violet)
-plataforma2 = Platform(AREA_1, 2, 0, 550, 450, items_group, hongo_yellow)
-plataforma3 = Platform(AREA_1, 5, 0, 700, 280, items_group, taza1)
+plataforma1 = Platform(AREA_1, 3, 0, 300, 500, items_group, hongo_yellow)
+plataforma2 = Platform(AREA_1, 2, 0, 550, 450, items_group, hongo_violet)
+plataforma3 = Platform(AREA_1, 5, 0, 700, 280, items_group, hongo_yellow)
 plataforma4 = Platform(AREA_1, 3, 0, 270, 250, items_group, key_yellow)
 plataforma5 = Platform(AREA_1, 1, 0, 1200, 500, items_group, pocion_reduce)
+plataforma6 = Platform(AREA_1, 1, 0, 100, 200, traps_group, mirror)
 
-lista_rectangulos = [piso_rect, plataforma1.rect, plataforma2.rect, plataforma3.rect, plataforma4.rect, plataforma5.rect]
-platforms_list = [plataforma1, plataforma2, plataforma3, plataforma4, plataforma5]
+lista_rectangulos = [piso_rect, plataforma1.rect, plataforma2.rect, plataforma3.rect, plataforma4.rect, plataforma5.rect, plataforma6.rect]
+platforms_list = [plataforma1, plataforma2, plataforma3, plataforma4, plataforma5, plataforma6]
 enemy_list = [enemigo_plant, enemigo_pig]
 
 # Instanciacion de colisiones
@@ -125,6 +127,7 @@ while running_game:
       # items
       items_group.update()
       items_group.draw(pantalla)
+      # traps
 
       escribir_pantalla(pantalla, 'SCORE: ', "white", str(score), (20, 20))
       escribir_pantalla(pantalla, 'VIDAS: ', "white", str(player.vidas), (1250, 20))
