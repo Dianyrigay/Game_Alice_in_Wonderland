@@ -17,6 +17,8 @@ class Player(Personaje):
     self.vidas = 3
     self.cadencia = 10
     self.contador_cambio_animacion = 30
+    self.score = 300
+    self.key_recogida = False
 
   def mover_personaje_x(self):
     self.rect.x += self.velocidad_x
@@ -43,14 +45,14 @@ class Player(Personaje):
     if self.rect.bottom == HEIGHT_PANTALLA - ALTURA_PISO and self.velocidad_y >= 0:
       self.velocidad_y = 0
 
-  def update(self, pantalla, lista_plataformas):
+  def update(self, pantalla, platforms_list):
     self.cuenta_pasos += 1
 
     if self.vidas > 0:
       self.mover_personaje_x()
       self.mover_personaje_y()
       self.calcular_gravedad()
-      self.verificar_colisiones_plataformas(lista_plataformas)
+      self.verificar_colisiones_plataformas(platforms_list)
       if self.esta_cayendo:
         self.animacion = floating
     elif self.vidas <= 0 and self.contador_muerte > 0:
@@ -95,8 +97,8 @@ class Player(Personaje):
     self.animacion = angry
     self.vidas -= 1
 
-  def disparar(self, burbujas_group):
-    super().disparar(burbujas_group, burbuja_bala)
+  def disparar(self, bubbles_group):
+    super().disparar(bubbles_group, burbuja_bala)
 
   def reducir(self):
     x = self.rect.x
@@ -107,8 +109,7 @@ class Player(Personaje):
     # reescalar_imagen([[burbuja_bala]],0.01)
     self.rect = quieto[0].get_rect(topleft=(x, y))
 
-  def eventos(self, burbujas_group):
-    keys = pygame.key.get_pressed()
+  def eventos(self, keys, bubbles_group):
 
     if not self.esta_cayendo:
       if self.entrada_cayendo:
@@ -126,7 +127,7 @@ class Player(Personaje):
         self.saltar()
       elif (keys[pygame.K_x]):
         #TODO agregar que pueda disparar mientras camina
-        self.disparar(burbujas_group)
+        self.disparar(bubbles_group)
       else:
         if self.contador_cambio_animacion <= 0 and self.animacion == angry:
           self.quieto()
@@ -134,8 +135,8 @@ class Player(Personaje):
         elif self.animacion != angry:
           self.quieto()
 
-  def verificar_colisiones_plataformas(self, lista_plataformas):
-    for plataforma in lista_plataformas:
+  def verificar_colisiones_plataformas(self, platforms_list):
+    for plataforma in platforms_list:
         if self.rect.colliderect(plataforma):
             if self.velocidad_y > 0 and self.esta_cayendo:
                 self.velocidad_y = 0

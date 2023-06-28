@@ -1,7 +1,5 @@
 import pygame
-
 from constantes import *
-
 from Bala import Bala
 
 class Personaje():

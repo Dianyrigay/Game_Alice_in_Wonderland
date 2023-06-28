@@ -1,1 +1,1 @@
-tiempo_restante
+    pygame.display.update()

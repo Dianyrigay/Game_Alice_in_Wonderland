@@ -23,6 +23,6 @@ class Nivel_01(Nivel):
       bloque.rect.x = plataforma[1]
       bloque.rect.y = plataforma[2]
       bloque.Player = self.Player
-      self.lista_plataformas.add(bloque)
+      self.platforms_list.add(bloque)
 
 

@@ -29,14 +29,14 @@ class Enemy_Shooter(Enemigo):
     super().__init__(posicion, animacion)
     self.izquierda = True
 
-  def update(self, pantalla, piso_rect, balas_group):
+  def update(self, pantalla, piso_rect, bullets_group):
     super().update(pantalla, plant_dead)
     if not self.muerto:
       self.mover_personaje_x(piso_rect)
-      self.disparar(balas_group)
+      self.disparar(bullets_group)
 
-  def disparar(self, balas_group):
-    super().disparar(balas_group, bala_plant)
+  def disparar(self, bullets_group):
+    super().disparar(bullets_group, bala_plant)
 
   def mover_personaje_x(self, piso_rect):
     self.rect.bottom = piso_rect.top
