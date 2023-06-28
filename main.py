@@ -6,7 +6,7 @@ from animaciones import *
 
 from Player import Player
 from Enemigo import Enemy_Shooter, Enemy_Moving
-from Plataforma import Plataforma
+from Platform import Platform
 from collitions import Collition
 from Item import Portal
 
@@ -16,14 +16,14 @@ pygame.init()
 pantalla = pygame.display.set_mode((WIDTH_PANTALLA, HEIGHT_PANTALLA))
 clock = pygame.time.Clock()
 pygame.display.set_caption('Alice in Worderland')
-icono = pygame.image.load('./images/alice/idle/rigth.png')
+icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
 
 # Cronómetro del juego
 tiempo_total = 60000  # Duración total del cronómetro en milisegundos
 tiempo_actual = pygame.time.get_ticks()  # Tiempo transcurrido inicialmente
 
-# Sistema de scorees
+# Sistema de score
 score = 100
 
 # Sonidos
@@ -56,11 +56,11 @@ player = Player()
 enemigo_plant = Enemy_Shooter((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack)
 enemigo_pig = Enemy_Moving((WIDTH_PANTALLA/2, 250), pig_fly)
 # Instanciacion de plataformas
-plataforma1 = Plataforma(AREA_1, 3, 0, 300, 500, items_group, hongo_violet)
-plataforma2 = Plataforma(AREA_1, 2, 0, 550, 450, items_group, hongo_yellow)
-plataforma3 = Plataforma(AREA_1, 5, 0, 700, 280, items_group, taza1)
-plataforma4 = Plataforma(AREA_1, 3, 0, 270, 250, items_group, key_yellow)
-plataforma5 = Plataforma(AREA_1, 1, 0, 1200, 500, items_group, pocion_reduce)
+plataforma1 = Platform(AREA_1, 3, 0, 300, 500, items_group, hongo_violet)
+plataforma2 = Platform(AREA_1, 2, 0, 550, 450, items_group, hongo_yellow)
+plataforma3 = Platform(AREA_1, 5, 0, 700, 280, items_group, taza1)
+plataforma4 = Platform(AREA_1, 3, 0, 270, 250, items_group, key_yellow)
+plataforma5 = Platform(AREA_1, 1, 0, 1200, 500, items_group, pocion_reduce)
 
 lista_rectangulos = [piso_rect, plataforma1.rect, plataforma2.rect, plataforma3.rect, plataforma4.rect, plataforma5.rect]
 platforms_list = [plataforma1, plataforma2, plataforma3, plataforma4, plataforma5]
@@ -71,7 +71,7 @@ colisiones = Collition(player, enemy_list, platforms_list, bullets_group, bubble
 
 running_game = True
 game_over = False
-game_over_image = pygame.image.load("./images/game_over.png")
+game_over_image = pygame.image.load("./images/game_over.png").convert_alpha()
 game_over_image = pygame.transform.scale(game_over_image, (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 primera_iteracion = True
 # game_win = False
@@ -111,7 +111,7 @@ while running_game:
       enemigo_plant.update(pantalla, piso_rect, bullets_group)
       enemigo_pig.update(pantalla)
 
-      # --Plataformas
+      # --Platforms
       for plataforma in platforms_list:
         plataforma.dibujar(pantalla)
 

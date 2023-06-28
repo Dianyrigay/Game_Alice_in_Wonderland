@@ -5,7 +5,7 @@ class Item(pygame.sprite.Sprite):
     super().__init__()
     # -- Attributos
     self.animacion = animacion
-    self.image = pygame.image.load(self.animacion)
+    self.image = pygame.image.load(self.animacion).convert_alpha()
     self.rect = self.image.get_rect(topleft=(0, 0))
     self.rect.center = (x, y)
 

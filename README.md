@@ -6,7 +6,7 @@ Archivo "main.py":
 
 Importa los módulos necesarios de pygame y sys.
 Importa las constantes y animaciones desde archivos separados.
-Importa las clases "Player", "Enemy_Shooter", "Enemy_Moving", "Plataforma" y "Portal" desde archivos separados.
+Importa las clases "Player", "Enemy_Shooter", "Enemy_Moving", "Platform" y "Portal" desde archivos separados.
 Inicializa pygame y configura la pantalla del juego.
 Establece variables para el tiempo, puntuación y sonidos del juego.
 Carga las imágenes y sonidos necesarios para el juego.
@@ -34,5 +34,5 @@ Otros archivos:
 Archivo "constantes.py": Contiene constantes utilizadas en el juego, como dimensiones de pantalla, rutas de archivos, etc.
 Archivo "animaciones.py": Contiene listas de imágenes para animaciones utilizadas en el juego.
 Archivo "Enemigo.py": Define las clases de los enemigos del juego.
-Archivo "Plataforma.py": Define la clase de las plataformas del juego.
+Archivo "Platform.py": Define la clase de las plataformas del juego.
 Archivo "Item.py": Define la clase de los objetos de los juegos, como portales y pociones. -->

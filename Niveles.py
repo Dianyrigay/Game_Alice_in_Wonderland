@@ -1,6 +1,6 @@
 import pygame
 from constantes import *
-from Plataforma import Plataforma
+from Platform import Platform
 from Nivel import Nivel
 
 class Nivel_01(Nivel):
@@ -19,7 +19,7 @@ class Nivel_01(Nivel):
 
     # Agregar las plataformas
     for plataforma in nivel:
-      bloque = Plataforma(plataforma[0], 3, 0, (plataforma[1], plataforma[2])) #Falta el items_group que lo pido
+      bloque = Platform(plataforma[0], 3, 0, (plataforma[1], plataforma[2])) #Falta el items_group que lo pido
       bloque.rect.x = plataforma[1]
       bloque.rect.y = plataforma[2]
       bloque.Player = self.Player

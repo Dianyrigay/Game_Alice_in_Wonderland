@@ -11,7 +11,7 @@ TIEMPO_ENTRE_DISPAROS = 200
 MARGEN_IZQUIERDO = 100
 MARGEN_DERECHO = 600
 
-# ------------------------Plataformas------------------------
+# ------------------------Platforms------------------------
 AREA_1 = "./images/platforms/area.png"
 
 # ------------------------Sonidos------------------------
