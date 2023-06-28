@@ -6,8 +6,8 @@ from Nivel import Nivel
 class Nivel_01(Nivel):
   """ Definición para el nivel 1"""
 
-  def __init__(self, personaje_principal):
-    super().__init__(self, personaje_principal)
+  def __init__(self, Player):
+    super().__init__(self, Player)
 
     self.fondo_imagen = pygame.transform.scale(pygame.image.load(
             "./images/fondo_niveles/nivel-01.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
@@ -22,7 +22,7 @@ class Nivel_01(Nivel):
       bloque = Plataforma(plataforma[0], 3, 0, (plataforma[1], plataforma[2])) #Falta el items_group que lo pido
       bloque.rect.x = plataforma[1]
       bloque.rect.y = plataforma[2]
-      bloque.personaje_principal = self.personaje_principal
+      bloque.Player = self.Player
       self.lista_plataformas.add(bloque)
 
 

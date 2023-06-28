@@ -3,7 +3,7 @@ from animaciones import *
 
 from Personaje import Personaje
 
-class Personaje_Principal(Personaje):
+class Player(Personaje):
   def __init__(self) -> None:
     super().__init__()
     # -- Attributos
@@ -13,6 +13,7 @@ class Personaje_Principal(Personaje):
     self.gravedad = 0.9
     self.potencia_salto = -19
     self.esta_cayendo = False
+    self.entrada_cayendo = True
     self.vidas = 3
     self.cadencia = 10
     self.contador_cambio_animacion = 30
@@ -105,6 +106,33 @@ class Personaje_Principal(Personaje):
     #TODO reducir la burbuja tambien, ver donde debo reducirla
     # reescalar_imagen([[burbuja_bala]],0.01)
     self.rect = quieto[0].get_rect(topleft=(x, y))
+
+  def eventos(self, burbujas_group):
+    keys = pygame.key.get_pressed()
+
+    if not self.esta_cayendo:
+      if self.entrada_cayendo:
+        self.flotar()
+        self.entrada_cayendo = False
+      elif keys[pygame.K_LEFT] and keys[pygame.K_SPACE]:
+        self.saltar()
+      elif keys[pygame.K_LEFT]:
+        self.mover_izquierda()
+      elif keys[pygame.K_RIGHT] and keys[pygame.K_SPACE]:
+        self.saltar()
+      elif keys[pygame.K_RIGHT]:
+        self.mover_derecha()
+      elif keys[pygame.K_SPACE]:
+        self.saltar()
+      elif (keys[pygame.K_x]):
+        #TODO agregar que pueda disparar mientras camina
+        self.disparar(burbujas_group)
+      else:
+        if self.contador_cambio_animacion <= 0 and self.animacion == angry:
+          self.quieto()
+          self.contador_cambio_animacion = 30
+        elif self.animacion != angry:
+          self.quieto()
 
   def verificar_colisiones_plataformas(self, lista_plataformas):
     for plataforma in lista_plataformas:

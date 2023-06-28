@@ -4,7 +4,7 @@ from sys import exit
 from constantes import *
 from animaciones import *
 
-from Personaje_Principal import Personaje_Principal
+from Player import Player
 from Enemigo import Enemy_Shooter, Enemy_Moving
 from Plataforma import Plataforma
 from Item import Portal
@@ -53,7 +53,7 @@ burbujas_group = pygame.sprite.Group()
 items_group = pygame.sprite.Group()
 
 # Instanciacion del personaje principal
-player = Personaje_Principal()
+player = Player()
 # Instanciacion de enemigos
 enemigo_plant = Enemy_Shooter((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack)
 enemigo_pig = Enemy_Moving((WIDTH_PANTALLA/2, 250), pig_fly)
@@ -84,30 +84,7 @@ while running_game:
     tiempo_transcurrido = pygame.time.get_ticks() - tiempo_actual
     tiempo_restante = max(0, tiempo_total - tiempo_transcurrido) // 1000
 
-    keys = pygame.key.get_pressed()
-
-    # -- código de control de movimientos
-    if not player.esta_cayendo:
-      if primera_iteracion:
-        player.flotar()
-      elif keys[pygame.K_LEFT] and keys[pygame.K_SPACE]:
-        player.saltar()
-      elif keys[pygame.K_LEFT]:
-        player.mover_izquierda()
-      elif keys[pygame.K_RIGHT] and keys[pygame.K_SPACE]:
-        player.saltar()
-      elif keys[pygame.K_RIGHT]:
-        player.mover_derecha()
-      elif keys[pygame.K_SPACE]:
-        player.saltar()
-      elif (keys[pygame.K_x] or (keys[pygame.K_RIGHT] and keys[pygame.K_x]) or (keys[pygame.K_RIGHT] and keys[pygame.K_x])):
-        player.disparar(burbujas_group)
-      else:
-        if player.contador_cambio_animacion <= 0 and player.animacion == angry:
-          player.quieto()
-          player.contador_cambio_animacion = 30
-        elif player.animacion != angry:
-          player.quieto()
+    player.eventos(burbujas_group)
 
     # Background
     dibujar_fondo()

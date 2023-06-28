@@ -6,7 +6,7 @@ Archivo "main.py":
 
 Importa los módulos necesarios de pygame y sys.
 Importa las constantes y animaciones desde archivos separados.
-Importa las clases "Personaje_Principal", "Enemy_Shooter", "Enemy_Moving", "Plataforma" y "Portal" desde archivos separados.
+Importa las clases "Player", "Enemy_Shooter", "Enemy_Moving", "Plataforma" y "Portal" desde archivos separados.
 Inicializa pygame y configura la pantalla del juego.
 Establece variables para el tiempo, puntuación y sonidos del juego.
 Carga las imágenes y sonidos necesarios para el juego.
@@ -20,11 +20,11 @@ Define la clase base "Personaje" que contiene métodos y atributos comunes para 
 El método "animar_personaje" muestra la animación actual del personaje en la pantalla.
 El método "disparar" permite que el personaje dispare proyectiles.
 
-Archivo "Personaje_Principal.py":
+Archivo "Player.py":
 
 Importa las constantes y animaciones desde archivos separados.
 Importa la clase base "Personaje" desde el archivo "Personaje.py".
-Define la clase "Personaje_Principal", que hereda de la clase base "Personaje".
+Define la clase "Player", que hereda de la clase base "Personaje".
 Agrega atributos específicos del personaje principal, como velocidad, gravedad, vidas, etc.
 Implementa métodos para controlar los movimientos y acciones del personaje principal, como saltar, moverse, disparar, etc.
 Implementa el método "update" para actualizar la lógica del personaje principal en cada fotograma.

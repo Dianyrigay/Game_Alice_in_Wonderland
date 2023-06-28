@@ -1,11 +1,11 @@
 class Level():
   """Esta es una clase padre genérica utilizada para definir un nivel"""
 
-  def __init__(self, personaje_principal, lista_plataformas, lista_enemigos):
+  def __init__(self, Player, lista_plataformas, lista_enemigos):
     self.lista_plataformas = lista_plataformas
     self.lista_enemigos = lista_enemigos
     self.fondo_imagen = None
-    self.personaje_principal = personaje_principal
+    self.Player = Player
 
     # Actualizar todo en este nivel
   def update(self, pantalla):
