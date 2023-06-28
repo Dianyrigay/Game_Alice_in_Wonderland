@@ -1,7 +1,7 @@
 import pygame
 from constantes import *
 
-def getSurfaceFromSpriteSheet(path, columnas, filas, step=1):
+def obtener_surface_de_spriteSheet(path, columnas, filas, step=1):
   lista = []
   surface_imagen = pygame.image.load(path)
   fotograma_ancho = int(surface_imagen.get_width()/columnas)

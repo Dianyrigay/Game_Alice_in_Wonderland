@@ -26,7 +26,7 @@ dead = [pygame.image.load('./images/alice/dead/dead-01.gif'),
         pygame.image.load('./images/alice/dead/dead-05.gif'),
         pygame.image.load('./images/alice/dead/dead-06.gif')]
 
-angry = getSurfaceFromSpriteSheet('./images/alice/angry/angry.png', 8, 1, 1)
+angry = obtener_surface_de_spriteSheet('./images/alice/angry/angry.png', 8, 1, 1)
 
 reducir = [pygame.image.load('./images/alice/reduce/shrinking-01.png'),
            pygame.image.load('./images/alice/reduce/shrinking-02.png'),
@@ -41,7 +41,7 @@ lista_dead = [dead]
 reescalar_imagen(lista_dead, 2)
 
 burbuja_bala = pygame.image.load('./images/alice/disparo_magic/burbuja.png')
-explosion_burbuja = getSurfaceFromSpriteSheet('./images/alice/disparo_magic/explosion-burbuja.png', 8, 1, 1)
+explosion_burbuja = obtener_surface_de_spriteSheet('./images/explosiones/explosion1.png', 8, 1, 1)
 
 # ENEMIGOS
 
@@ -54,7 +54,7 @@ plant_dead = [pygame.image.load('./images/enemigos/plant/dead-00.gif'),
         pygame.image.load('./images/enemigos/plant/dead-01.gif'),
         pygame.image.load('./images/enemigos/plant/dead-02.gif')]
 
-attack = getSurfaceFromSpriteSheet('./images/enemigos/plant/attack.png', 5, 1, 1)
+attack = obtener_surface_de_spriteSheet('./images/enemigos/plant/attack.png', 5, 1, 1)
 
 lista_animaciones_plant = [quieto_front, attack, plant_dead]
 reescalar_imagen(lista_animaciones_plant, 1.5)
@@ -62,8 +62,8 @@ reescalar_imagen(lista_animaciones_plant, 1.5)
 bala_plant = pygame.image.load('./images/enemigos/plant/bala_plant.gif')
 
 # pig
-pig_fly = getSurfaceFromSpriteSheet('./images/enemigos/pig/pig_fly.png', 7, 1, 1)
-pig_dead = getSurfaceFromSpriteSheet('./images/enemigos/pig/pig_dead.png', 7, 1, 1)
+pig_fly = obtener_surface_de_spriteSheet('./images/enemigos/pig/pig_fly.png', 7, 1, 1)
+pig_dead = obtener_surface_de_spriteSheet('./images/enemigos/pig/pig_dead.png', 7, 1, 1)
 
 # ITEMS
 hongo_yellow = './images/items/hongo-yellow.png'
@@ -73,5 +73,5 @@ key_yellow = './images/items/key-00.png'
 taza1 = './images/items/taza1.png'
 
 # PORTAL
-open_portal = getSurfaceFromSpriteSheet('./images/portal/open.png', 10, 1, 1)
-loop_portal = getSurfaceFromSpriteSheet('./images/portal/loop.png', 5, 1, 1)
+open_portal = obtener_surface_de_spriteSheet('./images/portal/open.png', 10, 1, 1)
+loop_portal = obtener_surface_de_spriteSheet('./images/portal/loop.png', 5, 1, 1)

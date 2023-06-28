@@ -1,1 +1,1 @@
-reducir
+tiempo_restante

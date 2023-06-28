@@ -24,7 +24,7 @@ class Enemigo(Personaje):
       self.animar_personaje(pantalla)
       self.contador_muerte -= 1
 
-class EnemigoDisparador(Enemigo):
+class Enemy_Shooter(Enemigo):
   def __init__(self, posicion, animacion) -> None:
     super().__init__(posicion, animacion)
     self.izquierda = True
@@ -41,7 +41,7 @@ class EnemigoDisparador(Enemigo):
   def mover_personaje_x(self, piso_rect):
     self.rect.bottom = piso_rect.top
 
-class EnemigoMovimientoRango(Enemigo):
+class Enemy_Moving(Enemigo):
   def __init__(self, posicion, animacion) -> None:
     super().__init__(posicion, animacion)
     self.velocidad_x = 4

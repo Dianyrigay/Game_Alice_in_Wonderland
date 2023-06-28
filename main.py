@@ -5,7 +5,7 @@ from constantes import *
 from animaciones import *
 
 from Personaje_Principal import Personaje_Principal
-from Enemigo import EnemigoDisparador, EnemigoMovimientoRango
+from Enemigo import Enemy_Shooter, Enemy_Moving
 from Plataforma import Plataforma
 from Item import Portal
 
@@ -26,14 +26,6 @@ tiempo_actual = pygame.time.get_ticks()  # Tiempo transcurrido inicialmente
 puntuacion = 100
 
 # Sonidos
-pygame.mixer.init()
-ambiente_fantasy = pygame.mixer.Sound('./sonidos/fantasy-ambient.wav')
-items_win = pygame.mixer.Sound('./sonidos/items-win.wav')
-pig_dead_sound = pygame.mixer.Sound('./sonidos/pig-dead.ogg')
-game_over_sound = pygame.mixer.Sound('./sonidos/game_over.wav')
-impact = pygame.mixer.Sound('./sonidos/impact.wav')
-plant_dead_sound = pygame.mixer.Sound('./sonidos/plant-dead.wav')
-
 sonidos_015 = [items_win, game_over_sound,pig_dead_sound, impact, plant_dead_sound]
 sonidos_005 = [ambiente_fantasy]
 
@@ -45,16 +37,10 @@ for sonido in sonidos_015:
 
 ambiente_fantasy.play()
 
-fondo_imagenes = []
-for i in range(3):
-  fondo_imagen = pygame.image.load(f'./images/fondo/area-0{i}.png').convert_alpha()
-  fondo_imagen = pygame.transform.scale(fondo_imagen, (WIDTH_PANTALLA, HEIGHT_PANTALLA))
-  fondo_imagenes.append(fondo_imagen)
-
 def dibujar_fondo():
-  for x in range(3):
-    for i in fondo_imagenes:
-      pantalla.blit(i, ((x * WIDTH_PANTALLA), 0))
+  fondo_imagen = pygame.transform.scale(pygame.image.load(
+      "./images/fondo/area.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
+  pantalla.blit(fondo_imagen, (0, 0))
 
 # Superficie pisxo
 piso_surf = pygame.Surface((WIDTH_PANTALLA, ALTURA_PISO))
@@ -69,16 +55,17 @@ items_group = pygame.sprite.Group()
 # Instanciacion del personaje principal
 player = Personaje_Principal()
 # Instanciacion de enemigos
-enemigo_plant = EnemigoDisparador((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack)
-enemigo_pig = EnemigoMovimientoRango((WIDTH_PANTALLA/2, 250), pig_fly)
+enemigo_plant = Enemy_Shooter((WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack)
+enemigo_pig = Enemy_Moving((WIDTH_PANTALLA/2, 250), pig_fly)
 # Instanciacion de plataformas
-plataforma1 = Plataforma(AREA_1, 3, 0, (300, 500), items_group, hongo_violet)
-plataforma2 = Plataforma(AREA_1, 2, 0, (550, 450), items_group, hongo_yellow)
-plataforma3 = Plataforma(AREA_1, 5, 0, (700, 280), items_group, taza1)
-plataforma4 = Plataforma(AREA_1, 3, 0, (270, 250), items_group, key_yellow)
-plataforma5 = Plataforma(AREA_1, 1, 0, (1200, 500), items_group, pocion_reduce)
+plataforma1 = Plataforma(AREA_1, 3, 0, 300, 500, items_group, hongo_violet)
+plataforma2 = Plataforma(AREA_1, 2, 0, 550, 450, items_group, hongo_yellow)
+plataforma3 = Plataforma(AREA_1, 5, 0, 700, 280, items_group, taza1)
+plataforma4 = Plataforma(AREA_1, 3, 0, 270, 250, items_group, key_yellow)
+plataforma5 = Plataforma(AREA_1, 1, 0, 1200, 500, items_group, pocion_reduce)
 
-lista_plataformas = [piso_rect, plataforma1.rect, plataforma2.rect, plataforma3.rect, plataforma4.rect, plataforma5.rect]
+lista_rectangulos = [piso_rect, plataforma1.rect, plataforma2.rect, plataforma3.rect, plataforma4.rect, plataforma5.rect]
+lista_plataformas = [plataforma1, plataforma2, plataforma3, plataforma4, plataforma5]
 lista_enemigos = [enemigo_plant, enemigo_pig]
 
 running_game = True
@@ -166,7 +153,7 @@ while running_game:
         items_win.play()
         puntuacion += 10
 
-      player.update(pantalla, lista_plataformas)
+      player.update(pantalla, lista_rectangulos)
 
       if game_win:
         portal.update(pantalla)
@@ -175,11 +162,8 @@ while running_game:
       enemigo_pig.update(pantalla)
 
       # --Plataformas
-      plataforma1.dibujar(pantalla)
-      plataforma2.dibujar(pantalla)
-      plataforma3.dibujar(pantalla)
-      plataforma4.dibujar(pantalla)
-      plataforma5.dibujar(pantalla)
+      for plataforma in lista_plataformas:
+        plataforma.dibujar(pantalla)
 
       # --Actualización y dibujos de Groups
       # balas
@@ -192,7 +176,7 @@ while running_game:
       items_group.update()
       items_group.draw(pantalla)
 
-      escribir_pantalla(pantalla, 'SCORE: ', "white", str(puntuacion).zfill(6), (20, 20))
+      escribir_pantalla(pantalla, 'SCORE: ', "white", str(puntuacion), (20, 20))
       escribir_pantalla(pantalla, 'VIDAS: ', "white", str(player.vidas), (1250, 20))
       escribir_pantalla(pantalla, '00:', "white", str(tiempo_restante).zfill(2), (WIDTH_PANTALLA/2, 20))
     else:

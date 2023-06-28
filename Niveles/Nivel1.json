@@ -1,0 +1,46 @@
+{
+  "level_1": {
+    "background":"../images/fondo/area.png",
+    "path_platforms":"../images/platforms/area.png",
+    "platforms": [
+      {
+        "cantidad": 3,
+        "separacion": 0,
+        "x": 300,
+        "y": 500
+      },
+      {
+        "cantidad": 2,
+        "separacion": 0,
+        "x": 550,
+        "y": 450
+      },
+      {
+        "cantidad": 5,
+        "separacion": 0,
+        "x": 700,
+        "y": 280
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 1200,
+        "y": 500
+      }
+    ],
+    "enemy_shooter": [
+      {
+        "x": 1200,
+        "y": 680
+      }
+    ],
+    "enemy_moving": [
+      {
+        "x": 700,
+        "y": 250
+      }
+    ],
+    "key": [],
+    "exit_door": []
+  }
+}

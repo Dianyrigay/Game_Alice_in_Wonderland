@@ -109,11 +109,12 @@ class Personaje_Principal(Personaje):
   def verificar_colisiones_plataformas(self, lista_plataformas):
     for plataforma in lista_plataformas:
         if self.rect.colliderect(plataforma):
-            self.esta_cayendo = False
-            if self.velocidad_y > 0:
+            if self.velocidad_y > 0 and self.esta_cayendo:
                 self.velocidad_y = 0
                 self.rect.bottom = plataforma.top
+                self.esta_cayendo = False
             elif self.velocidad_y < 0:
+                self.esta_cayendo = False
                 self.rect.top = plataforma.bottom
                 self.velocidad_y = 0
 

@@ -4,11 +4,7 @@ class Level():
   def __init__(self, personaje_principal, lista_plataformas, lista_enemigos):
     self.lista_plataformas = lista_plataformas
     self.lista_enemigos = lista_enemigos
-
     self.fondo_imagen = None
-
-    self.world_shift = 0
-    self.level_limit = -1000
     self.personaje_principal = personaje_principal
 
     # Actualizar todo en este nivel

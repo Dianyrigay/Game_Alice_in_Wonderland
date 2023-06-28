@@ -4,15 +4,16 @@ from animaciones import *
 from Item import Item
 
 class Plataforma:
-  def __init__(self, ruta_imagen, cantidad, separacion, posicion, items_group, animacion_items) -> None:
+  def __init__(self, ruta_imagen, cantidad, separacion, x, y, items_group, animacion_items) -> None:
     # -- Attributos
     self.cantidad = cantidad
     self.separacion = separacion
     self.ruta_imagen = ruta_imagen
-    self.posicion = posicion
+    self.x = x
+    self.y = y
     self.image = pygame.transform.rotozoom(
         pygame.image.load(self.ruta_imagen), 0, 0.6)
-    self.rect = self.image.get_rect(topleft = self.posicion)
+    self.rect = self.image.get_rect(topleft = (x,y))
     self.rect.width = self.image.get_width() * self.cantidad + \
         self.separacion * (self.cantidad - 1)
     # Crear los objetos Item una sola vez
@@ -30,7 +31,7 @@ class Plataforma:
         self.items.add(item)
 
   def dibujar(self, pantalla):
-    self.rect.x = self.posicion[0]
+    self.rect.x = self.x
     x = self.rect.left
     for _ in range(self.cantidad):
       pantalla.blit(self.image, (x, self.rect.y))
