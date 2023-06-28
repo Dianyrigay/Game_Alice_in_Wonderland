@@ -13,10 +13,10 @@ class Personaje():
     self.muerto = False
     self.contador_muerte = 30
 
-  def animar_personaje(self, pantalla):
+  def animar_personaje(self, screen):
     # Asegurar que el índice esté dentro del rango válido
     indice_imagen = self.cuenta_pasos // self.velocidad_animacion % len(self.animacion)
-    pantalla.blit(pygame.transform.flip(self.animacion[indice_imagen], self.izquierda, False), self.rect)
+    screen.blit(pygame.transform.flip(self.animacion[indice_imagen], self.izquierda, False), self.rect)
 
   def disparar(self, grupo_municion, imagen_bala):
     if self.cuenta_pasos % self.cadencia == 0:

@@ -17,13 +17,13 @@ class Portal():
     self.animacion = animacion
     self.rect = self.animacion[0].get_rect(midbottom=(x,y))
 
-  def update(self, pantalla):
+  def update(self, screen):
     self.cuenta_pasos += 1
-    self.animar_objeto(pantalla)
+    self.animar_objeto(screen)
 
-  def animar_objeto(self, pantalla):
+  def animar_objeto(self, screen):
     indice_imagen = self.cuenta_pasos // self.velocidad_animacion % len(self.animacion)
-    pantalla.blit(pygame.transform.flip(self.animacion[indice_imagen], self.izquierda, False), self.rect)
+    screen.blit(pygame.transform.flip(self.animacion[indice_imagen], self.izquierda, False), self.rect)
 
 class Trap(pygame.sprite.Sprite):
   def __init__(self, x, y, animacion) -> None:
@@ -35,13 +35,13 @@ class Trap(pygame.sprite.Sprite):
     self.image = self.animacion[0]
     self.rect = self.image.get_rect(midbottom=(x, y))
 
-  def update(self, pantalla):
+  def update(self, screen):
     self.cuenta_pasos += 1
-    self.animar_objeto(pantalla)
+    self.animar_objeto(screen)
 
 
-  def animar_objeto(self, pantalla):
+  def animar_objeto(self, screen):
     indice_imagen = self.cuenta_pasos // self.velocidad_animacion % len(
         self.animacion)
-    pantalla.blit(pygame.transform.flip(
+    screen.blit(pygame.transform.flip(
         self.animacion[indice_imagen], self.izquierda, False), self.rect)

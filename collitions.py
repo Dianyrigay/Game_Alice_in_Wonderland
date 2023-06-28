@@ -16,11 +16,11 @@ class Collition:
     self.items_group = items_group
     self.sonidos_caracters = sonidos_caracters
 
-  def update(self, pantalla):
+  def update(self, screen):
     self.player_collide_bullet()
     self.player_collide_enemy()
     self.enemy_collide_bubbles()
-    self.player_pick_up_items(pantalla)
+    self.player_pick_up_items(screen)
 
   def player_collide_bullet(self):
     collide = pygame.sprite.spritecollide(self.player, self.bullets_group, True)
@@ -56,7 +56,7 @@ class Collition:
           enemigo.muerto = True
           self.enemy_list.remove(enemigo)
 
-  def player_pick_up_items(self, pantalla):
+  def player_pick_up_items(self, screen):
     collide = pygame.sprite.spritecollide(self.player, self.items_group, True)
 
     if collide:

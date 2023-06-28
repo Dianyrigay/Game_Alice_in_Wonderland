@@ -4,24 +4,24 @@ class Level():
   def __init__(self, Player, platforms_list, enemy_list):
     self.platforms_list = platforms_list
     self.enemy_list = enemy_list
-    self.fondo_imagen = None
+    self.background_1 = None
     self.Player = Player
 
     # Actualizar todo en este nivel
-  def update(self, pantalla):
+  def update(self, screen):
     for plataforma in self.platforms_list:
-      plataforma.update(pantalla)
+      plataforma.update(screen)
     for enemigo in self.enemy_list:
-      enemigo.update(pantalla)
+      enemigo.update(screen)
 
   # Dibujar todo en este nivel
-  def dibujar(self, pantalla):
+  def dibujar(self, screen):
     # Dibujar el fondo
-    pantalla.blit(self.fondo_imagen, (0,0))
+    screen.blit(self.background_1, (0,0))
 
     # Dibujar todas las listas de sprites
     for plataforma in self.platforms_list:
-      plataforma.dibujar(pantalla)
+      plataforma.dibujar(screen)
 
     for enemigo in self.enemy_list:
-      enemigo.dibujar(pantalla)
+      enemigo.dibujar(screen)

@@ -22,12 +22,12 @@ def reescalar_imagen(lista_animaciones, tamanio):
         lista_imagenes[i] = pygame.transform.rotozoom(
             lista_imagenes[i], 0, tamanio)
 
-def escribir_pantalla(pantalla, texto, color, cantidad=".", posicion=None):
+def escribir_screen(screen, texto, color, cantidad=".", posicion=None):
   font = pygame.font.SysFont("Arial Narrow", 40)
   text_lives = font.render(texto + "{0}".format(cantidad), True, color)
   if posicion is None:
       center = text_lives.get_rect(center=(WIDTH_PANTALLA/2, HEIGHT_PANTALLA/2))
-      pantalla.blit(text_lives, center)
+      screen.blit(text_lives, center)
   elif posicion is not None:
-      pantalla.blit(text_lives, posicion)
+      screen.blit(text_lives, posicion)
 

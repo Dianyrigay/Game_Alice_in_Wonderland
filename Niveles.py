@@ -9,7 +9,7 @@ class Nivel_01(Nivel):
   def __init__(self, Player):
     super().__init__(self, Player)
 
-    self.fondo_imagen = pygame.transform.scale(pygame.image.load(
+    self.background_1 = pygame.transform.scale(pygame.image.load(
             "./images/fondo_niveles/nivel-01.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
     self.level_limit = -2500
 

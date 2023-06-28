@@ -34,16 +34,16 @@ class Platform:
             item = Trap(x_item, y_item, self.animacion_items)
         self.group.add(item)
 
-  def dibujar(self, pantalla):
+  def dibujar(self, screen):
     self.rect.x = self.x
     x = self.rect.left
     for _ in range(self.cantidad):
-      pantalla.blit(self.image, (x, self.rect.y))
+      screen.blit(self.image, (x, self.rect.y))
       x += self.image.get_width() + self.separacion
     if type(self.animacion_items) == type(str()):
-        self.group.draw(pantalla)
+        self.group.draw(screen)
     else:
-        self.group.update(pantalla)
+        self.group.update(screen)
 
 
 

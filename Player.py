@@ -45,7 +45,7 @@ class Player(Personaje):
     if self.rect.bottom == HEIGHT_PANTALLA - ALTURA_PISO and self.velocidad_y >= 0:
       self.velocidad_y = 0
 
-  def update(self, pantalla, platforms_list):
+  def update(self, screen, platforms_list):
     self.cuenta_pasos += 1
 
     if self.vidas > 0:
@@ -64,7 +64,7 @@ class Player(Personaje):
     if self.animacion == angry or self.animacion == reducir:
        self.contador_cambio_animacion -= 1
 
-    self.animar_personaje(pantalla)
+    self.animar_personaje(screen)
 
   # control de moivimientos del Personaje:
   def saltar(self):
