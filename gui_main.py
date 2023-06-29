@@ -21,10 +21,10 @@ icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
 
 background_menu = pygame.transform.scale(pygame.image.load(
-    "./images/background-menu.jpg").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
+    "./images/background-alice.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 
 # TODO CAMBIAR FONT
-font = pygame.font.SysFont("Arial Narrow", 40)
+font = pygame.font.Font("./assets/fonts/Redaction35-Bold.otf", 40)
 
 def play(): #Play screen
   # Cronómetro del juego
@@ -160,13 +160,8 @@ def main_menu():
 
     MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-    MENU_TEXT = font.render("ALICE IN WONDERLAND", True, "white")
-    MENU_RECT = MENU_TEXT.get_rect(center=(WIDTH_PANTALLA/2, 100))
-
-    PLAY_BUTTON = Button(image=pygame.image.load("./images/play-rect.png"), x= WIDTH_PANTALLA/2, y=250,
-                      text_input="PLAY", base_color="#d7fcd4", hovering_color="White")
-
-    screen.blit(MENU_TEXT, MENU_RECT)
+    PLAY_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x= 1030, y=320,
+                      text_input="PLAY", base_color="white", hovering_color="Yellow")
 
     for button in [PLAY_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)

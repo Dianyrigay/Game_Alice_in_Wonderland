@@ -5,7 +5,7 @@ class Button():
     self.image = image
     self.x = x
     self.y = y
-    self.font = pygame.font.SysFont("Arial Narrow", 40)
+    self.font = pygame.font.Font("./assets/fonts/Redaction35-Bold.otf", 25)
     self.base_color, self.hovering_color = base_color, hovering_color
     self.text_input = text_input
     self.text = self.font.render(self.text_input, True, self.base_color)
