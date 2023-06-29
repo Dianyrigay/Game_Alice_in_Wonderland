@@ -1,1 +1,1 @@
-"./assets/fonts/Redaction35-Bold.otf"
+tiempo_restante

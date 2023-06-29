@@ -1,10 +1,12 @@
-class Level():
-  """Esta es una clase padre genérica utilizada para definir un nivel"""
+from Player import Player
 
-  def __init__(self, Player, platforms_list, enemy_list):
+class Level():
+  """Clase padre genérica para definir un nivel"""
+
+  def __init__(self, Player: Player, platforms_list: list, enemy_list: list) -> None:
     self.platforms_list = platforms_list
     self.enemy_list = enemy_list
-    self.background_1 = None
+    self.background = None
     self.Player = Player
 
     # Actualizar todo en este nivel
@@ -15,13 +17,12 @@ class Level():
       enemigo.update(screen)
 
   # Dibujar todo en este nivel
-  def dibujar(self, screen):
-    # Dibujar el fondo
-    screen.blit(self.background_1, (0,0))
+  def draw(self, screen):
+    screen.blit(self.background, (0,0))
 
     # Dibujar todas las listas de sprites
     for plataforma in self.platforms_list:
-      plataforma.dibujar(screen)
+      plataforma.draw(screen)
 
     for enemigo in self.enemy_list:
-      enemigo.dibujar(screen)
+      enemigo.draw(screen)

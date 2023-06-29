@@ -7,41 +7,66 @@ from Enemigo import Enemy_Moving, Enemy_Shooter
 from Player import Player
 
 class Collition:
-  def __init__(self, player: Player, enemy_list, platforms_list, bullets_group, bubbles_group, items_group, sonidos_caracters) -> None:
+  def __init__(self, player: Player, enemy_list, platforms_list, rectangles_list, bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group) -> None:
     self.player = player
     self.enemy_list = enemy_list
     self.platforms_list = platforms_list
+    self.rectangles_list = rectangles_list
     self.bullets_group = bullets_group
     self.bubbles_group = bubbles_group
     self.items_group = items_group
+    self.traps_group = traps_group
     self.sonidos_caracters = sonidos_caracters
 
   def update(self, screen):
-    self.player_collide_bullet()
-    self.player_collide_enemy()
+    self.player_collide_bullet(screen)
+    self.player_collide_enemy(screen)
+    # self.player_collide_platforms()
+    self.player_collide_traps()
+    self.player_pick_up_items()
     self.enemy_collide_bubbles()
-    self.player_pick_up_items(screen)
 
-  def player_collide_bullet(self):
+  def player_collide_bullet(self, screen):
     collide = pygame.sprite.spritecollide(self.player, self.bullets_group, True)
 
     if collide:
       impact.play()
       self.player.animacion = angry
-      self.player.restar_vidas()
+      self.player.restar_lives(screen)
       self.player.score -= 20
       self.player.rect.x += -10
 
-  def player_collide_enemy(self):
+  def player_collide_enemy(self, screen):
     #TODO refactorizar ya que hace basicamente lo mismo con la de bullet
     collide = pygame.sprite.spritecollide(self.player, self.enemy_list, False)
 
     if collide:
       impact.play()
       self.player.animacion = angry
-      self.player.restar_vidas()
+      self.player.restar_lives(screen)
       self.player.score -= 50
       self.player.rect.x += -10
+
+  # def player_collide_platforms(self):
+  #   for platform in self.rectangles_list:
+  #       if self.player.rect.colliderect(platform):
+  #           if self.player.velocidad_y > 0 and self.player.esta_cayendo:
+  #               print('colision')
+  #               self.player.velocidad_y = 0
+  #               self.player.rect.bottom = platform.top
+  #               self.player.esta_cayendo = False
+  #           elif self.player.velocidad_y < 0:
+  #               self.player.esta_cayendo = False
+  #               self.player.rect.top = platform.bottom
+  #               self.player.velocidad_y = 0
+
+  #           if not self.player.rect.bottom == platform.top and not self.player.rect.top == platform.bottom:
+  #               if self.player.velocidad_x > 0:
+  #                   self.player.rect.right = platform.left
+  #                   self.player.velocidad_x = 0
+  #               elif self.player.velocidad_x < 0:
+  #                   self.player.rect.left = platform.right
+  #                   self.player.velocidad_x = 0
 
   def enemy_collide_bubbles(self):
     if self.enemy_list != None:
@@ -56,7 +81,7 @@ class Collition:
           enemigo.muerto = True
           self.enemy_list.remove(enemigo)
 
-  def player_pick_up_items(self, screen):
+  def player_pick_up_items(self):
     collide = pygame.sprite.spritecollide(self.player, self.items_group, True)
 
     if collide:
@@ -67,6 +92,16 @@ class Collition:
           self.player.reducir()
       items_win.play()
       self.player.score += 10
+
+  def player_collide_traps(self):
+    collide = pygame.sprite.spritecollide(self.player, self.traps_group, True)
+
+    if collide:
+      print('colision mirror')
+      self.player.invertir_movimientos = True
+      # agregar sonido
+    self.player.score -= 10
+    pass
 
 
 

@@ -75,15 +75,15 @@ def play(): #Play screen
   plataforma5 = Platform(AREA_1, 1, 0, 1200, 500, items_group, pocion_reduce)
   plataforma6 = Platform(AREA_1, 1, 0, 100, 200, traps_group, mirror)
 
-  lista_rectangulos = [piso_rect, plataforma1.rect, plataforma2.rect,
+  rectangles_list = [piso_rect, plataforma1.rect, plataforma2.rect,
                        plataforma3.rect, plataforma4.rect, plataforma5.rect, plataforma6.rect]
   platforms_list = [plataforma1, plataforma2,
                     plataforma3, plataforma4, plataforma5, plataforma6]
   enemy_list = [enemigo_plant, enemigo_pig]
 
   # Instanciacion de colisiones
-  colisiones = Collition(player, enemy_list, platforms_list,
-                         bullets_group, bubbles_group, items_group, sonidos_caracters)
+  colisiones = Collition(player, enemy_list, platforms_list, rectangles_list,
+                         bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group)
 
   running_game = True
   game_over = False
@@ -99,7 +99,6 @@ def play(): #Play screen
         running_game = False
         exit()
 
-
     tiempo_transcurrido = pygame.time.get_ticks() - tiempo_actual
     tiempo_restante = max(0, tiempo_total - tiempo_transcurrido) // 1000
 
@@ -114,11 +113,11 @@ def play(): #Play screen
       if player.muerto or tiempo_restante == 0:
         game_over = True
 
-        # -- Colisiones
+      # -- Colisiones
       colisiones.update(screen)
 
-          # -- Player
-      player.update(screen, lista_rectangulos)
+      # -- Player
+      player.update(screen, rectangles_list)
       if player.key_recogida:
         # TODO agregar sonido cuando abre portal
         portal = Portal(WIDTH_PANTALLA - 100, HEIGHT_PANTALLA - ALTURA_PISO, open_portal)
@@ -126,7 +125,7 @@ def play(): #Play screen
 
           # --Platforms
       for plataforma in platforms_list:
-        plataforma.dibujar(screen)
+        plataforma.draw(screen)
 
       # --Actualización y dibujos de Groups
       # balas
@@ -144,7 +143,6 @@ def play(): #Play screen
       enemigo_pig.update(screen)
 
       escribir_screen(screen, 'SCORE: ', "white", str(score), (20, 20))
-      escribir_screen(screen, 'VIDAS: ', "white",str(player.vidas), (1250, 20))
       escribir_screen(screen, '00:', "white", str(tiempo_restante).zfill(2), (WIDTH_PANTALLA/2, 20))
     else:
       ambiente_fantasy.stop()
@@ -161,9 +159,11 @@ def main_menu():
     MENU_MOUSE_POS = pygame.mouse.get_pos()
 
     PLAY_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x= 1030, y=320,
-                      text_input="PLAY", base_color="white", hovering_color="Yellow")
+                      text_input="PLAY", base_color="white", hovering_color="yellow")
+    QUIT_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1030, y=400,
+                         text_input="QUIT", base_color="white", hovering_color="yellow")
 
-    for button in [PLAY_BUTTON]:
+    for button in [PLAY_BUTTON, QUIT_BUTTON]:
         button.changeColor(MENU_MOUSE_POS)
         button.update(screen)
 
@@ -174,6 +174,9 @@ def main_menu():
         if event.type == pygame.MOUSEBUTTONDOWN:
             if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
               play()
+            if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+              pygame.quit()
+              exit()
 
     pygame.display.update()
 

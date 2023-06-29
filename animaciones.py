@@ -45,6 +45,9 @@ reescalar_imagen(lista_dead, 2)
 burbuja_bala = pygame.image.load('./images/alice/disparo_magic/burbuja.png').convert_alpha()
 explosion_burbuja = obtener_surface_de_spriteSheet('./images/explosiones/explosion1.png', 8, 1, 1)
 
+live = obtener_surface_de_spriteSheet('./images/live.png', 1, 4, 1)
+reescalar_imagen([live], 2)
+
 # ENEMIGOS
 
 # plant

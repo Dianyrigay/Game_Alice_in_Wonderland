@@ -10,7 +10,7 @@ Importa las clases "Player", "Enemy_Shooter", "Enemy_Moving", "Platform" y "Port
 Inicializa pygame y configura la screen del juego.
 Establece variables para el tiempo, puntuación y sonidos del juego.
 Carga las imágenes y sonidos necesarios para el juego.
-Define una función para dibujar el fondo del juego.
+Define una función para draw el fondo del juego.
 Crea instancias de los objetos principales del juego, como el personaje principal, enemigos y plataformas.
 Inicia un bucle principal del juego que maneja eventos, actualiza la lógica del juego y dibuja los elementos en la screen.
 

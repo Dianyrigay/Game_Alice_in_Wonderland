@@ -14,11 +14,14 @@ class Player(Personaje):
     self.potencia_salto = -19
     self.esta_cayendo = False
     self.entrada_cayendo = True
-    self.vidas = 3
+    self.lives = 3
+    self.rect_lives = live[0].get_rect(topleft=(1340, 20))
     self.cadencia = 10
     self.contador_cambio_animacion = 30
     self.score = 300
     self.key_recogida = False
+    self.invertir_movimientos = False  # Nuevo atributo
+    self.tiempo_invertido = 0  # Contador para el tiempo invertido
 
   def mover_personaje_x(self):
     self.rect.x += self.velocidad_x
@@ -43,19 +46,20 @@ class Player(Personaje):
 
     # Verifico si esta en el suelo
     if self.rect.bottom == HEIGHT_PANTALLA - ALTURA_PISO and self.velocidad_y >= 0:
+      self.esta_cayendo = False
       self.velocidad_y = 0
 
   def update(self, screen, platforms_list):
     self.cuenta_pasos += 1
 
-    if self.vidas > 0:
+    if self.lives > 0:
       self.mover_personaje_x()
       self.mover_personaje_y()
       self.calcular_gravedad()
       self.verificar_colisiones_plataformas(platforms_list)
       if self.esta_cayendo:
         self.animacion = floating
-    elif self.vidas <= 0 and self.contador_muerte > 0:
+    elif self.lives <= 0 and self.contador_muerte > 0:
       self.animacion = dead
       self.contador_muerte -= 1
     else:
@@ -64,6 +68,14 @@ class Player(Personaje):
     if self.animacion == angry or self.animacion == reducir:
        self.contador_cambio_animacion -= 1
 
+    if self.invertir_movimientos:
+      self.tiempo_invertido += 1
+      segundos = str(self.tiempo_invertido % FPS).zfill(1)
+      escribir_screen(screen, "00:", "white", segundos)
+      if self.tiempo_invertido >= 10 * FPS:  # 10 segundos
+        self.invertir_movimientos = False
+        self.tiempo_invertido = 0
+    self.animar_lives(screen)
     self.animar_personaje(screen)
 
   # control de moivimientos del Personaje:
@@ -81,21 +93,36 @@ class Player(Personaje):
 
   def mover_izquierda(self):
     self.animacion = camina
-    self.izquierda = True
-    self.velocidad_x = -8
+    if not self.invertir_movimientos:
+      self.izquierda = True
+      self.velocidad_x = -8
+    else:
+      self.izquierda = False
+      self.velocidad_x = 8
 
   def mover_derecha(self):
     self.animacion = camina
-    self.izquierda = False
-    self.velocidad_x = 8
+    if not self.invertir_movimientos:
+      self.izquierda = False
+      self.velocidad_x = 8
+    else:
+      self.izquierda = True
+      self.velocidad_x = -8
 
   def quieto(self):
     self.animacion = quieto
     self.velocidad_x = 0
 
-  def restar_vidas(self):
+  def restar_lives(self, screen):
     self.animacion = angry
-    self.vidas -= 1
+    self.lives -= 1
+
+  def animar_lives(self, screen):
+    x = self.rect_lives.right
+    for _ in range(self.lives):
+      x -= self.rect_lives.width
+      indice_imagen = self.cuenta_pasos // self.velocidad_animacion % len(live)
+      screen.blit(live[indice_imagen], (x, self.rect_lives.y))
 
   def disparar(self, bubbles_group):
     super().disparar(bubbles_group, burbuja_bala)
@@ -110,7 +137,6 @@ class Player(Personaje):
     self.rect = quieto[0].get_rect(topleft=(x, y))
 
   def eventos(self, keys, bubbles_group):
-
     if not self.esta_cayendo:
       if self.entrada_cayendo:
         self.flotar()

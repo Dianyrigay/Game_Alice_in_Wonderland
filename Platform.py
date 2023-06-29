@@ -34,7 +34,7 @@ class Platform:
             item = Trap(x_item, y_item, self.animacion_items)
         self.group.add(item)
 
-  def dibujar(self, screen):
+  def draw(self, screen):
     self.rect.x = self.x
     x = self.rect.left
     for _ in range(self.cantidad):

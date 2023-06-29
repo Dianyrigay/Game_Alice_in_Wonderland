@@ -39,7 +39,6 @@ class Trap(pygame.sprite.Sprite):
     self.cuenta_pasos += 1
     self.animar_objeto(screen)
 
-
   def animar_objeto(self, screen):
     indice_imagen = self.cuenta_pasos // self.velocidad_animacion % len(
         self.animacion)

@@ -1,9 +1,9 @@
 import pygame
 from constantes import *
 from Platform import Platform
-from Nivel import Nivel
+from Level import Level
 
-class Nivel_01(Nivel):
+class Nivel_01(Level):
   """ Definición para el nivel 1"""
 
   def __init__(self, Player):
