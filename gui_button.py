@@ -25,7 +25,8 @@ class Button():
     return False
 
   def changeColor(self, position):
-    if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
+    #TODO arreglar parpadeo del mouse
+    if self.rect.collidepoint(position):
       self.text = self.font.render(self.text_input, True, self.hovering_color)
       pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
     else:

@@ -6,7 +6,7 @@ from animaciones import *
 
 from Player import Player
 from Enemigo import Enemy_Shooter, Enemy_Moving
-from Platform import Platform
+from Platform import Platform, MovingPlatform
 from collitions import Collition
 from Item import Portal
 from gui_button import Button
@@ -23,16 +23,14 @@ pygame.display.set_icon(icono)
 background_menu = pygame.transform.scale(pygame.image.load(
     "./images/background-alice.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 
-# TODO CAMBIAR FONT
 font = pygame.font.Font("./assets/fonts/Redaction35-Bold.otf", 40)
 
-def play(): #Play screen
+def play(): #Aca tengo todo lo que tenia en el main antes
   # Cronómetro del juego
   tiempo_total = 60000  # Duración total del cronómetro en milisegundos
   tiempo_actual = pygame.time.get_ticks()  # Tiempo transcurrido inicialmente
 
   # Sistema de score
-  score = 100
 
   # Sonidos
   sonidos_caracters = [items_win, game_over_sound,
@@ -74,6 +72,7 @@ def play(): #Play screen
   plataforma4 = Platform(AREA_1, 3, 0, 270, 250, items_group, key_yellow)
   plataforma5 = Platform(AREA_1, 1, 0, 1200, 500, items_group, pocion_reduce)
   plataforma6 = Platform(AREA_1, 1, 0, 100, 200, traps_group, mirror)
+  # platafroma7 = MovingPlatform()
 
   rectangles_list = [piso_rect, plataforma1.rect, plataforma2.rect,
                        plataforma3.rect, plataforma4.rect, plataforma5.rect, plataforma6.rect]
@@ -98,6 +97,10 @@ def play(): #Play screen
       if event.type == pygame.QUIT:
         running_game = False
         exit()
+
+      if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_SPACE:
+          player.saltar()
 
     tiempo_transcurrido = pygame.time.get_ticks() - tiempo_actual
     tiempo_restante = max(0, tiempo_total - tiempo_transcurrido) // 1000
@@ -142,7 +145,7 @@ def play(): #Play screen
       enemigo_plant.update(screen, piso_rect, bullets_group)
       enemigo_pig.update(screen)
 
-      escribir_screen(screen, 'SCORE: ', "white", str(score), (20, 20))
+      escribir_screen(screen, 'SCORE: ', "white", str(player.score), (20, 20))
       escribir_screen(screen, '00:', "white", str(tiempo_restante).zfill(2), (WIDTH_PANTALLA/2, 20))
     else:
       ambiente_fantasy.stop()
@@ -164,8 +167,8 @@ def main_menu():
                          text_input="QUIT", base_color="white", hovering_color="yellow")
 
     for button in [PLAY_BUTTON, QUIT_BUTTON]:
-        button.changeColor(MENU_MOUSE_POS)
-        button.update(screen)
+      button.changeColor(MENU_MOUSE_POS)
+      button.update(screen)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -177,6 +180,8 @@ def main_menu():
             if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
               pygame.quit()
               exit()
+
+    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
     pygame.display.update()
 

@@ -20,6 +20,9 @@ class Platform:
     # Crear los objetos Item una sola vez
     self.group = group
 
+    self.draw_items()
+
+  def draw_items(self):
     for i in range(self.cantidad):
         y_item = self.rect.top - 10
         if type(self.animacion_items) == type(str()):
@@ -45,13 +48,9 @@ class Platform:
     else:
         self.group.update(screen)
 
-
-
 class MovingPlatform(Platform):
-  """ This is a fancier platform that can actually move. """
-  def __init__(self, sprite_sheet_data):
-
-      super().__init__(sprite_sheet_data)
+  def __init__(self):
+      super().__init__()
 
       self.change_x = 0
       self.change_y = 0
@@ -61,9 +60,7 @@ class MovingPlatform(Platform):
       self.limit_left = 0
       self.limit_right = 0
 
-      self.level = None
       self.player = None
-
 
   def update(self):
       # Move left/right
@@ -101,6 +98,6 @@ class MovingPlatform(Platform):
       if self.rect.bottom > self.limit_bottom or self.rect.top < self.limit_top:
           self.change_y *= -1
 
-      cur_pos = self.rect.x - self.level.world_shift
-      if cur_pos < self.limit_left or cur_pos > self.limit_right:
-          self.change_x *= -1
+    #   cur_pos = self.rect.x - self.level.world_shift
+    #   if cur_pos < self.limit_left or cur_pos > self.limit_right:
+    #       self.change_x *= -1

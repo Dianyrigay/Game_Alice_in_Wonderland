@@ -1,1 +1,1 @@
-tiempo_restante
+if self.rect.collidepoint(position):

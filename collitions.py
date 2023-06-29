@@ -3,7 +3,7 @@ import pygame
 from animaciones import *
 from constantes import *
 
-from Enemigo import Enemy_Moving, Enemy_Shooter
+from Enemigo import Enemy_Moving
 from Player import Player
 
 class Collition:
@@ -51,7 +51,6 @@ class Collition:
   #   for platform in self.rectangles_list:
   #       if self.player.rect.colliderect(platform):
   #           if self.player.velocidad_y > 0 and self.player.esta_cayendo:
-  #               print('colision')
   #               self.player.velocidad_y = 0
   #               self.player.rect.bottom = platform.top
   #               self.player.esta_cayendo = False
@@ -97,11 +96,9 @@ class Collition:
     collide = pygame.sprite.spritecollide(self.player, self.traps_group, True)
 
     if collide:
-      print('colision mirror')
       self.player.invertir_movimientos = True
       # agregar sonido
-    self.player.score -= 10
-    pass
+      self.player.score -= 10
 
 
 

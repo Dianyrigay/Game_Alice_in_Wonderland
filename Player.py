@@ -11,7 +11,7 @@ class Player(Personaje):
     self.velocidad_x = 0
     self.velocidad_y = 0
     self.gravedad = 0.9
-    self.potencia_salto = -19
+    self.potencia_salto = -17
     self.esta_cayendo = False
     self.entrada_cayendo = True
     self.lives = 3
@@ -22,6 +22,7 @@ class Player(Personaje):
     self.key_recogida = False
     self.invertir_movimientos = False  # Nuevo atributo
     self.tiempo_invertido = 0  # Contador para el tiempo invertido
+    self.can_double_jump = False
 
   def mover_personaje_x(self):
     self.rect.x += self.velocidad_x
@@ -34,8 +35,8 @@ class Player(Personaje):
   def mover_personaje_y(self):
     self.rect.y += self.velocidad_y
 
-    if self.rect.bottom > HEIGHT_PANTALLA:
-      self.rect.bottom = HEIGHT_PANTALLA
+    if self.rect.top == HEIGHT_PANTALLA:
+      self.rect.top = HEIGHT_PANTALLA
 
   def calcular_gravedad(self):
     if self.velocidad_y == 0:
@@ -81,11 +82,17 @@ class Player(Personaje):
   # control de moivimientos del Personaje:
   def saltar(self):
     if self.izquierda:
-      self.velocidad_x = -2
+      self.velocidad_x = -1
     else:
-      self.velocidad_x = 2
-    self.animacion = floating
-    self.velocidad_y = self.potencia_salto
+      self.velocidad_x = 1
+
+    #TODO arreglar doble salto
+    if not self.esta_cayendo and not self.can_double_jump:
+      self.velocidad_y = self.potencia_salto
+      self.can_double_jump = True
+    elif self.can_double_jump:
+        self.velocidad_y = self.potencia_salto / 1.5
+        self.can_double_jump = False
 
   def flotar(self):
     self.animacion = floating
@@ -113,6 +120,7 @@ class Player(Personaje):
     self.animacion = quieto
     self.velocidad_x = 0
 
+  # Lives player
   def restar_lives(self, screen):
     self.animacion = angry
     self.lives -= 1
@@ -120,7 +128,7 @@ class Player(Personaje):
   def animar_lives(self, screen):
     x = self.rect_lives.right
     for _ in range(self.lives):
-      x -= self.rect_lives.width
+      x -= self.rect_lives.width + 15
       indice_imagen = self.cuenta_pasos // self.velocidad_animacion % len(live)
       screen.blit(live[indice_imagen], (x, self.rect_lives.y))
 
@@ -137,20 +145,14 @@ class Player(Personaje):
     self.rect = quieto[0].get_rect(topleft=(x, y))
 
   def eventos(self, keys, bubbles_group):
-    if not self.esta_cayendo:
+    if not self.esta_cayendo or (self.esta_cayendo and self.can_double_jump):
       if self.entrada_cayendo:
         self.flotar()
         self.entrada_cayendo = False
-      elif keys[pygame.K_LEFT] and keys[pygame.K_SPACE]:
-        self.saltar()
       elif keys[pygame.K_LEFT]:
         self.mover_izquierda()
-      elif keys[pygame.K_RIGHT] and keys[pygame.K_SPACE]:
-        self.saltar()
       elif keys[pygame.K_RIGHT]:
         self.mover_derecha()
-      elif keys[pygame.K_SPACE]:
-        self.saltar()
       elif (keys[pygame.K_x]):
         #TODO agregar que pueda disparar mientras camina
         self.disparar(bubbles_group)
@@ -169,7 +171,7 @@ class Player(Personaje):
                 self.rect.bottom = plataforma.top
                 self.esta_cayendo = False
             elif self.velocidad_y < 0:
-                self.esta_cayendo = False
+                # self.esta_cayendo = False
                 self.rect.top = plataforma.bottom
                 self.velocidad_y = 0
 
