@@ -1,4 +1,5 @@
 import pygame
+from constantes import *
 
 class Button():
   def __init__(self, image, x, y, text_input, base_color, hovering_color) -> None:

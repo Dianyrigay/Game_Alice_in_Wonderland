@@ -1,5 +1,6 @@
 import pygame
 from constantes import *
+from animaciones import burbuja_bala
 from Bala import Bala
 
 class Personaje():
@@ -20,6 +21,8 @@ class Personaje():
 
   def disparar(self, grupo_municion, imagen_bala):
     if self.cuenta_pasos % self.cadencia == 0:
+      if imagen_bala == burbuja_bala:
+        bubble.play()
       y = self.rect.centery
       if self.izquierda:
         x = self.rect.left

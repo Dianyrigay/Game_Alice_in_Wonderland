@@ -18,16 +18,23 @@ AREA_1 = "./images/platforms/area.png"
 
 # ------------------------Sonidos------------------------
 pygame.mixer.init()
-ambiente_fantasy = pygame.mixer.Sound('./sonidos/fantasy-ambient.wav')
+# ambient sound
+ambient_suspence = pygame.mixer.Sound('./sonidos/ambient-suspence.wav')
+ambient_fantasy = pygame.mixer.Sound('./sonidos/ambient-fantasy.wav')
+alice_intro = pygame.mixer.Sound('./sonidos/alice-intro.mp3')
+game_over_sound = pygame.mixer.Sound('./sonidos/game_over.wav')
+
+# items and object sound
 items_win = pygame.mixer.Sound('./sonidos/items-win.wav')
 pig_dead_sound = pygame.mixer.Sound('./sonidos/pig-dead.ogg')
-game_over_sound = pygame.mixer.Sound('./sonidos/game_over.wav')
 impact = pygame.mixer.Sound('./sonidos/impact.wav')
 plant_dead_sound = pygame.mixer.Sound('./sonidos/plant-dead.wav')
+click_magic = pygame.mixer.Sound('./sonidos/magic.wav')
+bubble = pygame.mixer.Sound('./sonidos/bubble.wav')
 
 sonidos_caracters = [items_win, game_over_sound,
-                     pig_dead_sound, impact, plant_dead_sound]
-sonidos_005 = [ambiente_fantasy]
+                     pig_dead_sound, impact, plant_dead_sound, ambient_fantasy, alice_intro, click_magic, bubble]
+sonidos_005 = [ambient_suspence]
 
 for sonido in sonidos_005:
   sonido.set_volume(0.05)

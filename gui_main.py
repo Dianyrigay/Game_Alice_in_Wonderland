@@ -25,7 +25,7 @@ pygame.display.set_icon(icono)
 # font = pygame.font.Font("./assets/fonts/Redaction35-Bold.otf", 40)
 
 def play():
-  ambiente_fantasy.play()
+  ambient_suspence.play()
 
   # Superficie piso
   piso_surf = pygame.Surface((WIDTH_PANTALLA, ALTURA_PISO))
@@ -76,7 +76,7 @@ def play():
 
     player.eventos(bubbles_group)
 
-     # Level 1
+    # Level 1
     if not game_over:
       if player.muerto or level_1.time_restante == 0:
         game_over = True
@@ -84,7 +84,7 @@ def play():
       level_1.draw(screen)
       level_1.update(screen)
     else:
-      ambiente_fantasy.stop()
+      ambient_suspence.stop()
       game_over_sound.play()
       screen.blit(game_over_image, (0, 0))
 
@@ -92,6 +92,7 @@ def play():
     clock.tick(FPS)
 
 def main_menu():
+  alice_intro.play()
   while True:
     screen.blit(background_menu, (0,0))
 
@@ -112,13 +113,16 @@ def main_menu():
             exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+              click_magic.play()
+              alice_intro.stop()
               play()
             if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+              click_magic.play()
               pygame.quit()
               exit()
-
+            else:
+              click_magic.stop()
     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
-
     pygame.display.update()
 
 main_menu()
