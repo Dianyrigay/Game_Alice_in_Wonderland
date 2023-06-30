@@ -1,8 +1,12 @@
 import pygame
-from Player import Player
-from Enemigo import Enemy_Shooter, Enemy_Moving
 import json
+
 from utilidades import *
+from animaciones import *
+
+from Player import Player
+from Enemigo import Enemy_Shooter
+from Item import Portal
 
 class Level():
   """Clase padre genérica para definir un nivel"""
@@ -32,6 +36,12 @@ class Level():
   def update(self, screen):
     self.player.update(screen, self.platforms_list, self.piso_rect)
 
+    if self.player.key_recogida:
+      # TODO agregar sonido cuando abre portal
+      portal = Portal(WIDTH_PANTALLA - 100, HEIGHT_PANTALLA -
+                      ALTURA_PISO, open_portal)
+      portal.update(screen)
+
     self.bullets_group.update()
     self.bubbles_group.update()
     self.items_group.update()
@@ -48,6 +58,7 @@ class Level():
 
   # Dibujar todo en este nivel
   def draw(self, screen):
+    screen.fill("black")
     screen.blit(self.background, (0,0))
 
     for plataforma in self.platforms_list:

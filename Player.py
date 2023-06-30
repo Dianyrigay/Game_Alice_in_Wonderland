@@ -54,7 +54,6 @@ class Player(Personaje):
       self.calcular_gravedad()
       self.player_collide_platforms(platforms_list)
       self.player_collide_floor(piso_rect)
-
       if self.esta_cayendo:
         self.animacion = floating
     elif self.lives <= 0 and self.contador_muerte > 0:
@@ -144,7 +143,9 @@ class Player(Personaje):
     # reescalar_imagen([[burbuja_bala]],0.01)
     self.rect = quieto[0].get_rect(topleft=(x, y))
 
-  def eventos(self, keys, bubbles_group):
+  def eventos(self, bubbles_group):
+    keys = pygame.key.get_pressed()
+
     if not self.esta_cayendo or (self.esta_cayendo and self.can_double_jump):
       if self.entrada_cayendo:
         self.flotar()

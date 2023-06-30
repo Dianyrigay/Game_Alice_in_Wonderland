@@ -65,8 +65,6 @@ def play():
   game_over = False
 
   while running_game:
-    screen.fill("black")
-
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         running_game = False
@@ -76,8 +74,7 @@ def play():
         if event.key == pygame.K_SPACE:
           player.saltar()
 
-    keys = pygame.key.get_pressed()
-    player.eventos(keys, bubbles_group)
+    player.eventos(bubbles_group)
 
      # Level 1
     if not game_over:
@@ -86,12 +83,6 @@ def play():
 
       level_1.draw(screen)
       level_1.update(screen)
-
-      if player.key_recogida:
-        # TODO agregar sonido cuando abre portal
-        portal = Portal(WIDTH_PANTALLA - 100, HEIGHT_PANTALLA - ALTURA_PISO, open_portal)
-        portal.update(screen)
-
     else:
       ambiente_fantasy.stop()
       game_over_sound.play()
