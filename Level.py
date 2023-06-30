@@ -24,9 +24,9 @@ class Level():
     self.collition = collition
     # --Cronometro
     self.time_game = 60000
-    self.tiempo_actual = pygame.time.get_ticks()
-    self.tiempo_transcurrido = 0
-    self.tiempo_restante = 60000
+    self.time_actual = pygame.time.get_ticks()
+    self.time_transcurrido = 0
+    self.time_restante = 60000
 
   # Actualizar todo en este nivel
   def update(self, screen):
@@ -66,13 +66,8 @@ class Level():
     self.player.draw(screen)
 
     escribir_screen(screen, 'SCORE: ', "white", str(self.player.score), (20, 20))
-    escribir_screen(screen, '00:', "white", str(self.tiempo_restante).zfill(2), (WIDTH_PANTALLA/2, 20))
+    escribir_screen(screen, '00:', "white", str(self.time_restante).zfill(2), (WIDTH_PANTALLA/2, 20))
 
   def update_time(self):
-    self.tiempo_transcurrido = pygame.time.get_ticks() - self.tiempo_actual
-    self.tiempo_restante = max(0, self.time_game - self.tiempo_transcurrido) // 1000
-
-  def CargarJson(self, file):
-    with open(file, 'r', encoding="utf-8") as f:
-        self.data = json.load(f)
-    return self.data
+    self.time_transcurrido = pygame.time.get_ticks() - self.time_actual
+    self.time_restante = max(0, self.time_game - self.time_transcurrido) // 1000

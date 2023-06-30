@@ -1,5 +1,7 @@
 import pygame
 
+pygame.font.init()
+
 WIDTH_PANTALLA = 1400
 HEIGHT_PANTALLA = 800
 ALTURA_PISO = 120
@@ -22,3 +24,18 @@ pig_dead_sound = pygame.mixer.Sound('./sonidos/pig-dead.ogg')
 game_over_sound = pygame.mixer.Sound('./sonidos/game_over.wav')
 impact = pygame.mixer.Sound('./sonidos/impact.wav')
 plant_dead_sound = pygame.mixer.Sound('./sonidos/plant-dead.wav')
+
+sonidos_caracters = [items_win, game_over_sound,
+                     pig_dead_sound, impact, plant_dead_sound]
+sonidos_005 = [ambiente_fantasy]
+
+for sonido in sonidos_005:
+  sonido.set_volume(0.05)
+
+for sonido in sonidos_caracters:
+  sonido.set_volume(0.15)
+
+# ------------------------Fonts------------------------
+font = pygame.font.Font("./assets/fonts/Redaction35-Bold.otf", 35)
+
+

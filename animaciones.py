@@ -89,3 +89,12 @@ mirror = [pygame.image.load('./images/trampas/mirror/0.png').convert_alpha(),
            pygame.image.load('./images/trampas/mirror/2.png').convert_alpha(),
            pygame.image.load('./images/trampas/mirror/3.png').convert_alpha(),
            pygame.image.load('./images/trampas/mirror/4.png').convert_alpha()]
+
+# Backgrounds
+background_menu = pygame.transform.scale(pygame.image.load(
+    "./images/background-alice.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
+background_1 = pygame.transform.scale(pygame.image.load(
+    "./images/fondo/area.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
+game_over_image = pygame.image.load("./images/game_over.png").convert_alpha()
+game_over_image = pygame.transform.scale(
+    game_over_image, (WIDTH_PANTALLA, HEIGHT_PANTALLA))

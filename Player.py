@@ -21,7 +21,7 @@ class Player(Personaje):
     self.score = 300
     self.key_recogida = False
     self.invertir_movimientos = False  # Nuevo atributo
-    self.tiempo_invertido = 5 * FPS  # Contador para el tiempo invertido
+    self.tiempo_invertido = 10 * FPS  # Contador para el tiempo invertido
     self.can_double_jump = False
 
   def mover_personaje_x(self):

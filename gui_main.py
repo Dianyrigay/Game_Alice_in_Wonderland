@@ -22,27 +22,10 @@ pygame.display.set_caption('Alice in Worderland')
 icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
 
-background_menu = pygame.transform.scale(pygame.image.load(
-    "./images/background-alice.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
-
-font = pygame.font.Font("./assets/fonts/Redaction35-Bold.otf", 40)
+# font = pygame.font.Font("./assets/fonts/Redaction35-Bold.otf", 40)
 
 def play():
-  # Sonidos
-  sonidos_caracters = [items_win, game_over_sound,
-                       pig_dead_sound, impact, plant_dead_sound]
-  sonidos_005 = [ambiente_fantasy]
-
-  for sonido in sonidos_005:
-    sonido.set_volume(0.05)
-
-  for sonido in sonidos_caracters:
-    sonido.set_volume(0.15)
-
   ambiente_fantasy.play()
-
-  background_1 = pygame.transform.scale(pygame.image.load(
-      "./images/fondo/area.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 
   # Superficie piso
   piso_surf = pygame.Surface((WIDTH_PANTALLA, ALTURA_PISO))
@@ -80,9 +63,6 @@ def play():
   level_1 = Level(platforms_list, enemy_list, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player, background_1, colisiones)
   running_game = True
   game_over = False
-  game_over_image = pygame.image.load("./images/game_over.png").convert_alpha()
-  game_over_image = pygame.transform.scale(
-      game_over_image, (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 
   while running_game:
     screen.fill("black")
@@ -101,7 +81,7 @@ def play():
 
      # Level 1
     if not game_over:
-      if player.muerto or level_1.tiempo_restante == 0:
+      if player.muerto or level_1.time_restante == 0:
         game_over = True
 
       level_1.draw(screen)
