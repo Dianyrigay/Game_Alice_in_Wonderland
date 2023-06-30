@@ -1,1 +1,2 @@
-if self.rect.collidepoint(position):
+
+  # Instanciacion de colisiones

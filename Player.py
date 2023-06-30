@@ -11,7 +11,7 @@ class Player(Personaje):
     self.velocidad_x = 0
     self.velocidad_y = 0
     self.gravedad = 0.9
-    self.potencia_salto = -17
+    self.potencia_salto = -13
     self.esta_cayendo = False
     self.entrada_cayendo = True
     self.lives = 3
@@ -21,7 +21,7 @@ class Player(Personaje):
     self.score = 300
     self.key_recogida = False
     self.invertir_movimientos = False  # Nuevo atributo
-    self.tiempo_invertido = 0  # Contador para el tiempo invertido
+    self.tiempo_invertido = 5 * FPS  # Contador para el tiempo invertido
     self.can_double_jump = False
 
   def mover_personaje_x(self):
@@ -45,11 +45,6 @@ class Player(Personaje):
       self.esta_cayendo = True
       self.velocidad_y += self.gravedad
 
-    # Verifico si esta en el suelo
-    if self.rect.bottom == HEIGHT_PANTALLA - ALTURA_PISO and self.velocidad_y >= 0:
-      self.esta_cayendo = False
-      self.velocidad_y = 0
-
   def update(self, screen, platforms_list):
     self.cuenta_pasos += 1
 
@@ -61,38 +56,43 @@ class Player(Personaje):
       if self.esta_cayendo:
         self.animacion = floating
     elif self.lives <= 0 and self.contador_muerte > 0:
+      #TODO arreglar animacion de muerte
+      print('animacion dead')
       self.animacion = dead
       self.contador_muerte -= 1
     else:
+      print('muerto')
       self.muerto = True
 
     if self.animacion == angry or self.animacion == reducir:
        self.contador_cambio_animacion -= 1
 
     if self.invertir_movimientos:
-      self.tiempo_invertido += 1
-      segundos = str(self.tiempo_invertido % FPS).zfill(1)
-      escribir_screen(screen, "00:", "white", segundos)
-      if self.tiempo_invertido >= 10 * FPS:  # 10 segundos
+      self.tiempo_invertido -= 1
+      segundos = int(self.tiempo_invertido / 60)
+      escribir_screen(screen, "00:0", "white", str(segundos))
+      if self.tiempo_invertido <= 0:
         self.invertir_movimientos = False
         self.tiempo_invertido = 0
+
+  def draw(self, screen):
     self.animar_lives(screen)
     self.animar_personaje(screen)
 
   # control de moivimientos del Personaje:
   def saltar(self):
     if self.izquierda:
-      self.velocidad_x = -1
+      self.velocidad_x = -3
     else:
-      self.velocidad_x = 1
+      self.velocidad_x = 3
 
     #TODO arreglar doble salto
     if not self.esta_cayendo and not self.can_double_jump:
       self.velocidad_y = self.potencia_salto
       self.can_double_jump = True
     elif self.can_double_jump:
-        self.velocidad_y = self.potencia_salto / 1.5
-        self.can_double_jump = False
+      self.velocidad_y = self.potencia_salto
+      self.can_double_jump = False
 
   def flotar(self):
     self.animacion = floating
@@ -171,7 +171,7 @@ class Player(Personaje):
                 self.rect.bottom = plataforma.top
                 self.esta_cayendo = False
             elif self.velocidad_y < 0:
-                # self.esta_cayendo = False
+                self.esta_cayendo = False
                 self.rect.top = plataforma.bottom
                 self.velocidad_y = 0
 

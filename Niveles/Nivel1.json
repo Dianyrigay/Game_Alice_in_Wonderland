@@ -22,10 +22,22 @@
         "y": 280
       },
       {
+        "cantidad": 3,
+        "separacion": 0,
+        "x": 270,
+        "y": 250
+      },
+      {
         "cantidad": 1,
         "separacion": 0,
         "x": 1200,
         "y": 500
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 100,
+        "y": 200
       }
     ],
     "enemy_shooter": [

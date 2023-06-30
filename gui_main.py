@@ -11,6 +11,8 @@ from collitions import Collition
 from Item import Portal
 from gui_button import Button
 
+from Level import Level
+
 pygame.init()
 
 # Configuración screen
@@ -25,12 +27,9 @@ background_menu = pygame.transform.scale(pygame.image.load(
 
 font = pygame.font.Font("./assets/fonts/Redaction35-Bold.otf", 40)
 
-def play(): #Aca tengo todo lo que tenia en el main antes
-  # Cronómetro del juego
-  tiempo_total = 60000  # Duración total del cronómetro en milisegundos
-  tiempo_actual = pygame.time.get_ticks()  # Tiempo transcurrido inicialmente
-
-  # Sistema de score
+def play():
+  tiempo_total = 60000  # milisegundos
+  tiempo_actual = pygame.time.get_ticks()
 
   # Sonidos
   sonidos_caracters = [items_win, game_over_sound,
@@ -72,7 +71,6 @@ def play(): #Aca tengo todo lo que tenia en el main antes
   plataforma4 = Platform(AREA_1, 3, 0, 270, 250, items_group, key_yellow)
   plataforma5 = Platform(AREA_1, 1, 0, 1200, 500, items_group, pocion_reduce)
   plataforma6 = Platform(AREA_1, 1, 0, 100, 200, traps_group, mirror)
-  # platafroma7 = MovingPlatform()
 
   rectangles_list = [piso_rect, plataforma1.rect, plataforma2.rect,
                        plataforma3.rect, plataforma4.rect, plataforma5.rect, plataforma6.rect]
@@ -84,6 +82,7 @@ def play(): #Aca tengo todo lo que tenia en el main antes
   colisiones = Collition(player, enemy_list, platforms_list, rectangles_list,
                          bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group)
 
+  level_1 = Level(platforms_list, enemy_list, rectangles_list, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player, background_1, colisiones)
   running_game = True
   game_over = False
   game_over_image = pygame.image.load("./images/game_over.png").convert_alpha()
@@ -108,42 +107,18 @@ def play(): #Aca tengo todo lo que tenia en el main antes
     keys = pygame.key.get_pressed()
     player.eventos(keys, bubbles_group)
 
-    # Background
-    screen.blit(background_1, (0, 0))
-
      # Level 1
     if not game_over:
       if player.muerto or tiempo_restante == 0:
         game_over = True
 
-      # -- Colisiones
-      colisiones.update(screen)
+      level_1.draw(screen)
+      level_1.update(screen)
 
-      # -- Player
-      player.update(screen, rectangles_list)
       if player.key_recogida:
         # TODO agregar sonido cuando abre portal
         portal = Portal(WIDTH_PANTALLA - 100, HEIGHT_PANTALLA - ALTURA_PISO, open_portal)
         portal.update(screen)
-
-          # --Platforms
-      for plataforma in platforms_list:
-        plataforma.draw(screen)
-
-      # --Actualización y dibujos de Groups
-      # balas
-      bullets_group.update()
-      bullets_group.draw(screen)
-      # burbuja
-      bubbles_group.update()
-      bubbles_group.draw(screen)
-      # items
-      items_group.update()
-      items_group.draw(screen)
-
-      # -- Enemigos
-      enemigo_plant.update(screen, piso_rect, bullets_group)
-      enemigo_pig.update(screen)
 
       escribir_screen(screen, 'SCORE: ', "white", str(player.score), (20, 20))
       escribir_screen(screen, '00:', "white", str(tiempo_restante).zfill(2), (WIDTH_PANTALLA/2, 20))

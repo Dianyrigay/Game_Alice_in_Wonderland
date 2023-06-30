@@ -14,9 +14,10 @@ class Enemigo(Personaje):
     self.cadencia = TIEMPO_ENTRE_DISPAROS
     self.ultimo_disparo = pygame.time.get_ticks()
 
-  def update(self, screen, animacion_muerte):
+  def update(self):
     self.cuenta_pasos += 1
 
+  def draw(self, screen, animacion_muerte):
     if not self.muerto:
       self.animar_personaje(screen)
     elif self.muerto and self.contador_muerte > 0:
@@ -29,11 +30,14 @@ class Enemy_Shooter(Enemigo):
     super().__init__(posicion, animacion)
     self.izquierda = True
 
-  def update(self, screen, piso_rect, bullets_group):
-    super().update(screen, plant_dead)
+  def update(self, piso_rect, bullets_group):
+    super().update()
     if not self.muerto:
       self.mover_personaje_x(piso_rect)
       self.disparar(bullets_group)
+
+  def draw(self, screen):
+    super().draw(screen, plant_dead)
 
   def disparar(self, bullets_group):
     super().disparar(bullets_group, bala_plant)
@@ -46,10 +50,13 @@ class Enemy_Moving(Enemigo):
     super().__init__(posicion, animacion)
     self.velocidad_x = 4
 
-  def update(self, screen):
-    super().update(screen, pig_dead)
+  def update(self):
+    super().update()
     if not self.muerto:
       self.mover_personaje_x()
+
+  def draw(self, screen):
+    super().draw(screen, pig_dead)
 
   def mover_personaje_x(self):
     if not self.izquierda:

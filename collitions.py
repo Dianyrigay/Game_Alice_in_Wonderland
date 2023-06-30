@@ -21,7 +21,6 @@ class Collition:
   def update(self, screen):
     self.player_collide_bullet(screen)
     self.player_collide_enemy(screen)
-    # self.player_collide_platforms()
     self.player_collide_traps()
     self.player_pick_up_items()
     self.enemy_collide_bubbles()
@@ -47,26 +46,6 @@ class Collition:
       self.player.score -= 50
       self.player.rect.x += -10
 
-  # def player_collide_platforms(self):
-  #   for platform in self.rectangles_list:
-  #       if self.player.rect.colliderect(platform):
-  #           if self.player.velocidad_y > 0 and self.player.esta_cayendo:
-  #               self.player.velocidad_y = 0
-  #               self.player.rect.bottom = platform.top
-  #               self.player.esta_cayendo = False
-  #           elif self.player.velocidad_y < 0:
-  #               self.player.esta_cayendo = False
-  #               self.player.rect.top = platform.bottom
-  #               self.player.velocidad_y = 0
-
-  #           if not self.player.rect.bottom == platform.top and not self.player.rect.top == platform.bottom:
-  #               if self.player.velocidad_x > 0:
-  #                   self.player.rect.right = platform.left
-  #                   self.player.velocidad_x = 0
-  #               elif self.player.velocidad_x < 0:
-  #                   self.player.rect.left = platform.right
-  #                   self.player.velocidad_x = 0
-
   def enemy_collide_bubbles(self):
     if self.enemy_list != None:
       for enemigo in self.enemy_list:
@@ -78,6 +57,7 @@ class Collition:
             plant_dead_sound.play()
           self.player.score += 50
           enemigo.muerto = True
+        if enemigo.contador_muerte == 0:
           self.enemy_list.remove(enemigo)
 
   def player_pick_up_items(self):
