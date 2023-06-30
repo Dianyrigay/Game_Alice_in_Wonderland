@@ -28,9 +28,6 @@ background_menu = pygame.transform.scale(pygame.image.load(
 font = pygame.font.Font("./assets/fonts/Redaction35-Bold.otf", 40)
 
 def play():
-  tiempo_total = 60000  # milisegundos
-  tiempo_actual = pygame.time.get_ticks()
-
   # Sonidos
   sonidos_caracters = [items_win, game_over_sound,
                        pig_dead_sound, impact, plant_dead_sound]
@@ -99,15 +96,12 @@ def play():
         if event.key == pygame.K_SPACE:
           player.saltar()
 
-    tiempo_transcurrido = pygame.time.get_ticks() - tiempo_actual
-    tiempo_restante = max(0, tiempo_total - tiempo_transcurrido) // 1000
-
     keys = pygame.key.get_pressed()
     player.eventos(keys, bubbles_group)
 
      # Level 1
     if not game_over:
-      if player.muerto or tiempo_restante == 0:
+      if player.muerto or level_1.tiempo_restante == 0:
         game_over = True
 
       level_1.draw(screen)
@@ -118,8 +112,6 @@ def play():
         portal = Portal(WIDTH_PANTALLA - 100, HEIGHT_PANTALLA - ALTURA_PISO, open_portal)
         portal.update(screen)
 
-      escribir_screen(screen, 'SCORE: ', "white", str(player.score), (20, 20))
-      escribir_screen(screen, '00:', "white", str(tiempo_restante).zfill(2), (WIDTH_PANTALLA/2, 20))
     else:
       ambiente_fantasy.stop()
       game_over_sound.play()
