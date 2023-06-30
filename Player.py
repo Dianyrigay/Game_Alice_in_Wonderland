@@ -45,23 +45,23 @@ class Player(Personaje):
       self.esta_cayendo = True
       self.velocidad_y += self.gravedad
 
-  def update(self, screen, platforms_list):
+  def update(self, screen, platforms_list, piso_rect):
     self.cuenta_pasos += 1
 
     if self.lives > 0:
       self.mover_personaje_x()
       self.mover_personaje_y()
       self.calcular_gravedad()
-      self.verificar_colisiones_plataformas(platforms_list)
+      self.player_collide_platforms(platforms_list)
+      self.player_collide_floor(piso_rect)
+
       if self.esta_cayendo:
         self.animacion = floating
     elif self.lives <= 0 and self.contador_muerte > 0:
       #TODO arreglar animacion de muerte
-      print('animacion dead')
       self.animacion = dead
       self.contador_muerte -= 1
     else:
-      print('muerto')
       self.muerto = True
 
     if self.animacion == angry or self.animacion == reducir:
@@ -163,22 +163,29 @@ class Player(Personaje):
         elif self.animacion != angry:
           self.quieto()
 
-  def verificar_colisiones_plataformas(self, platforms_list):
+  def player_collide_platforms(self, platforms_list):
     for plataforma in platforms_list:
-        if self.rect.colliderect(plataforma):
+        if self.rect.colliderect(plataforma.rect):
             if self.velocidad_y > 0 and self.esta_cayendo:
                 self.velocidad_y = 0
-                self.rect.bottom = plataforma.top
+                self.rect.bottom = plataforma.rect.top
                 self.esta_cayendo = False
             elif self.velocidad_y < 0:
                 self.esta_cayendo = False
-                self.rect.top = plataforma.bottom
+                self.rect.top = plataforma.rect.bottom
                 self.velocidad_y = 0
 
-            if not self.rect.bottom == plataforma.top and not self.rect.top == plataforma.bottom:
+            if not self.rect.bottom == plataforma.rect.top and not self.rect.top == plataforma.rect.bottom:
                 if self.velocidad_x > 0:
-                    self.rect.right = plataforma.left
+                    self.rect.right = plataforma.rect.left
                     self.velocidad_x = 0
                 elif self.velocidad_x < 0:
-                    self.rect.left = plataforma.right
+                    self.rect.left = plataforma.rect.right
                     self.velocidad_x = 0
+
+  def player_collide_floor(self, piso_rect):
+    if self.rect.colliderect(piso_rect):
+      if self.velocidad_y > 0 and self.esta_cayendo:
+        self.velocidad_y = 0
+        self.rect.bottom = piso_rect.top
+        self.esta_cayendo = False

@@ -7,11 +7,10 @@ from Enemigo import Enemy_Moving
 from Player import Player
 
 class Collition:
-  def __init__(self, player: Player, enemy_list, platforms_list, rectangles_list, bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group) -> None:
+  def __init__(self, player: Player, enemy_list, platforms_list, bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group) -> None:
     self.player = player
     self.enemy_list = enemy_list
     self.platforms_list = platforms_list
-    self.rectangles_list = rectangles_list
     self.bullets_group = bullets_group
     self.bubbles_group = bubbles_group
     self.items_group = items_group

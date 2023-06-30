@@ -1,15 +1,15 @@
 import pygame
 from Player import Player
 from Enemigo import Enemy_Shooter, Enemy_Moving
+import json
 
 class Level():
   """Clase padre genérica para definir un nivel"""
 
-  def __init__(self, platforms_list: list, enemy_list: list, rectangles_list: list, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player: Player, background, colisiones) -> None:
+  def __init__(self, platforms_list: list, enemy_list: list, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player: Player, background, colisiones) -> None:
     # --List
     self.platforms_list = platforms_list
     self.enemy_list = enemy_list
-    self.rectangles_list = rectangles_list
     # --Group
     self.items_group = items_group
     self.traps_group = traps_group
@@ -24,7 +24,7 @@ class Level():
 
   # Actualizar todo en este nivel
   def update(self, screen):
-    self.player.update(screen, self.rectangles_list)
+    self.player.update(screen, self.platforms_list, self.piso_rect)
 
     self.bullets_group.update()
     self.bubbles_group.update()
@@ -56,3 +56,9 @@ class Level():
         enemigo.draw(screen)
 
     self.player.draw(screen)
+
+
+  def CargarJson(self, file):
+    with open(file, 'r', encoding="utf-8") as f:
+        self.data = json.load(f)
+    return self.data

@@ -72,17 +72,15 @@ def play():
   plataforma5 = Platform(AREA_1, 1, 0, 1200, 500, items_group, pocion_reduce)
   plataforma6 = Platform(AREA_1, 1, 0, 100, 200, traps_group, mirror)
 
-  rectangles_list = [piso_rect, plataforma1.rect, plataforma2.rect,
-                       plataforma3.rect, plataforma4.rect, plataforma5.rect, plataforma6.rect]
   platforms_list = [plataforma1, plataforma2,
                     plataforma3, plataforma4, plataforma5, plataforma6]
   enemy_list = [enemigo_plant, enemigo_pig]
 
   # Instanciacion de colisiones
-  colisiones = Collition(player, enemy_list, platforms_list, rectangles_list,
+  colisiones = Collition(player, enemy_list, platforms_list,
                          bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group)
 
-  level_1 = Level(platforms_list, enemy_list, rectangles_list, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player, background_1, colisiones)
+  level_1 = Level(platforms_list, enemy_list, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player, background_1, colisiones)
   running_game = True
   game_over = False
   game_over_image = pygame.image.load("./images/game_over.png").convert_alpha()
