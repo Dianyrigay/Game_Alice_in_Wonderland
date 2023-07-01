@@ -17,11 +17,10 @@ class Portal():
     self.animacion = animacion
     self.rect = self.animacion[0].get_rect(midbottom=(x,y))
 
-  def update(self, screen):
+  def update(self):
     self.cuenta_pasos += 1
-    self.animar_objeto(screen)
 
-  def animar_objeto(self, screen):
+  def draw(self, screen):
     indice_imagen = self.cuenta_pasos // self.velocidad_animacion % len(self.animacion)
     screen.blit(pygame.transform.flip(self.animacion[indice_imagen], self.izquierda, False), self.rect)
 

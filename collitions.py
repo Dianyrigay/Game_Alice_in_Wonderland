@@ -7,7 +7,7 @@ from Enemigo import Enemy_Moving
 from Player import Player
 
 class Collition:
-  def __init__(self, player: Player, enemy_list, platforms_list, bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group) -> None:
+  def __init__(self, player: Player, enemy_list, platforms_list, bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group, portal = None) -> None:
     self.player = player
     self.enemy_list = enemy_list
     self.platforms_list = platforms_list
@@ -15,6 +15,7 @@ class Collition:
     self.bubbles_group = bubbles_group
     self.items_group = items_group
     self.traps_group = traps_group
+    self.portal = portal
     self.sonidos_caracters = sonidos_caracters
 
   def update(self, screen):
@@ -23,6 +24,8 @@ class Collition:
     self.player_collide_traps()
     self.player_pick_up_items()
     self.enemy_collide_bubbles()
+    if self.portal:
+      self.player_collide_portal()
 
   def player_collide_bullet(self, screen):
     collide = pygame.sprite.spritecollide(self.player, self.bullets_group, True)
@@ -76,8 +79,11 @@ class Collition:
 
     if collide:
       self.player.invertir_movimientos = True
-      # TODO agregar sonido
+      suspence_invertion.play()
       self.player.score -= 10
 
+  def player_collide_portal(self):
+    if self.player.rect.colliderect(self.portal.rect):
+      pass
 
 

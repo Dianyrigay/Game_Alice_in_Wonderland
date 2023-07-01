@@ -72,6 +72,7 @@ class Player(Personaje):
       escribir_screen(screen, "00:0", "white", str(segundos))
       if self.tiempo_invertido <= 0:
         self.invertir_movimientos = False
+        suspence_invertion.stop()
         self.tiempo_invertido = 0
 
   def draw(self, screen):

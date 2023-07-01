@@ -78,6 +78,7 @@ taza1 = './images/items/taza1.png'
 # PORTAL
 open_portal = obtener_surface_de_spriteSheet('./images/portal/open.png', 10, 1, 1)
 loop_portal = obtener_surface_de_spriteSheet('./images/portal/loop.png', 5, 1, 1)
+blue_portal = obtener_surface_de_spriteSheet('./images/portal/blue.png', 8, 1, 1)
 
 # TRAMPAS
 

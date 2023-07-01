@@ -31,6 +31,8 @@ class Level():
     self.time_actual = pygame.time.get_ticks()
     self.time_transcurrido = 0
     self.time_restante = 60000
+    # --Exit portal
+    self.portal = None
     # --Data level json
     self.level = "level_1"
     self.load_level_data(level_data_json)
@@ -42,6 +44,7 @@ class Level():
       data = json.load(file)
       self.level_data = data[self.level]
 
+    print(self.portal)
     self.background = pygame.transform.scale(pygame.image.load(self.level_data['background']).convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 
     for platform in self.level_data['platforms']:
@@ -56,7 +59,6 @@ class Level():
       else:
         animations = platform['animations']
         group = self.items_group
-      #TODO me falta agregar el mirror
 
       platform = Platform(path, cantidad, separacion, x, y, group, animations)
       self.platforms_list.append(platform)
@@ -77,22 +79,25 @@ class Level():
 
     # colisiones
     collitions = Collition(self.player, self.enemy_list, self.platforms_list,
-                          self.bullets_group, self.bubbles_group, self.items_group, sonidos_caracters, self.traps_group)
+                          self.bullets_group, self.bubbles_group, self.items_group, sonidos_caracters, self.traps_group, self.portal)
     self.collition = collitions
 
     # Superficie piso
     piso_surf = pygame.Surface((WIDTH_PANTALLA, ALTURA_PISO))
     self.piso_rect = piso_surf.get_rect(topleft=(0, HEIGHT_PANTALLA - ALTURA_PISO))
 
+    # Portal
+    x_portal = self.level_data["exit_portal"]["x"]
+    y_portal = self.level_data["exit_portal"]["y"]
+    animation_portal = self.level_data["exit_portal"]["animation"]
+    animation_portal = obtener_surface_de_spriteSheet(animation_portal, 8, 1, 1)
+
+    self.portal = Portal(x_portal, y_portal, animation_portal)
+
   # Update all in this level
   def update(self, screen):
     self.player.update(screen, self.platforms_list, self.piso_rect)
 
-    if self.player.key_recogida:
-      # TODO add sound
-      portal = Portal(WIDTH_PANTALLA - 100, HEIGHT_PANTALLA -
-                      ALTURA_PISO, open_portal)
-      portal.update(screen)
 
     self.bullets_group.update()
     self.bubbles_group.update()
@@ -103,6 +108,11 @@ class Level():
         enemigo.update(self.piso_rect, self.bullets_group)
       else:
         enemigo.update()
+
+    if self.player.key_recogida and self.portal:
+      portal_magic.play()
+      self.portal.update()
+      self.collition.portal = self.portal
 
     self.collition.update(screen)
 
@@ -127,6 +137,9 @@ class Level():
         enemigo.draw(screen)
 
     self.player.draw(screen)
+
+    if self.player.key_recogida and self.portal:
+      self.portal.draw(screen)
 
     escribir_screen(screen, 'SCORE: ', "white", str(self.player.score), (20, 20))
     escribir_screen(screen, '00:', "white", str(self.time_restante).zfill(2), (WIDTH_PANTALLA/2, 20))
