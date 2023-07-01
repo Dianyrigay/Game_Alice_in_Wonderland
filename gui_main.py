@@ -6,9 +6,6 @@ from animaciones import *
 
 from Player import Player
 from Enemigo import Enemy_Shooter, Enemy_Moving
-from Platform import Platform, MovingPlatform
-from collitions import Collition
-from Item import Portal
 from gui_button import Button
 
 from Level import Level
@@ -21,8 +18,6 @@ clock = pygame.time.Clock()
 pygame.display.set_caption('Alice in Worderland')
 icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
-
-# font = pygame.font.Font("./assets/fonts/Redaction35-Bold.otf", 40)
 
 def play():
   ambient_suspence.play()
@@ -44,23 +39,9 @@ def play():
   enemigo_plant = Enemy_Shooter(
       (WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack)
   enemigo_pig = Enemy_Moving((WIDTH_PANTALLA/2, 250), pig_fly)
-  # Instanciacion de plataformas
-  plataforma1 = Platform(AREA_1, 3, 0, 300, 500, items_group, hongo_yellow)
-  plataforma2 = Platform(AREA_1, 2, 0, 550, 450, items_group, hongo_violet)
-  plataforma3 = Platform(AREA_1, 5, 0, 700, 280, items_group, hongo_yellow)
-  plataforma4 = Platform(AREA_1, 3, 0, 270, 250, items_group, key_yellow)
-  plataforma5 = Platform(AREA_1, 1, 0, 1200, 500, items_group, pocion_reduce)
-  plataforma6 = Platform(AREA_1, 1, 0, 100, 200, traps_group, mirror)
-
-  platforms_list = [plataforma1, plataforma2,
-                    plataforma3, plataforma4, plataforma5, plataforma6]
   enemy_list = [enemigo_plant, enemigo_pig]
 
-  # Instanciacion de colisiones
-  colisiones = Collition(player, enemy_list, platforms_list,
-                         bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group)
-
-  level_1 = Level(platforms_list, enemy_list, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player, background_1, colisiones)
+  level_1 = Level(enemy_list, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player, background_1, "./Levels/Level1.json")
   running_game = True
   game_over = False
 

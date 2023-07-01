@@ -1,43 +1,49 @@
 {
   "level_1": {
-    "background":"../images/fondo/area.png",
-    "path_platforms":"../images/platforms/area.png",
+    "background":"./images/fondo/area.png",
+    "path_platforms":"./images/platforms/area.png",
     "platforms": [
       {
         "cantidad": 3,
         "separacion": 0,
         "x": 300,
-        "y": 500
+        "y": 500,
+        "animations": "./images/items/hongo-yellow.png"
       },
       {
         "cantidad": 2,
         "separacion": 0,
         "x": 550,
-        "y": 450
+        "y": 450,
+        "animations": "./images/items/hongo-violet.png"
       },
       {
         "cantidad": 5,
         "separacion": 0,
         "x": 700,
-        "y": 280
+        "y": 280,
+        "animations": "./images/items/hongo-yellow.png"
       },
       {
         "cantidad": 3,
         "separacion": 0,
         "x": 270,
-        "y": 250
+        "y": 250,
+        "animations": "./images/items/key-00.png"
       },
       {
         "cantidad": 1,
         "separacion": 0,
         "x": 1200,
-        "y": 500
+        "y": 500,
+        "animations": "./images/items/pocion.png"
       },
       {
         "cantidad": 1,
         "separacion": 0,
         "x": 100,
-        "y": 200
+        "y": 200,
+        "animations": "./images/items/pocion.png"
       }
     ],
     "enemy_shooter": [

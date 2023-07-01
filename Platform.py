@@ -4,16 +4,16 @@ from animaciones import *
 from Item import Item, Trap
 
 class Platform:
-  def __init__(self, ruta_imagen, cantidad, separacion, x, y, group, animacion_items = None) -> None:
+  def __init__(self, path, cantidad, separacion, x, y, group, animacion_items = None) -> None:
     # -- Attributos
     self.cantidad = cantidad
     self.separacion = separacion
-    self.ruta_imagen = ruta_imagen
+    self.path = path
     self.animacion_items = animacion_items
     self.x = x
     self.y = y
     self.image = pygame.transform.rotozoom(
-        pygame.image.load(self.ruta_imagen), 0, 0.6).convert_alpha()
+        pygame.image.load(self.path), 0, 0.6).convert_alpha()
     self.rect = self.image.get_rect(topleft = (x,y))
     self.rect.width = self.image.get_width() * self.cantidad + \
         self.separacion * (self.cantidad - 1)

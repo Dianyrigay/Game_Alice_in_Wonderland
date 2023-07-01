@@ -71,8 +71,6 @@ pig_fly = obtener_surface_de_spriteSheet('./images/enemigos/pig/pig_fly.png', 7,
 pig_dead = obtener_surface_de_spriteSheet('./images/enemigos/pig/pig_dead.png', 7, 1, 1)
 
 # ITEMS
-hongo_yellow = './images/items/hongo-yellow.png'
-hongo_violet = './images/items/hongo-violet.png'
 pocion_reduce = './images/items/pocion.png'
 key_yellow = './images/items/key-00.png'
 taza1 = './images/items/taza1.png'

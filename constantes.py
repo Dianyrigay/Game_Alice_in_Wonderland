@@ -13,9 +13,6 @@ TIEMPO_ENTRE_DISPAROS = 200
 MARGEN_IZQUIERDO = 100
 MARGEN_DERECHO = 600
 
-# ------------------------Platforms------------------------
-AREA_1 = "./images/platforms/area.png"
-
 # ------------------------Sonidos------------------------
 pygame.mixer.init()
 # ambient sound
