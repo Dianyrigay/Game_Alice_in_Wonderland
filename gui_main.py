@@ -5,7 +5,6 @@ from constantes import *
 from animaciones import *
 
 from Player import Player
-from Enemigo import Enemy_Shooter, Enemy_Moving
 from gui_button import Button
 
 from Level import Level
