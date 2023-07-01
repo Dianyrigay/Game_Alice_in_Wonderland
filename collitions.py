@@ -84,6 +84,6 @@ class Collition:
 
   def player_collide_portal(self):
     if self.player.rect.colliderect(self.portal.rect):
-      pass
+      self.player.enter_portal = True
 
 

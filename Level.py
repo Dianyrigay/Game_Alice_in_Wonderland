@@ -44,7 +44,6 @@ class Level():
       data = json.load(file)
       self.level_data = data[self.level]
 
-    print(self.portal)
     self.background = pygame.transform.scale(pygame.image.load(self.level_data['background']).convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 
     for platform in self.level_data['platforms']:

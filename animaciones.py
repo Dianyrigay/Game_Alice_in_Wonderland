@@ -48,6 +48,8 @@ explosion_burbuja = obtener_surface_de_spriteSheet('./images/explosiones/explosi
 live = obtener_surface_de_spriteSheet('./images/live.png', 1, 4, 1)
 reescalar_imagen([live], 2)
 
+transition_alice = obtener_surface_de_spriteSheet('./images/falling-alice.png', 16, 1, 1)
+
 # ENEMIGOS
 
 # plant

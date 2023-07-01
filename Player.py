@@ -20,9 +20,10 @@ class Player(Personaje):
     self.contador_cambio_animacion = 30
     self.score = 300
     self.key_recogida = False
-    self.invertir_movimientos = False  # Nuevo atributo
-    self.tiempo_invertido = 10 * FPS  # Contador para el tiempo invertido
+    self.invertir_movimientos = False
+    self.tiempo_invertido = 10 * FPS
     self.can_double_jump = False
+    self.enter_portal = False
 
   def mover_personaje_x(self):
     self.rect.x += self.velocidad_x
@@ -74,6 +75,9 @@ class Player(Personaje):
         self.invertir_movimientos = False
         suspence_invertion.stop()
         self.tiempo_invertido = 0
+
+    if self.enter_portal:
+      animar_pantalla(screen, transition_alice)
 
   def draw(self, screen):
     self.animar_lives(screen)
