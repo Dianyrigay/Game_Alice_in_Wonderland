@@ -19,7 +19,6 @@ class Platform:
         self.separacion * (self.cantidad - 1)
     # Crear los objetos Item una sola vez
     self.group = group
-
     self.draw_items()
 
   def draw_items(self):

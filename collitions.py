@@ -76,7 +76,7 @@ class Collition:
 
     if collide:
       self.player.invertir_movimientos = True
-      # agregar sonido
+      # TODO agregar sonido
       self.player.score -= 10
 
 

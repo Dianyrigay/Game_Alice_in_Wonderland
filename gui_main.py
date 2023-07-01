@@ -22,11 +22,6 @@ pygame.display.set_icon(icono)
 def play():
   ambient_suspence.play()
 
-  # Superficie piso
-  piso_surf = pygame.Surface((WIDTH_PANTALLA, ALTURA_PISO))
-  piso_rect = piso_surf.get_rect(
-      topleft=(0, HEIGHT_PANTALLA - piso_surf.get_height()))
-
   # Grupos de sprites
   bullets_group = pygame.sprite.Group()
   bubbles_group = pygame.sprite.Group()
@@ -36,7 +31,7 @@ def play():
   # Instanciacion del personaje principal
   player = Player()
 
-  level_1 = Level(bullets_group, bubbles_group, items_group, traps_group, piso_rect, player, "./Levels/Level1.json")
+  level_1 = Level(bullets_group, bubbles_group, items_group, traps_group, player, "./Levels/Level1.json")
   running_game = True
   game_over = False
 
@@ -74,9 +69,9 @@ def main_menu():
 
     MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-    PLAY_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x= 1030, y=320,
+    PLAY_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x= 1060, y=320,
                       text_input="PLAY", base_color="white", hovering_color="yellow")
-    QUIT_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1030, y=400,
+    QUIT_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1060, y=400,
                          text_input="QUIT", base_color="white", hovering_color="yellow")
 
     for button in [PLAY_BUTTON, QUIT_BUTTON]:

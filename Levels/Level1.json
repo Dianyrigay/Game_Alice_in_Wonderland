@@ -43,7 +43,7 @@
         "separacion": 0,
         "x": 100,
         "y": 200,
-        "animations": "./images/items/pocion.png"
+        "animations": "mirror"
       }
     ],
     "enemy_shooter": [
@@ -57,8 +57,6 @@
         "x": 700,
         "y": 250
       }
-    ],
-    "key": [],
-    "exit_door": []
+    ]
   }
 }

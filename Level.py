@@ -11,7 +11,7 @@ from Platform import Platform
 from collitions import Collition
 
 class Level():
-  def __init__(self, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player: Player, level_data) -> None:
+  def __init__(self, bullets_group, bubbles_group, items_group, traps_group, player: Player, level_data_json) -> None:
     # --List
     self.platforms_list = []
     self.enemy_list = []
@@ -21,7 +21,7 @@ class Level():
     self.bullets_group = bullets_group
     self.bubbles_group = bubbles_group
     #-------
-    self.piso_rect = piso_rect
+    self.piso_rect = None
     self.background = None
     self.player = player
     # --Collitions
@@ -33,49 +33,56 @@ class Level():
     self.time_restante = 60000
     # --Data level json
     self.level = "level_1"
-    self.load_level_data(level_data)
+    self.load_level_data(level_data_json)
+    self.level_data = None
 
   # Get data JSON and instance of object
-  def load_level_data(self, level_data):
-    with open(level_data) as file:
+  def load_level_data(self, level_data_json):
+    with open(level_data_json) as file:
       data = json.load(file)
-      data = data[self.level]
+      self.level_data = data[self.level]
 
-    self.background = pygame.transform.scale(pygame.image.load(data['background']).convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
-    # self.items_group = pygame.sprite.Group()
-    # self.traps_group = pygame.sprite.Group()
+    self.background = pygame.transform.scale(pygame.image.load(self.level_data['background']).convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 
-    for platform in data['platforms']:
-      path = data["path_platforms"]
+    for platform in self.level_data['platforms']:
+      path = self.level_data["path_platforms"]
       cantidad = platform['cantidad']
       separacion = platform['separacion']
       x = platform['x']
       y = platform['y']
-      animations = platform['animations']
+      if platform["animations"] == "mirror":
+        animations = mirror
+        group = self.traps_group
+      else:
+        animations = platform['animations']
+        group = self.items_group
       #TODO me falta agregar el mirror
 
-      platform = Platform(path, cantidad, separacion, x,
-                            y, self.items_group, animations)
+      platform = Platform(path, cantidad, separacion, x, y, group, animations)
       self.platforms_list.append(platform)
 
-    for enemy in data['enemy_shooter']:
+    for enemy in self.level_data['enemy_shooter']:
         x = enemy['x']
         y = enemy['y']
 
         enemy = Enemy_Shooter((x, y), attack)
         self.enemy_list.append(enemy)
 
-    for enemy in data['enemy_moving']:
+    for enemy in self.level_data['enemy_moving']:
       x = enemy['x']
       y = enemy['y']
 
       enemy = Enemy_Moving((x, y), pig_fly)
       self.enemy_list.append(enemy)
 
-    # Resto de la carga de datos y creación de objetos...
+    # colisiones
     collitions = Collition(self.player, self.enemy_list, self.platforms_list,
                           self.bullets_group, self.bubbles_group, self.items_group, sonidos_caracters, self.traps_group)
     self.collition = collitions
+
+    # Superficie piso
+    piso_surf = pygame.Surface((WIDTH_PANTALLA, ALTURA_PISO))
+    self.piso_rect = piso_surf.get_rect(topleft=(0, HEIGHT_PANTALLA - ALTURA_PISO))
 
   # Update all in this level
   def update(self, screen):

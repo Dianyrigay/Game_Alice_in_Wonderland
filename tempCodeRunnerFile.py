@@ -1,1 +1,1 @@
-piso_rect
+bubbles_group
