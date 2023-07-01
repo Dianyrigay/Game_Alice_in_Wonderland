@@ -5,16 +5,16 @@ from utilidades import *
 from animaciones import *
 
 from Player import Player
-from Enemigo import Enemy_Shooter
+from Enemigo import Enemy_Shooter, Enemy_Moving
 from Item import Portal
 from Platform import Platform
 from collitions import Collition
 
 class Level():
-  def __init__(self, enemy_list: list, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player: Player, background, level_data) -> None:
+  def __init__(self, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player: Player, level_data) -> None:
     # --List
     self.platforms_list = []
-    self.enemy_list = enemy_list
+    self.enemy_list = []
     # --Group
     self.items_group = items_group
     self.traps_group = traps_group
@@ -22,7 +22,7 @@ class Level():
     self.bubbles_group = bubbles_group
     #-------
     self.piso_rect = piso_rect
-    self.background = background
+    self.background = None
     self.player = player
     # --Collitions
     self.collition = None
@@ -32,17 +32,16 @@ class Level():
     self.time_transcurrido = 0
     self.time_restante = 60000
     # --Data level json
-    self.load_level_data(level_data)
     self.level = "level_1"
+    self.load_level_data(level_data)
 
   # Get data JSON and instance of object
   def load_level_data(self, level_data):
     with open(level_data) as file:
       data = json.load(file)
-      data = data["level_1"]
+      data = data[self.level]
 
     self.background = pygame.transform.scale(pygame.image.load(data['background']).convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
-    # self.enemy_list = []
     # self.items_group = pygame.sprite.Group()
     # self.traps_group = pygame.sprite.Group()
 
@@ -59,12 +58,19 @@ class Level():
                             y, self.items_group, animations)
       self.platforms_list.append(platform)
 
-    # for enemy_data in data['enemy_shooter']:
-    #     x = enemy_data['x']
-    #     y = enemy_data['y']
+    for enemy in data['enemy_shooter']:
+        x = enemy['x']
+        y = enemy['y']
 
-    #     enemy = Enemy_Shooter((x, y), attack)
-    #     self.enemy_list.append(enemy)
+        enemy = Enemy_Shooter((x, y), attack)
+        self.enemy_list.append(enemy)
+
+    for enemy in data['enemy_moving']:
+      x = enemy['x']
+      y = enemy['y']
+
+      enemy = Enemy_Moving((x, y), pig_fly)
+      self.enemy_list.append(enemy)
 
     # Resto de la carga de datos y creación de objetos...
     collitions = Collition(self.player, self.enemy_list, self.platforms_list,

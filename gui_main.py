@@ -35,13 +35,8 @@ def play():
 
   # Instanciacion del personaje principal
   player = Player()
-  # Instanciacion de enemigos
-  enemigo_plant = Enemy_Shooter(
-      (WIDTH_PANTALLA - 200, HEIGHT_PANTALLA - ALTURA_PISO), attack)
-  enemigo_pig = Enemy_Moving((WIDTH_PANTALLA/2, 250), pig_fly)
-  enemy_list = [enemigo_plant, enemigo_pig]
 
-  level_1 = Level(enemy_list, bullets_group, bubbles_group, items_group, traps_group, piso_rect, player, background_1, "./Levels/Level1.json")
+  level_1 = Level(bullets_group, bubbles_group, items_group, traps_group, piso_rect, player, "./Levels/Level1.json")
   running_game = True
   game_over = False
 
