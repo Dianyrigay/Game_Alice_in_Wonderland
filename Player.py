@@ -76,8 +76,8 @@ class Player(Personaje):
         suspence_invertion.stop()
         self.tiempo_invertido = 0
 
-    if self.enter_portal:
-      animar_pantalla(screen, transition_alice)
+    # if self.enter_portal:
+    #   animar_pantalla(screen, transition_alice)
 
   def draw(self, screen):
     self.animar_lives(screen)

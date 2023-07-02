@@ -30,7 +30,7 @@ def play():
   # Instanciacion del personaje principal
   player = Player()
 
-  level_1 = Level(bullets_group, bubbles_group, items_group, traps_group, player, "./Levels/Level1.json")
+  level = Level(bullets_group, bubbles_group, items_group, traps_group, player, "level_1", "./Levels/Level1.json")
   running_game = True
   game_over = False
 
@@ -48,11 +48,17 @@ def play():
 
     # Level 1
     if not game_over:
-      if player.muerto or level_1.time_restante == 0:
+      if player.muerto or level.time_restante == 0:
         game_over = True
 
-      level_1.draw(screen)
-      level_1.update(screen)
+      level.draw(screen)
+      level.update(screen)
+
+      if level.next_level:
+        level = Level(bullets_group, bubbles_group, items_group,
+                        traps_group, player, "level_2", f"./Levels/{level.next_level}.json")
+        game_over = False
+
     else:
       ambient_suspence.stop()
       game_over_sound.play()

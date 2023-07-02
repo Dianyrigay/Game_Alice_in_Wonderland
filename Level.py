@@ -11,7 +11,7 @@ from Platform import Platform
 from collitions import Collition
 
 class Level():
-  def __init__(self, bullets_group, bubbles_group, items_group, traps_group, player: Player, level_data_json) -> None:
+  def __init__(self, bullets_group, bubbles_group, items_group, traps_group, player: Player, level, level_data_json) -> None:
     # --List
     self.platforms_list = []
     self.enemy_list = []
@@ -34,9 +34,10 @@ class Level():
     # --Exit portal
     self.portal = None
     # --Data level json
-    self.level = "level_1"
+    self.level = level
     self.load_level_data(level_data_json)
     self.level_data = None
+    self.next_level = None
 
   # Get data JSON and instance of object
   def load_level_data(self, level_data_json):
@@ -97,7 +98,6 @@ class Level():
   def update(self, screen):
     self.player.update(screen, self.platforms_list, self.piso_rect)
 
-
     self.bullets_group.update()
     self.bubbles_group.update()
     self.items_group.update()
@@ -114,6 +114,12 @@ class Level():
       self.collition.portal = self.portal
 
     self.collition.update(screen)
+
+    if self.player.enter_portal:
+      print('crea 2 level')
+      portal_magic.stop()
+      self.next_level = "Level2"
+      self.player.enter_portal = False
 
     self.update_time()
 

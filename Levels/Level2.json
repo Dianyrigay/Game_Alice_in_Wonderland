@@ -1,0 +1,50 @@
+{
+  "level_2": {
+    "background": "./images/fondo/tea.png",
+    "path_platforms": "./images/platforms/tea.png",
+    "platforms": [
+      {
+        "cantidad": 3,
+        "separacion": 0,
+        "x": 300,
+        "y": 500,
+        "animations": "./images/items/taza1.png"
+      },
+      {
+        "cantidad": 5,
+        "separacion": 0,
+        "x": 700,
+        "y": 280,
+        "animations": "./images/items/taza1.png"
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 1200,
+        "y": 500,
+        "animations": "./images/items/pocion.png"
+      }
+    ],
+    "enemy_shooter": [
+      {
+        "x": 600,
+        "y": 300
+      }
+    ],
+    "enemy_moving": [
+      {
+        "x": 700,
+        "y": 250
+      },
+      {
+        "x": 100,
+        "y": 500
+      }
+    ],
+    "exit_portal": {
+      "x": 700,
+      "y": 400,
+      "animation": "./images/portal/loop.png"
+    }
+  }
+}
