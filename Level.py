@@ -114,11 +114,13 @@ class Level():
       self.collition.portal = self.portal
 
     self.collition.update(screen)
-
-    if self.player.enter_portal:
-      print('crea 2 level')
+    if self.player.enter_portal and self.level == "level_1":
       portal_magic.stop()
       self.next_level = "Level2"
+      self.player.enter_portal = False
+    elif self.player.enter_portal and self.level == "level_2":
+      portal_magic.stop()
+      self.next_level = "Level3"
       self.player.enter_portal = False
 
     self.update_time()

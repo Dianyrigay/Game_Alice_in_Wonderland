@@ -1,7 +1,7 @@
 {
-  "level_2": {
-    "background": "./images/fondo/tea.png",
-    "path_platforms": "./images/platforms/tea.png",
+  "level_3": {
+    "background": "./images/fondo/area-dark.png",
+    "path_platforms": "./images/platforms/roca-dark.png",
     "platforms": [
       {
         "cantidad": 3,
@@ -22,7 +22,7 @@
         "separacion": 0,
         "x": 1200,
         "y": 500,
-        "animations": "./images/items/key-00.png"
+        "animations": "./images/items/pocion.png"
       }
     ],
     "enemy_shooter": [
@@ -42,8 +42,8 @@
       }
     ],
     "exit_portal": {
-      "x": 700,
-      "y": 650,
+      "x": 1200,
+      "y": 400,
       "animation": "./images/portal/blue.png"
     }
   }
