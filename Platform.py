@@ -22,19 +22,20 @@ class Platform:
     self.draw_items()
 
   def draw_items(self):
-    for i in range(self.cantidad):
-        y_item = self.rect.top - 10
-        if type(self.animacion_items) == type(str()):
-            if self.animacion_items == (key_yellow or pocion_reduce):
-                x_item = self.rect.left + self.rect.width / 2
-                item = Item(x_item, y_item, self.animacion_items)
+    if self.animacion_items != None:
+        for i in range(self.cantidad):
+            y_item = self.rect.top - 10
+            if type(self.animacion_items) == type(str()):
+                if self.animacion_items == (key_yellow or pocion_reduce):
+                    x_item = self.rect.left + self.rect.width / 2
+                    item = Item(x_item, y_item, self.animacion_items)
+                else:
+                    x_item = self.rect.left + i * (self.image.get_width() + self.separacion)
+                    item = Item(x_item, y_item, self.animacion_items)
             else:
-                x_item = self.rect.left + i * (self.image.get_width() + self.separacion)
-                item = Item(x_item, y_item, self.animacion_items)
-        else:
-            x_item = self.rect.left + self.rect.width / 2
-            item = Trap(x_item, y_item, self.animacion_items)
-        self.group.add(item)
+                x_item = self.rect.left + self.rect.width / 2
+                item = Trap(x_item, y_item, self.animacion_items)
+            self.group.add(item)
 
   def draw(self, screen):
     self.rect.x = self.x
@@ -48,55 +49,47 @@ class Platform:
         self.group.update(screen)
 
 class MovingPlatform(Platform):
-  def __init__(self):
-      super().__init__()
+  def __init__(self, path, cantidad, separacion, x, y, group, limit_left, limit_rigth, change_x, change_y):
+      super().__init__(path, cantidad, separacion, x, y, group)
 
-      self.change_x = 0
-      self.change_y = 0
+      self.change_x = change_x
+      self.change_y = change_y
 
       self.limit_top = 0
       self.limit_bottom = 0
-      self.limit_left = 0
-      self.limit_right = 0
+      self.limit_left = limit_left
+      self.limit_right = limit_rigth
 
       self.player = None
 
+  def draw(self, screen):
+    x = self.rect.left
+    for _ in range(self.cantidad):
+      screen.blit(self.image, (x, self.rect.y))
+      x += self.image.get_width() + self.separacion
+
   def update(self):
-      # Move left/right
       self.rect.x += self.change_x
 
-      # ver si golpeamos al jugador
-      hit = pygame.sprite.collide_rect(self, self.player)
-      if hit:
-          # Choca con el jugador. Empuja al jugador y
-          # asume que él/ella no golpeará nada más.
+      if self.rect.left < self.limit_left or self.rect.right > self.limit_right:
+          self.change_x *= -1
 
-            # Si nos estamos moviendo a la derecha, establece nuestro lado derecho
-          # al lado izquierdo del elemento que golpeamos
-          if self.change_x < 0:
-              self.player.rect.right = self.rect.left
-          else:
-              # De lo contrario, si nos estamos moviendo hacia la izquierda, haga lo contrario.
-              self.player.rect.left = self.rect.right
+#   hit = pygame.sprite.collide_rect(self, self.player.rect)
+#   if hit:
+#       if self.change_x < 0:
+#           self.player.rect.right = self.rect.left
+#       else:
+#           self.player.rect.left = self.rect.right
 
-      # Move up/down
-      self.rect.y += self.change_y
+#   self.rect.y += self.change_y
 
-      # Compruebe y vea si nosotros el jugador
-      hit = pygame.sprite.collide_rect(self, self.player)
-      if hit:
-          # Choca con el jugador. Empuja al jugador y
-          # asume que él/ella no golpeará nada más.
+#   hit = pygame.sprite.collide_rect(self, self.player)
+#   if hit:
+#       if self.change_y < 0:
+#           self.player.rect.bottom = self.rect.top
+#       else:
+#           self.player.rect.top = self.rect.bottom
 
-          # Restablecer nuestra posición en función de la parte superior/inferior del objeto.
-          if self.change_y < 0:
-              self.player.rect.bottom = self.rect.top
-          else:
-              self.player.rect.top = self.rect.bottom
-
-      if self.rect.bottom > self.limit_bottom or self.rect.top < self.limit_top:
-          self.change_y *= -1
-
-    #   cur_pos = self.rect.x - self.level.world_shift
-    #   if cur_pos < self.limit_left or cur_pos > self.limit_right:
-    #       self.change_x *= -1
+#   if self.rect.bottom > self.limit_bottom or self.rect.top < self.limit_top:
+#       print('entra')
+#       self.change_y *= -1

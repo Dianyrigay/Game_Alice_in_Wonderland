@@ -13,8 +13,8 @@
       {
         "cantidad": 5,
         "separacion": 0,
-        "x": 700,
-        "y": 280,
+        "x": 900,
+        "y": 300,
         "animations": "./images/items/taza1.png"
       },
       {
@@ -25,6 +25,19 @@
         "animations": "./images/items/key-00.png"
       }
     ],
+    "moving_platforms": [
+      {
+        "cantidad": 3,
+        "separacion": 0,
+        "x": 700,
+        "y": 400,
+        "change_x": 1,
+        "change_y": 0,
+        "limit_left": 100,
+        "limit_rigth": 900
+      }
+    ]
+    ,
     "enemy_shooter": [
       {
         "x": 600,
@@ -42,7 +55,7 @@
       }
     ],
     "exit_portal": {
-      "x": 700,
+      "x": 100,
       "y": 650,
       "animation": "./images/portal/blue.png"
     }

@@ -82,10 +82,12 @@ def main_menu():
 
     PLAY_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x= 1060, y=320,
                       text_input="PLAY", base_color="white", hovering_color="yellow")
-    QUIT_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1060, y=400,
+    LEVELS_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1060, y=400,
+                         text_input="LEVELS", base_color="white", hovering_color="yellow")
+    QUIT_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1060, y=480,
                          text_input="QUIT", base_color="white", hovering_color="yellow")
 
-    for button in [PLAY_BUTTON, QUIT_BUTTON]:
+    for button in [PLAY_BUTTON, QUIT_BUTTON, LEVELS_BUTTON]:
       button.changeColor(MENU_MOUSE_POS)
       button.update(screen)
 
@@ -94,12 +96,13 @@ def main_menu():
             pygame.quit()
             exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
+            click_magic.play()
             if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-              click_magic.play()
               alice_intro.stop()
               play()
+            if LEVELS_BUTTON.checkForInput(MENU_MOUSE_POS):
+              pass
             if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
-              click_magic.play()
               pygame.quit()
               exit()
             else:

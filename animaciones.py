@@ -77,11 +77,6 @@ pocion_reduce = './images/items/pocion.png'
 key_yellow = './images/items/key-00.png'
 taza1 = './images/items/taza1.png'
 
-# PORTAL
-open_portal = obtener_surface_de_spriteSheet('./images/portal/open.png', 10, 1, 1)
-loop_portal = obtener_surface_de_spriteSheet('./images/portal/loop.png', 5, 1, 1)
-blue_portal = obtener_surface_de_spriteSheet('./images/portal/blue.png', 8, 1, 1)
-
 # TRAMPAS
 
 # mirror
@@ -94,8 +89,6 @@ mirror = [pygame.image.load('./images/trampas/mirror/0.png').convert_alpha(),
 # Backgrounds
 background_menu = pygame.transform.scale(pygame.image.load(
     "./images/background-menu.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
-# background_1 = pygame.transform.scale(pygame.image.load(
-#     "./images/fondo/area.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 game_over_image = pygame.image.load("./images/game_over.png").convert_alpha()
 game_over_image = pygame.transform.scale(
     game_over_image, (WIDTH_PANTALLA, HEIGHT_PANTALLA))

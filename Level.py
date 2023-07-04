@@ -7,13 +7,14 @@ from animaciones import *
 from Player import Player
 from Enemigo import Enemy_Shooter, Enemy_Moving
 from Item import Portal
-from Platform import Platform
+from Platform import Platform, MovingPlatform
 from collitions import Collition
 
 class Level():
   def __init__(self, bullets_group, bubbles_group, items_group, traps_group, player: Player, level, level_data_json) -> None:
     # --List
     self.platforms_list = []
+    self.moving_platforms_list = []
     self.enemy_list = []
     # --Group
     self.items_group = items_group
@@ -62,6 +63,23 @@ class Level():
 
       platform = Platform(path, cantidad, separacion, x, y, group, animations)
       self.platforms_list.append(platform)
+
+    if 'moving_platforms' in self.level_data:
+      for platform in self.level_data["moving_platforms"]:
+        path = self.level_data["path_platforms"]
+        cantidad = platform['cantidad']
+        separacion = platform['separacion']
+        x = platform['x']
+        y = platform['y']
+        limit_left = platform['limit_left']
+        limit_rigth = platform['limit_rigth']
+        change_x = platform['change_x']
+        change_y = platform['change_y']
+        group = self.items_group
+
+        platform = MovingPlatform(path, cantidad, separacion, x,
+                                  y, group, limit_left, limit_rigth, change_x, change_y)
+        self.platforms_list.append(platform)
 
     for enemy in self.level_data['enemy_shooter']:
         x = enemy['x']
@@ -113,6 +131,10 @@ class Level():
       self.portal.update()
       self.collition.portal = self.portal
 
+    for platform in self.platforms_list:
+      if type(platform) == MovingPlatform:
+        platform.update()
+
     self.collition.update(screen)
     if self.player.enter_portal and self.level == "level_1":
       portal_magic.stop()
@@ -130,8 +152,8 @@ class Level():
     screen.fill("black")
     screen.blit(self.background, (0,0))
 
-    for plataforma in self.platforms_list:
-      plataforma.draw(screen)
+    for platform in self.platforms_list:
+      platform.draw(screen)
 
     self.bullets_group.draw(screen)
     self.bubbles_group.draw(screen)
@@ -147,6 +169,7 @@ class Level():
 
     if self.player.key_recogida and self.portal:
       self.portal.draw(screen)
+      portal_magic.stop()
 
     escribir_screen(screen, 'SCORE: ', "white", str(self.player.score), (20, 20))
     escribir_screen(screen, '00:', "white", str(self.time_restante).zfill(2), (WIDTH_PANTALLA/2, 20))
