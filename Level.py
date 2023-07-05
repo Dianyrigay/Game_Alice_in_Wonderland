@@ -54,12 +54,15 @@ class Level():
       separacion = platform['separacion']
       x = platform['x']
       y = platform['y']
-      if platform["animations"] == "mirror":
-        animations = mirror
-        group = self.traps_group
+      if "animations" in platform:
+        if platform["animations"] == "mirror":
+          animations = mirror
+          group = self.traps_group
+        else:
+          animations = platform['animations']
+          group = self.items_group
       else:
-        animations = platform['animations']
-        group = self.items_group
+        animations = None
 
       platform = Platform(path, cantidad, separacion, x, y, group, animations)
       self.platforms_list.append(platform)
@@ -75,24 +78,30 @@ class Level():
         limit_rigth = platform['limit_rigth']
         change_x = platform['change_x']
         change_y = platform['change_y']
+        limit_top = platform['limit_top']
+        limit_bottom = platform['limit_bottom']
         group = self.items_group
 
         platform = MovingPlatform(path, cantidad, separacion, x,
-                                  y, group, limit_left, limit_rigth, change_x, change_y, self.player)
+                                  y, group, limit_left, limit_rigth, change_x, change_y, limit_top, limit_bottom, self.player)
         self.platforms_list.append(platform)
 
-    for enemy in self.level_data['enemy_shooter']:
-        x = enemy['x']
-        y = enemy['y']
+    if 'enemy_shooter' in self.level_data:
+      for enemy in self.level_data['enemy_shooter']:
+          x = enemy['x']
+          y = enemy['y']
+          animation_name = enemy['animation']
+          animation = dict_animations[animation_name]
 
-        enemy = Enemy_Shooter((x, y), attack)
-        self.enemy_list.append(enemy)
+          enemy = Enemy_Shooter((x, y), animation)
+          self.enemy_list.append(enemy)
 
     for enemy in self.level_data['enemy_moving']:
       x = enemy['x']
       y = enemy['y']
-
-      enemy = Enemy_Moving((x, y), pig_fly)
+      animation_name = enemy['animation']
+      animation = dict_animations[animation_name]
+      enemy = Enemy_Moving((x, y), animation)
       self.enemy_list.append(enemy)
 
     # colisiones
@@ -171,7 +180,7 @@ class Level():
       portal_magic.stop()
 
     escribir_screen(screen, 'SCORE: ', "white", str(self.player.score), (20, 20))
-    escribir_screen(screen, '00:', "white", str(self.time_restante).zfill(2), (WIDTH_PANTALLA/2, 20))
+    escribir_screen(screen, '00:', "white", str(self.time_restante).zfill(2), (650, 20))
 
   def update_time(self):
     self.time_transcurrido = pygame.time.get_ticks() - self.time_actual

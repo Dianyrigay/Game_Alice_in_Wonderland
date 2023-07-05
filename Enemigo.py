@@ -4,9 +4,10 @@ from animaciones import *
 from Personaje import Personaje
 
 class Enemigo(Personaje):
-  def __init__(self, posicion, animacion) -> None:
+  def __init__(self, posicion: tuple, animacion: list) -> None:
     super().__init__()
     # -- Attributos
+    self.velocidad_animacion = 20
     self.posicion = posicion
     self.rect = animacion[0].get_rect(
         midbottom=posicion)

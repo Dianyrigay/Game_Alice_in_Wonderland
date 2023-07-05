@@ -20,7 +20,7 @@ class Collition:
 
   def update(self, screen):
     self.player_collide_bullet(screen)
-    self.player_collide_enemy(screen)
+    self.player_collide_enemy()
     self.player_collide_traps()
     self.player_pick_up_items()
     self.enemy_collide_bubbles()
@@ -37,15 +37,13 @@ class Collition:
       self.player.score -= 20
       self.player.rect.x += -10
 
-  def player_collide_enemy(self, screen):
-    #TODO refactorizar ya que hace basicamente lo mismo con la de bullet
+  def player_collide_enemy(self):
     collide = pygame.sprite.spritecollide(self.player, self.enemy_list, False)
 
     if collide:
       impact.play()
-      self.player.animacion = angry
-      self.player.restar_lives(screen)
       self.player.score -= 50
+      self.player.animacion = angry
       self.player.rect.x += -10
 
   def enemy_collide_bubbles(self):
@@ -57,7 +55,7 @@ class Collition:
             pig_dead_sound.play()
           else:
             plant_dead_sound.play()
-          self.player.score += 50
+          self.player.score += 100
           enemigo.muerto = True
         if enemigo.contador_muerte == 0:
           self.enemy_list.remove(enemigo)
@@ -72,7 +70,7 @@ class Collition:
         if item.animacion == pocion_reduce:
           self.player.reducir()
       items_win.play()
-      self.player.score += 10
+      self.player.score += 50
 
   def player_collide_traps(self):
     collide = pygame.sprite.spritecollide(self.player, self.traps_group, True)
@@ -80,7 +78,7 @@ class Collition:
     if collide:
       self.player.invertir_movimientos = True
       suspence_invertion.play()
-      self.player.score -= 10
+      self.player.score -= 50
 
   def player_collide_portal(self):
     if self.player.rect.colliderect(self.portal.rect):

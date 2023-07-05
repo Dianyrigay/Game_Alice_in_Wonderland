@@ -37,8 +37,8 @@ reducir = [pygame.image.load('./images/alice/reduce/shrinking-01.png').convert_a
            pygame.image.load('./images/alice/reduce/shrinking-05.png').convert_alpha()]
 
 lista_animaciones_alice = [quieto, camina, floating, angry]
-
 reescalar_imagen(lista_animaciones_alice, 2.25)
+
 lista_dead = [dead]
 reescalar_imagen(lista_dead, 2)
 
@@ -53,7 +53,7 @@ transition_alice = obtener_surface_de_spriteSheet('./images/falling-alice.png', 
 # ENEMIGOS
 
 # plant
-quieto_front = [pygame.image.load('./images/enemigos/plant/front-00.gif').convert_alpha(),
+plant_idle = [pygame.image.load('./images/enemigos/plant/front-00.gif').convert_alpha(),
                 pygame.image.load('./images/enemigos/plant/front-01.gif').convert_alpha(),
                 pygame.image.load('./images/enemigos/plant/front-02.gif').convert_alpha()]
 
@@ -61,9 +61,9 @@ plant_dead = [pygame.image.load('./images/enemigos/plant/dead-00.gif').convert_a
         pygame.image.load('./images/enemigos/plant/dead-01.gif').convert_alpha(),
         pygame.image.load('./images/enemigos/plant/dead-02.gif').convert_alpha()]
 
-attack = obtener_surface_de_spriteSheet('./images/enemigos/plant/attack.png', 5, 1, 1)
+plant_attack = obtener_surface_de_spriteSheet('./images/enemigos/plant/attack.png', 5, 1, 1)
 
-lista_animaciones_plant = [quieto_front, attack, plant_dead]
+lista_animaciones_plant = [plant_idle, plant_attack, plant_dead]
 reescalar_imagen(lista_animaciones_plant, 1.5)
 
 bala_plant = pygame.image.load('./images/enemigos/plant/bala_plant.gif').convert_alpha()
@@ -71,6 +71,17 @@ bala_plant = pygame.image.load('./images/enemigos/plant/bala_plant.gif').convert
 # pig
 pig_fly = obtener_surface_de_spriteSheet('./images/enemigos/pig/pig_fly.png', 7, 1, 1)
 pig_dead = obtener_surface_de_spriteSheet('./images/enemigos/pig/pig_dead.png', 7, 1, 1)
+
+#bunny
+bunny_idle = [pygame.image.load('./images/enemigos/bunny/idle/0.png').convert_alpha(),
+              pygame.image.load('./images/enemigos/bunny/idle/1.png').convert_alpha(),
+              pygame.image.load('./images/enemigos/bunny/idle/2.png').convert_alpha(),
+              pygame.image.load('./images/enemigos/bunny/idle/3.png').convert_alpha(),]
+
+lista_animaciones_bunny = [bunny_idle]
+reescalar_imagen(lista_animaciones_bunny, 2)
+
+
 
 # ITEMS
 pocion_reduce = './images/items/pocion.png'
@@ -92,3 +103,12 @@ background_menu = pygame.transform.scale(pygame.image.load(
 game_over_image = pygame.image.load("./images/game_over.png").convert_alpha()
 game_over_image = pygame.transform.scale(
     game_over_image, (WIDTH_PANTALLA, HEIGHT_PANTALLA))
+
+
+dict_animations = {
+    "pig_fly": pig_fly,
+    "pig_dead": pig_dead,
+    "bunny_idle": bunny_idle,
+    "plant_attack": plant_attack,
+    "plant_idle": plant_idle,
+}

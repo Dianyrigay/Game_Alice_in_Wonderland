@@ -53,14 +53,14 @@ class Platform:
             self.group.update(screen)
 
 class MovingPlatform(Platform):
-  def __init__(self, path, cantidad, separacion, x, y, group, limit_left, limit_rigth, change_x, change_y, player: Player):
+  def __init__(self, path, cantidad, separacion, x, y, group, limit_left, limit_rigth, change_x, change_y, limit_top, limit_bottom, player: Player):
       super().__init__(path, cantidad, separacion, x, y, group)
 
       self.change_x = change_x
       self.change_y = change_y
 
-      self.limit_top = 0
-      self.limit_bottom = 0
+      self.limit_top = limit_top
+      self.limit_bottom = limit_bottom
       self.limit_left = limit_left
       self.limit_right = limit_rigth
 
@@ -79,8 +79,11 @@ class MovingPlatform(Platform):
         else:
             self.player.rect.left = self.rect.right
 
-    if self.player.rect.bottom == self.rect.top and self.player.animacion == quieto:
-        self.player.rect.x += self.change_x
+    if self.player.rect.bottom == self.rect.top:
+        if self.change_x != 0:
+            self.player.rect.x += self.change_x
+        else:
+            self.player.rect.y += self.change_y
 
     self.rect.y += self.change_y
 

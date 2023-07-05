@@ -49,13 +49,15 @@
     "enemy_shooter": [
       {
         "x": 1200,
-        "y": 680
+        "y": 680,
+        "animation": "plant_attack"
       }
     ],
     "enemy_moving": [
       {
         "x": 700,
-        "y": 250
+        "y": 250,
+        "animation": "pig_fly"
       }
     ],
     "exit_portal": {

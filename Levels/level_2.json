@@ -1,7 +1,7 @@
 {
   "level_2": {
     "background": "./images/fondo/tea.png",
-    "path_platforms": "./images/platforms/tea.png",
+    "path_platforms": "./images/platforms/roca.jpg",
     "platforms": [
       {
         "cantidad": 3,
@@ -16,6 +16,73 @@
         "x": 300,
         "y": 200,
         "animations": "./images/items/taza1.png"
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 675,
+        "y": 0
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 675,
+        "y": 54
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 675,
+        "y": 108
+      }
+      ,
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 675,
+        "y": 162
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 675,
+        "y": 432
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 675,
+        "y": 486
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 675,
+        "y": 540
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 675,
+        "y": 594
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 675,
+        "y": 648
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 675,
+        "y": 702
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 675,
+        "y": 756
       }
     ],
     "moving_platforms": [
@@ -27,24 +94,34 @@
         "change_x": 1,
         "change_y": 0,
         "limit_left": 500,
-        "limit_rigth": 1200
+        "limit_rigth": 1000,
+        "limit_top": 0,
+        "limit_bottom": 0
+      },
+      {
+        "cantidad": 2,
+        "separacion": 0,
+        "x": 150,
+        "y": 350,
+        "change_x": 0,
+        "change_y": 1,
+        "limit_left": 0,
+        "limit_rigth": 0,
+        "limit_top": 200,
+        "limit_bottom": 600
       }
     ]
     ,
-    "enemy_shooter": [
-      {
-        "x": 600,
-        "y": 300
-      }
-    ],
     "enemy_moving": [
       {
         "x": 700,
-        "y": 250
+        "y": 250,
+        "animation": "pig_fly"
       },
       {
         "x": 100,
-        "y": 500
+        "y": 500,
+        "animation": "pig_fly"
       }
     ],
     "exit_portal": {
