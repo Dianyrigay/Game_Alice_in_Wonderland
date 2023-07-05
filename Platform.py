@@ -80,7 +80,7 @@ class MovingPlatform(Platform):
             self.player.rect.left = self.rect.right
 
     if self.player.rect.bottom == self.rect.top and self.player.animacion == quieto:
-        self.player.rect.centerx = self.rect.centerx
+        self.player.rect.x += self.change_x
 
     self.rect.y += self.change_y
 

@@ -18,7 +18,7 @@ pygame.display.set_caption('Alice in Worderland')
 icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
 
-def play():
+def play(level_play = "level_1"):
   ambient_suspence.play()
 
   # Grupos de sprites
@@ -32,7 +32,7 @@ def play():
 
   list_level = []
 
-  level = Level(bullets_group, bubbles_group, items_group, traps_group, player, "level_1", "./Levels/Level1.json")
+  level = Level(bullets_group, bubbles_group, items_group, traps_group, player, level_play, f"./Levels/{level_play}.json")
   list_level.append(level.level)
   running_game = True
   game_over = False
@@ -56,14 +56,16 @@ def play():
       level.draw(screen)
       level.update(screen)
 
-      if level.next_level == "Level2":
+      if level.next_level == "level_2":
+        level_play = "level_2"
         level = Level(bullets_group, bubbles_group, items_group,
-                        traps_group, player, "level_2", f"./Levels/{level.next_level}.json")
+                      traps_group, player, level_play, f"./Levels/{level.next_level}.json")
         game_over = False
         list_level.append(level.level)
-      elif level.next_level == "Level3":
+      elif level.next_level == "level_3":
+        level_play = "level_3"
         level = Level(bullets_group, bubbles_group, items_group,
-                      traps_group, player, "level_3", f"./Levels/{level.next_level}.json")
+                      traps_group, player, level_play, f"./Levels/{level.next_level}.json")
         list_level.append(level.level)
     else:
       ambient_suspence.stop()
@@ -72,6 +74,41 @@ def play():
 
     pygame.display.update()
     clock.tick(FPS)
+
+def levels():
+  while True:
+    screen.fill("black")
+
+    MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+    LEVEL_1 = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=320,
+                        text_input="LEVEL 1", base_color="white", hovering_color="yellow")
+    LEVEL_2 = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=400,
+                          text_input="LEVEL 2", base_color="white", hovering_color="yellow")
+    LEVEL_3 = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=480,
+                        text_input="LEVEL 3", base_color="white", hovering_color="yellow")
+
+    for button in [LEVEL_1, LEVEL_2, LEVEL_3]:
+      button.changeColor(MENU_MOUSE_POS)
+      button.update(screen)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            alice_intro.stop()
+            click_magic.play()
+            if LEVEL_1.checkForInput(MENU_MOUSE_POS):
+              play("level_1")
+            if LEVEL_2.checkForInput(MENU_MOUSE_POS):
+              play("level_2")
+            if LEVEL_3.checkForInput(MENU_MOUSE_POS):
+              play("level_3")
+            else:
+              click_magic.stop()
+
+    pygame.display.update()
 
 def main_menu():
   alice_intro.play()
@@ -97,17 +134,17 @@ def main_menu():
             exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             click_magic.play()
+            alice_intro.stop()
             if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-              alice_intro.stop()
               play()
             if LEVELS_BUTTON.checkForInput(MENU_MOUSE_POS):
-              pass
+              levels()
             if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
               pygame.quit()
               exit()
             else:
               click_magic.stop()
-    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
     pygame.display.update()
 
 main_menu()

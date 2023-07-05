@@ -11,10 +11,10 @@
         "animations": "./images/items/taza1.png"
       },
       {
-        "cantidad": 5,
+        "cantidad": 4,
         "separacion": 0,
-        "x": 400,
-        "y": 300,
+        "x": 300,
+        "y": 200,
         "animations": "./images/items/taza1.png"
       }
     ],
@@ -23,7 +23,7 @@
         "cantidad": 3,
         "separacion": 0,
         "x": 700,
-        "y": 400,
+        "y": 350,
         "change_x": 1,
         "change_y": 0,
         "limit_left": 500,
