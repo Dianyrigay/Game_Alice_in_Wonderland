@@ -78,7 +78,7 @@ class Level():
         group = self.items_group
 
         platform = MovingPlatform(path, cantidad, separacion, x,
-                                  y, group, limit_left, limit_rigth, change_x, change_y)
+                                  y, group, limit_left, limit_rigth, change_x, change_y, self.player)
         self.platforms_list.append(platform)
 
     for enemy in self.level_data['enemy_shooter']:
@@ -132,7 +132,6 @@ class Level():
       self.collition.portal = self.portal
 
     for platform in self.platforms_list:
-      if type(platform) == MovingPlatform:
         platform.update()
 
     self.collition.update(screen)
