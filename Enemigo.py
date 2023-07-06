@@ -31,11 +31,11 @@ class Enemy_Shooter(Enemigo):
     super().__init__(posicion, animacion)
     self.izquierda = True
 
-  def update(self, piso_rect, bullets_group, screen):
+  def update(self, piso_rect, bullets_group):
     super().update()
     if not self.muerto:
       self.mover_personaje_x(piso_rect)
-      self.disparar(bullets_group, screen)
+      self.disparar(bullets_group)
 
   def draw(self, screen):
     super().draw(screen, plant_dead)

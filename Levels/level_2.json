@@ -94,7 +94,7 @@
         "change_x": 2,
         "change_y": 0,
         "limit_left": 500,
-        "limit_rigth": 1000,
+        "limit_right": 1000,
         "limit_top": 0,
         "limit_bottom": 0
       },
@@ -104,9 +104,9 @@
         "x": 150,
         "y": 350,
         "change_x": 0,
-        "change_y": 1,
+        "change_y": 2,
         "limit_left": 0,
-        "limit_rigth": 0,
+        "limit_right": 0,
         "limit_top": 200,
         "limit_bottom": 600
       }

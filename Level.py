@@ -46,87 +46,107 @@ class Level():
       data = json.load(file)
       self.level_data = data[self.level]
 
-    if self.level == "level_2":
-      ambient_suspence.stop()
-      ambient_fantasy.play()
-    elif self.level == "level_3":
-      ambient_fantasy.stop()
-      ambient_horror.play()
-    self.background = pygame.transform.scale(pygame.image.load(self.level_data['background']).convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
+    self.set_background_music()
+    self.load_background()
+    self.load_platforms()
+    self.load_moving_platforms()
+    self.load_enemy_shooters()
+    self.load_enemy_movings()
+    self.create_collisions()
+    self.create_floor_surface()
+    self.create_portal()
 
-    for platform in self.level_data['platforms']:
-      path = self.level_data["path_platforms"]
-      cantidad = platform['cantidad']
-      separacion = platform['separacion']
-      x = platform['x']
-      y = platform['y']
-      if "animations" in platform:
-        if platform["animations"] == "mirror":
-          animations = mirror
-          group = self.traps_group
-        else:
-          animations = platform['animations']
-          group = self.items_group
-      else:
-        animations = None
+  def set_background_music(self):
+      if self.level == "level_2":
+          ambient_suspence.stop()
+          ambient_fantasy.play()
+      elif self.level == "level_3":
+          ambient_fantasy.stop()
+          ambient_horror.play()
 
-      platform = Platform(path, cantidad, separacion, x, y, group, animations)
-      self.platforms_list.append(platform)
+  def load_background(self):
+      self.background = pygame.transform.scale(pygame.image.load(
+          self.level_data['background']).convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 
-    if 'moving_platforms' in self.level_data:
-      for platform in self.level_data["moving_platforms"]:
-        path = self.level_data["path_platforms"]
-        cantidad = platform['cantidad']
-        separacion = platform['separacion']
-        x = platform['x']
-        y = platform['y']
-        limit_left = platform['limit_left']
-        limit_rigth = platform['limit_rigth']
-        change_x = platform['change_x']
-        change_y = platform['change_y']
-        limit_top = platform['limit_top']
-        limit_bottom = platform['limit_bottom']
-        group = self.items_group
+  def load_platforms(self):
+      for platform in self.level_data['platforms']:
+          path = self.level_data["path_platforms"]
+          cantidad = platform['cantidad']
+          separacion = platform['separacion']
+          x = platform['x']
+          y = platform['y']
+          animations = None
 
-        platform = MovingPlatform(path, cantidad, separacion, x,
-                                  y, group, limit_left, limit_rigth, change_x, change_y, limit_top, limit_bottom, self.player)
-        self.platforms_list.append(platform)
+          if "animations" in platform:
+              if platform["animations"] == "mirror":
+                  animations = mirror
+                  group = self.traps_group
+              else:
+                  animations = platform['animations']
+                  group = self.items_group
+          else:
+              group = self.items_group
 
-    if 'enemy_shooter' in self.level_data:
-      for enemy in self.level_data['enemy_shooter']:
+          platform = Platform(path, cantidad, separacion,
+                              x, y, group, animations)
+          self.platforms_list.append(platform)
+
+  def load_moving_platforms(self):
+      if 'moving_platforms' in self.level_data:
+          for platform in self.level_data["moving_platforms"]:
+              path = self.level_data["path_platforms"]
+              cantidad = platform['cantidad']
+              separacion = platform['separacion']
+              x = platform['x']
+              y = platform['y']
+              limit_left = platform['limit_left']
+              limit_right = platform['limit_right']
+              change_x = platform['change_x']
+              change_y = platform['change_y']
+              limit_top = platform['limit_top']
+              limit_bottom = platform['limit_bottom']
+              group = self.items_group
+
+              platform = MovingPlatform(path, cantidad, separacion, x,
+                                        y, group, limit_left, limit_right, change_x, change_y, limit_top, limit_bottom, self.player)
+              self.platforms_list.append(platform)
+
+  def load_enemy_shooters(self):
+      if 'enemy_shooter' in self.level_data:
+          for enemy in self.level_data['enemy_shooter']:
+              x = enemy['x']
+              y = enemy['y']
+              animation_name = enemy['animation']
+              animation = dict_animations[animation_name]
+
+              enemy = Enemy_Shooter((x, y), animation)
+              self.enemy_list.append(enemy)
+
+  def load_enemy_movings(self):
+      for enemy in self.level_data['enemy_moving']:
           x = enemy['x']
           y = enemy['y']
           animation_name = enemy['animation']
           animation = dict_animations[animation_name]
-
-          enemy = Enemy_Shooter((x, y), animation)
+          enemy = Enemy_Moving((x, y), animation)
           self.enemy_list.append(enemy)
 
-    for enemy in self.level_data['enemy_moving']:
-      x = enemy['x']
-      y = enemy['y']
-      animation_name = enemy['animation']
-      animation = dict_animations[animation_name]
-      enemy = Enemy_Moving((x, y), animation)
-      self.enemy_list.append(enemy)
-
-    # colisiones
+  def create_collisions(self):
     collitions = Collition(self.player, self.enemy_list, self.platforms_list,
-                          self.bullets_group, self.bubbles_group, self.items_group, sonidos_caracters, self.traps_group, self.portal)
+                             self.bullets_group, self.bubbles_group, self.items_group, sonidos_caracters, self.traps_group, self.portal)
     self.collition = collitions
 
-    # Superficie piso
+  def create_floor_surface(self):
     piso_surf = pygame.Surface((WIDTH_PANTALLA, ALTURA_PISO))
     self.piso_rect = piso_surf.get_rect(topleft=(0, HEIGHT_PANTALLA - ALTURA_PISO))
 
-    # Portal
+  def create_portal(self):
     x_portal = self.level_data["exit_portal"]["x"]
     y_portal = self.level_data["exit_portal"]["y"]
     animation_portal = self.level_data["exit_portal"]["animation"]
     animation_portal = obtener_surface_de_spriteSheet(animation_portal, 8, 1, 1)
 
     self.portal = Portal(x_portal, y_portal, animation_portal)
-
   # Update all in this level
   def update(self, screen):
     self.player.update(screen, self.platforms_list, self.piso_rect)
@@ -137,7 +157,7 @@ class Level():
 
     for enemigo in self.enemy_list:
       if type(enemigo) == Enemy_Shooter:
-        enemigo.update(self.piso_rect, self.bullets_group, screen)
+        enemigo.update(self.piso_rect, self.bullets_group)
       else:
         enemigo.update()
 
