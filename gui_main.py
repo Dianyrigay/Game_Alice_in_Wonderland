@@ -19,8 +19,6 @@ icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
 
 def play(level_play = "level_1"):
-  ambient_suspence.play()
-
   # Grupos de sprites
   bullets_group = pygame.sprite.Group()
   bubbles_group = pygame.sprite.Group()
@@ -32,7 +30,7 @@ def play(level_play = "level_1"):
 
   list_level = []
 
-  level = Level(bullets_group, bubbles_group, items_group, traps_group, player, level_play, f"./Levels/{level_play}.json")
+  level = Level(bullets_group, bubbles_group, items_group, traps_group, player, level_play)
   list_level.append(level.level)
   running_game = True
   game_over = False
@@ -50,6 +48,8 @@ def play(level_play = "level_1"):
     player.eventos(bubbles_group)
     if level_play == "level_2":
       player.transition_dark = True
+    elif level_play == "level_3":
+      player.dark = True
 
     if not game_over:
       if player.muerto or level.time_restante == 0:
@@ -61,13 +61,13 @@ def play(level_play = "level_1"):
       if level.next_level == "level_2":
         level_play = "level_2"
         level = Level(bullets_group, bubbles_group, items_group,
-                      traps_group, player, level_play, f"./Levels/{level.next_level}.json")
+                      traps_group, player, level_play)
         game_over = False
         list_level.append(level.level)
       elif level.next_level == "level_3":
         level_play = "level_3"
         level = Level(bullets_group, bubbles_group, items_group,
-                      traps_group, player, level_play, f"./Levels/{level.next_level}.json")
+                      traps_group, player, level_play)
         list_level.append(level.level)
     else:
       ambient_suspence.stop()

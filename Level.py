@@ -11,10 +11,9 @@ from Platform import Platform, MovingPlatform
 from collitions import Collition
 
 class Level():
-  def __init__(self, bullets_group, bubbles_group, items_group, traps_group, player: Player, level, level_data_json) -> None:
+  def __init__(self, bullets_group, bubbles_group, items_group, traps_group, player: Player, level) -> None:
     # --List
     self.platforms_list = []
-    self.moving_platforms_list = []
     self.enemy_list = []
     # --Group
     self.items_group = items_group
@@ -36,7 +35,7 @@ class Level():
     self.portal = None
     # --Data level json
     self.level = level
-    self.load_level_data(level_data_json)
+    self.load_level_data(f"./Levels/{level}.json")
     self.level_data = None
     self.next_level = None
 
@@ -57,39 +56,41 @@ class Level():
     self.create_portal()
 
   def set_background_music(self):
-      if self.level == "level_2":
-          ambient_suspence.stop()
-          ambient_fantasy.play()
-      elif self.level == "level_3":
-          ambient_fantasy.stop()
-          ambient_horror.play()
+    if self.level == "level_1":
+      ambient_suspence.play()
+    elif self.level == "level_2":
+      ambient_suspence.stop()
+      ambient_fantasy.play()
+    elif self.level == "level_3":
+      ambient_fantasy.stop()
+      ambient_horror.play()
 
   def load_background(self):
-      self.background = pygame.transform.scale(pygame.image.load(
+    self.background = pygame.transform.scale(pygame.image.load(
           self.level_data['background']).convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 
   def load_platforms(self):
-      for platform in self.level_data['platforms']:
-          path = self.level_data["path_platforms"]
-          cantidad = platform['cantidad']
-          separacion = platform['separacion']
-          x = platform['x']
-          y = platform['y']
-          animations = None
+    for platform in self.level_data['platforms']:
+      path = self.level_data["path_platforms"]
+      cantidad = platform['cantidad']
+      separacion = platform['separacion']
+      x = platform['x']
+      y = platform['y']
+      animations = None
 
-          if "animations" in platform:
-              if platform["animations"] == "mirror":
-                  animations = mirror
-                  group = self.traps_group
-              else:
-                  animations = platform['animations']
-                  group = self.items_group
-          else:
-              group = self.items_group
+      if "animations" in platform:
+        if platform["animations"] == "mirror":
+          animations = mirror
+          group = self.traps_group
+        else:
+          animations = platform['animations']
+          group = self.items_group
+      else:
+        group = self.items_group
 
-          platform = Platform(path, cantidad, separacion,
+      platform = Platform(path, cantidad, separacion,
                               x, y, group, animations)
-          self.platforms_list.append(platform)
+      self.platforms_list.append(platform)
 
   def load_moving_platforms(self):
       if 'moving_platforms' in self.level_data:
@@ -112,24 +113,26 @@ class Level():
               self.platforms_list.append(platform)
 
   def load_enemy_shooters(self):
-      if 'enemy_shooter' in self.level_data:
-          for enemy in self.level_data['enemy_shooter']:
-              x = enemy['x']
-              y = enemy['y']
-              animation_name = enemy['animation']
-              animation = dict_animations[animation_name]
+    if 'enemy_shooter' in self.level_data:
+      for enemy in self.level_data['enemy_shooter']:
+        x = enemy['x']
+        y = enemy['y']
+        animation_name = enemy['animation']
+        animation = dict_animations[animation_name]
 
-              enemy = Enemy_Shooter((x, y), animation)
-              self.enemy_list.append(enemy)
+        enemy = Enemy_Shooter((x, y), animation)
+        self.enemy_list.append(enemy)
 
   def load_enemy_movings(self):
+    if 'enemy_moving' in self.level_data:
       for enemy in self.level_data['enemy_moving']:
-          x = enemy['x']
-          y = enemy['y']
-          animation_name = enemy['animation']
-          animation = dict_animations[animation_name]
-          enemy = Enemy_Moving((x, y), animation)
-          self.enemy_list.append(enemy)
+        x = enemy['x']
+        y = enemy['y']
+        animation_name = enemy['animation']
+        animation = dict_animations[animation_name]
+
+        enemy = Enemy_Moving((x, y), animation)
+        self.enemy_list.append(enemy)
 
   def create_collisions(self):
     collitions = Collition(self.player, self.enemy_list, self.platforms_list,

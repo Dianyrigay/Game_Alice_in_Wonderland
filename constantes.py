@@ -32,10 +32,11 @@ click_magic = pygame.mixer.Sound('./sonidos/magic.wav')
 bubble_sound = pygame.mixer.Sound('./sonidos/bubble.wav')
 portal_magic = pygame.mixer.Sound('./sonidos/portal-magic.wav')
 suspence_invertion = pygame.mixer.Sound('./sonidos/suspence_invertion.wav')
+knife_sound = pygame.mixer.Sound('./sonidos/knife.wav')
 
 sonidos_caracters = [items_win, game_over_sound,
-                     pig_dead_sound, impact, plant_dead_sound, ambient_fantasy, alice_intro, click_magic, bubble_sound, suspence_invertion]
-sonidos_005 = [ambient_suspence, portal_magic]
+                     pig_dead_sound, impact, plant_dead_sound, ambient_fantasy, alice_intro, click_magic, bubble_sound, suspence_invertion, knife_sound]
+sonidos_005 = [ambient_suspence, portal_magic, ambient_horror]
 
 for sonido in sonidos_005:
   sonido.set_volume(0.05)

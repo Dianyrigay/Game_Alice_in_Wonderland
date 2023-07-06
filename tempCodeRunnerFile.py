@@ -1,1 +1,1 @@
-transition_dark
+disparar

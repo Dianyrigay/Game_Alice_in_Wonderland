@@ -16,32 +16,6 @@
         "x": 700,
         "y": 280,
         "animations": "./images/items/taza1.png"
-      },
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 1200,
-        "y": 500,
-        "animations": "./images/items/pocion.png"
-      }
-    ],
-    "enemy_shooter": [
-      {
-        "x": 600,
-        "y": 300,
-        "animation": "plant_attack"
-      }
-    ],
-    "enemy_moving": [
-      {
-        "x": 700,
-        "y": 250,
-        "animation": "pig_fly"
-      },
-      {
-        "x": 100,
-        "y": 500,
-        "animation": "pig_fly"
       }
     ],
     "exit_portal": {

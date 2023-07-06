@@ -1,7 +1,7 @@
 {
   "level_2": {
     "background": "./images/fondo/tea.png",
-    "path_platforms": "./images/platforms/roca.jpg",
+    "path_platforms": "./images/platforms/roca.png",
     "platforms": [
       {
         "cantidad": 2,
@@ -15,7 +15,7 @@
         "separacion": 0,
         "x": 300,
         "y": 200,
-        "animations": "./images/items/taza1.png"
+        "animations": "./images/items/sombrero.png"
       },
       {
         "cantidad": 1,

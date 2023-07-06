@@ -29,7 +29,7 @@
         "separacion": 0,
         "x": 270,
         "y": 250,
-        "animations": "./images/items/key-00.png"
+        "animations": "./images/items/key-yellow.png"
       },
       {
         "cantidad": 1,

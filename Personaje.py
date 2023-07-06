@@ -1,6 +1,8 @@
 import pygame
-from constantes import *
-from animaciones import bubble
+
+from constantes import bubble_sound, knife_sound
+
+from animaciones import bubble, knife
 from Bala import Bala
 
 class Personaje():
@@ -23,6 +25,8 @@ class Personaje():
     if self.cuenta_pasos % self.cadencia == 0:
       if imagen_bala == bubble:
         bubble_sound.play()
+      elif imagen_bala == knife:
+        knife_sound.play()
       y = self.rect.centery
       if self.izquierda:
         x = self.rect.left

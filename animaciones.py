@@ -1,5 +1,4 @@
 import pygame
-from typing import Any
 from utilidades import *
 
 pygame.init()
@@ -94,7 +93,7 @@ reescalar_imagen(lista_animaciones_bunny, 2)
 
 # ITEMS
 pocion_reduce = './images/items/pocion.png'
-key_yellow = './images/items/key-00.png'
+key_yellow = './images/items/key-yellow.png'
 taza1 = './images/items/taza1.png'
 
 # TRAMPAS

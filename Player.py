@@ -7,26 +7,30 @@ class Player(Personaje):
   def __init__(self) -> None:
     super().__init__()
     # -- Attributos
+    self.entrada_cayendo = True
     self.rect = idle[0].get_rect(topleft=(0, 0))
+    self.rect_lives = live[0].get_rect(topleft=(1340, 20))
     self.velocidad_x = 0
     self.velocidad_y = 0
+    # -- salto
     self.gravedad = 0.9
     self.potencia_salto = -13
     self.esta_cayendo = False
-    self.entrada_cayendo = True
-    self.lives = 3
-    self.rect_lives = live[0].get_rect(topleft=(1340, 20))
-    self.cadencia = 10
-    self.contador_cambio_animacion = 30
-    self.score = 0
-    self.key_recogida = False
-    self.invertir_movimientos = False
-    self.tiempo_invertido = 10 * FPS
     self.can_double_jump = False
-    self.enter_portal = False
+    # --animaciones
+    self.contador_cambio_animacion = 30
+    self.cadencia = 10
+    self.lives = 3
+    self.score = 0
     self.list_animations = list_alice
+    # -- cambios segun niveles
+    self.tiempo_invertido = 10 * FPS
+    self.invertir_movimientos = False
     self.transition_dark = False
     self.dark = False
+    # --cumplimiento nivel
+    self.key_recogida = False
+    self.enter_portal = False
 
   def mover_personaje_x(self):
     self.rect.x += self.velocidad_x
@@ -79,14 +83,13 @@ class Player(Personaje):
         suspence_invertion.stop()
         self.tiempo_invertido = 0
 
-    if self.rect.x >= WIDTH_PANTALLA / 2 and self.transition_dark:
+    if (self.rect.x >= WIDTH_PANTALLA / 2 and self.transition_dark) or self.dark:
       self.list_animations = list_alice_dark
     else:
       self.list_animations = list_alice
 
     # if self.dark:
     #   self.list_animations = list_alice_dark
-
 
     # if self.enter_portal:
     #   animar_pantalla(screen, transition_alice)
@@ -149,7 +152,7 @@ class Player(Personaje):
       screen.blit(live[indice_imagen], (x, self.rect_lives.y))
 
   def disparar(self, bubbles_group):
-    if self.rect.x >= WIDTH_PANTALLA / 2 and self.transition_dark:
+    if (self.rect.x >= WIDTH_PANTALLA / 2 and self.transition_dark) or self.dark:
       arma = knife
     else:
       arma = bubble
