@@ -80,16 +80,14 @@ bala_plant = pygame.image.load('./images/enemigos/plant/bala_plant.gif').convert
 pig_fly = obtener_surface_de_spriteSheet('./images/enemigos/pig/pig_fly.png', 7, 1, 1)
 pig_dead = obtener_surface_de_spriteSheet('./images/enemigos/pig/pig_dead.png', 7, 1, 1)
 
-#bunny
-bunny_idle = [pygame.image.load('./images/enemigos/bunny/idle/0.png').convert_alpha(),
-              pygame.image.load('./images/enemigos/bunny/idle/1.png').convert_alpha(),
-              pygame.image.load('./images/enemigos/bunny/idle/2.png').convert_alpha(),
-              pygame.image.load('./images/enemigos/bunny/idle/3.png').convert_alpha(),]
-
-lista_animaciones_bunny = [bunny_idle]
-reescalar_imagen(lista_animaciones_bunny, 2)
-
-
+#cuervo
+cuervo_walk = obtener_surface_de_spriteSheet(
+    './images/enemigos/cuervo/walk.png', 6, 1, 1)
+cuervo_hit = obtener_surface_de_spriteSheet(
+'./images/enemigos/cuervo/hit.png', 3, 1, 1)
+cuervo_attack = obtener_surface_de_spriteSheet(
+    './images/enemigos/cuervo/attack.png', 7, 1, 1)
+reescalar_imagen([cuervo_walk, cuervo_hit, cuervo_attack], 3)
 
 # ITEMS
 pocion_reduce = './images/items/pocion.png'
@@ -117,7 +115,7 @@ game_over_image = pygame.transform.scale(
 dict_animations = {
     "pig_fly": pig_fly,
     "pig_dead": pig_dead,
-    "bunny_idle": bunny_idle,
     "plant_attack": plant_attack,
     "plant_idle": plant_idle,
+    "cuervo_walk": cuervo_walk
 }

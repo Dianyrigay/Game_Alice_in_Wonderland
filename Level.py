@@ -5,7 +5,7 @@ from utilidades import *
 from animaciones import *
 
 from Player import Player
-from Enemigo import Enemy_Shooter, Enemy_Moving
+from Enemigo import Enemy_Shooter, Enemy_Moving, Enemy_Attack
 from Item import Portal
 from Platform import Platform, MovingPlatform
 from collitions import Collition
@@ -51,6 +51,7 @@ class Level():
     self.load_moving_platforms()
     self.load_enemy_shooters()
     self.load_enemy_movings()
+    self.load_enemy_attack()
     self.create_collisions()
     self.create_floor_surface()
     self.create_portal()
@@ -93,24 +94,24 @@ class Level():
       self.platforms_list.append(platform)
 
   def load_moving_platforms(self):
-      if 'moving_platforms' in self.level_data:
-          for platform in self.level_data["moving_platforms"]:
-              path = self.level_data["path_platforms"]
-              cantidad = platform['cantidad']
-              separacion = platform['separacion']
-              x = platform['x']
-              y = platform['y']
-              limit_left = platform['limit_left']
-              limit_right = platform['limit_right']
-              change_x = platform['change_x']
-              change_y = platform['change_y']
-              limit_top = platform['limit_top']
-              limit_bottom = platform['limit_bottom']
-              group = self.items_group
+    if 'moving_platforms' in self.level_data:
+      for platform in self.level_data["moving_platforms"]:
+        path = self.level_data["path_platforms"]
+        cantidad = platform['cantidad']
+        separacion = platform['separacion']
+        x = platform['x']
+        y = platform['y']
+        limit_left = platform['limit_left']
+        limit_right = platform['limit_right']
+        change_x = platform['change_x']
+        change_y = platform['change_y']
+        limit_top = platform['limit_top']
+        limit_bottom = platform['limit_bottom']
+        group = self.items_group
 
-              platform = MovingPlatform(path, cantidad, separacion, x,
+        platform = MovingPlatform(path, cantidad, separacion, x,
                                         y, group, limit_left, limit_right, change_x, change_y, limit_top, limit_bottom, self.player)
-              self.platforms_list.append(platform)
+        self.platforms_list.append(platform)
 
   def load_enemy_shooters(self):
     if 'enemy_shooter' in self.level_data:
@@ -132,6 +133,17 @@ class Level():
         animation = dict_animations[animation_name]
 
         enemy = Enemy_Moving((x, y), animation)
+        self.enemy_list.append(enemy)
+
+  def load_enemy_attack(self):
+    if 'enemy_attack' in self.level_data:
+      for enemy in self.level_data['enemy_attack']:
+        x = enemy['x']
+        y = enemy['y']
+        animation_name = enemy['animation']
+        animation = dict_animations[animation_name]
+
+        enemy = Enemy_Attack((x, y), animation)
         self.enemy_list.append(enemy)
 
   def create_collisions(self):
@@ -162,6 +174,8 @@ class Level():
     for enemigo in self.enemy_list:
       if type(enemigo) == Enemy_Shooter:
         enemigo.update(self.piso_rect, self.bullets_group)
+      elif type(enemigo) == Enemy_Attack:
+        enemigo.update(self.player.rect, self.platforms_list)
       else:
         enemigo.update()
 

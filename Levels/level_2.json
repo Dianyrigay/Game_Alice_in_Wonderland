@@ -20,75 +20,8 @@
         "cantidad": 1,
         "separacion": 0,
         "x": 1200,
-        "y": 500,
+        "y": 400,
         "animations": "./images/items/key-red.png"
-      },
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 675,
-        "y": 0
-      },
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 675,
-        "y": 54
-      },
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 675,
-        "y": 108
-      }
-      ,
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 675,
-        "y": 162
-      },
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 675,
-        "y": 432
-      },
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 675,
-        "y": 486
-      },
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 675,
-        "y": 540
-      },
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 675,
-        "y": 594
-      },
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 675,
-        "y": 648
-      },
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 675,
-        "y": 702
-      },
-      {
-        "cantidad": 1,
-        "separacion": 0,
-        "x": 675,
-        "y": 756
       }
     ],
     "moving_platforms": [
@@ -128,6 +61,13 @@
         "x": 100,
         "y": 450,
         "animation": "pig_fly"
+      }
+    ],
+    "enemy_attack": [
+      {
+        "x": 900,
+        "y": 680,
+        "animation": "cuervo_walk"
       }
     ],
     "exit_portal": {

@@ -3,7 +3,7 @@ import pygame
 from animaciones import *
 from constantes import *
 
-from Enemigo import Enemy_Moving
+from Enemigo import Enemy_Moving, Enemy_Attack
 from Player import Player
 
 class Collition:
@@ -44,7 +44,7 @@ class Collition:
       impact.play()
       self.player.score -= 50
       self.player.animacion = angry
-      self.player.rect.x += -10
+      # self.player.rect.x += -10
 
   def enemy_collide_bubbles(self):
     if self.enemy_list != None:
@@ -53,10 +53,17 @@ class Collition:
         if colisiona_burbujas_enemigo:
           if type(enemigo) == Enemy_Moving:
             pig_dead_sound.play()
+            enemigo.muerto = True
+          elif type(enemigo) == Enemy_Attack:
+            print(enemigo.lives)
+            enemigo.lives -= 1
+            enemigo.animacion = cuervo_hit
+            if enemigo.lives == 0:
+              enemigo.muerto = True
           else:
             plant_dead_sound.play()
+            enemigo.muerto = True
           self.player.score += 100
-          enemigo.muerto = True
         if enemigo.contador_muerte == 0:
           self.enemy_list.remove(enemigo)
 

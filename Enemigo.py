@@ -7,7 +7,7 @@ class Enemigo(Personaje):
   def __init__(self, posicion: tuple, animacion: list) -> None:
     super().__init__()
     # -- Attributos
-    self.velocidad_animacion = 20
+    self.velocidad_animacion = 10
     self.posicion = posicion
     self.rect = animacion[0].get_rect(
         midbottom=posicion)
@@ -27,7 +27,7 @@ class Enemigo(Personaje):
       self.contador_muerte -= 1
 
 class Enemy_Shooter(Enemigo):
-  def __init__(self, posicion, animacion) -> None:
+  def __init__(self, posicion: tuple, animacion: list) -> None:
     super().__init__(posicion, animacion)
     self.izquierda = True
 
@@ -47,9 +47,9 @@ class Enemy_Shooter(Enemigo):
     self.rect.bottom = piso_rect.top
 
 class Enemy_Moving(Enemigo):
-  def __init__(self, posicion, animacion) -> None:
+  def __init__(self, posicion: tuple, animacion: list) -> None:
     super().__init__(posicion, animacion)
-    self.velocidad_x = 4
+    self.velocidad_x = 3
 
   def update(self):
     super().update()
@@ -69,3 +69,48 @@ class Enemy_Moving(Enemigo):
       self.rect.x -= self.velocidad_x
       if self.rect.left < MARGEN_IZQUIERDO:
         self.izquierda = False
+
+class Enemy_Attack(Enemigo):
+  def __init__(self, posicion: tuple, animacion: list) -> None:
+    super().__init__(posicion, animacion)
+    self.velocidad_x = 2
+    self.lives = 3
+
+  def update(self, player_rect, platforms_list):
+    super().update()
+    if not self.muerto:
+      self.mover_personaje_x()
+      self.check_collision(platforms_list)
+      if self.rect.y <= player_rect.y and abs(self.rect.x - player_rect.x) <= 500:
+        self.attack_player(player_rect, platforms_list)
+      else:
+        self.animacion = cuervo_walk
+      if self.velocidad_x > 0:
+        self.izquierda = False
+      else:
+        self.izquierda = True
+
+  def draw(self, screen):
+    super().draw(screen, cuervo_hit)
+
+  def attack_player(self, player_rect, platforms_list):
+    self.check_collision(platforms_list)
+    self.animacion = cuervo_attack
+    if self.rect.x < player_rect.x:
+        self.velocidad_x = 3
+    else:
+        self.velocidad_x = -3
+
+  def mover_personaje_x(self):
+    self.rect.x += self.velocidad_x
+
+  def check_collision(self, platforms_list):
+      for plataforma in platforms_list:
+          if self.rect.colliderect(plataforma.rect):
+              self.invert_direction()
+              break
+      if self.rect.left < 0 or self.rect.right > WIDTH_PANTALLA:
+          self.invert_direction()
+
+  def invert_direction(self):
+      self.velocidad_x *= -1
