@@ -76,6 +76,9 @@ class Collition:
           self.player.key_recogida = True
         if item.animacion == pocion_reduce:
           self.player.reducir()
+        if item.animacion == live_item:
+          self.player.lives += 1
+          break
       items_win.play()
       self.player.score += 50
 

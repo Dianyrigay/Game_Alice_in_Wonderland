@@ -27,7 +27,7 @@ class Platform:
         for i in range(self.cantidad):
             y_item = self.rect.top - 10
             if type(self.animacion_items) == type(str()):
-                if self.animacion_items == (key_yellow or pocion_reduce):
+                if self.animacion_items == key_yellow or self.animacion_items == pocion_reduce or self.animacion_items == key_red or self.animacion_items == live_item:
                     x_item = self.rect.left + self.rect.width / 2
                     item = Item(x_item, y_item, self.animacion_items)
                 else:
