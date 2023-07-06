@@ -47,9 +47,11 @@ class Enemy_Shooter(Enemigo):
     self.rect.bottom = piso_rect.top
 
 class Enemy_Moving(Enemigo):
-  def __init__(self, posicion: tuple, animacion: list) -> None:
+  def __init__(self, posicion: tuple, animacion: list, limit_left: int, limit_right: int) -> None:
     super().__init__(posicion, animacion)
     self.velocidad_x = 3
+    self.limit_left = limit_left
+    self.limit_right = limit_right
 
   def update(self):
     super().update()
@@ -62,12 +64,12 @@ class Enemy_Moving(Enemigo):
   def mover_personaje_x(self):
     if not self.izquierda:
       self.rect.x += self.velocidad_x
-      if self.rect.right > MARGEN_DERECHO:
+      if self.rect.right > self.limit_right:
         self.izquierda = True
 
     if self.izquierda:
       self.rect.x -= self.velocidad_x
-      if self.rect.left < MARGEN_IZQUIERDO:
+      if self.rect.left < self.limit_left:
         self.izquierda = False
 
 class Enemy_Attack(Enemigo):

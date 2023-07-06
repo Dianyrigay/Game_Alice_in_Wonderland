@@ -108,9 +108,13 @@ class Level():
         limit_top = platform['limit_top']
         limit_bottom = platform['limit_bottom']
         group = self.items_group
+        animations = None
+
+        if "animations" in platform:
+          animations = platform['animations']
 
         platform = MovingPlatform(path, cantidad, separacion, x,
-                                        y, group, limit_left, limit_right, change_x, change_y, limit_top, limit_bottom, self.player)
+                                  y, group, limit_left, limit_right, change_x, change_y, limit_top, limit_bottom, self.player, animations)
         self.platforms_list.append(platform)
 
   def load_enemy_shooters(self):
@@ -129,10 +133,12 @@ class Level():
       for enemy in self.level_data['enemy_moving']:
         x = enemy['x']
         y = enemy['y']
+        limit_left = enemy['limit_left']
+        limit_right = enemy['limit_right']
         animation_name = enemy['animation']
         animation = dict_animations[animation_name]
 
-        enemy = Enemy_Moving((x, y), animation)
+        enemy = Enemy_Moving((x, y), animation, limit_left, limit_right)
         self.enemy_list.append(enemy)
 
   def load_enemy_attack(self):

@@ -7,6 +7,7 @@ class Item(pygame.sprite.Sprite):
     self.animacion = animacion
     self.image = pygame.image.load(self.animacion).convert_alpha()
     self.rect = self.image.get_rect(midbottom=(x, y))
+    self.move = False
 
 class Portal():
   def __init__(self, x, y, animacion) -> None:

@@ -9,10 +9,6 @@ FPS = 60
 
 TIEMPO_ENTRE_DISPAROS = 200
 
-# Movimiento en x del enemigo
-MARGEN_IZQUIERDO = 100
-MARGEN_DERECHO = 600
-
 # ------------------------Sonidos------------------------
 pygame.mixer.init()
 # ambient sound

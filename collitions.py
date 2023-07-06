@@ -55,7 +55,6 @@ class Collition:
             pig_dead_sound.play()
             enemigo.muerto = True
           elif type(enemigo) == Enemy_Attack:
-            print(enemigo.lives)
             enemigo.lives -= 1
             enemigo.animacion = cuervo_hit
             if enemigo.lives == 0:
