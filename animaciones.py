@@ -5,14 +5,17 @@ from utilidades import *
 pygame.init()
 pygame.display.set_mode((WIDTH_PANTALLA,HEIGHT_PANTALLA))
 # Alice
-quieto = [pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()]
+idle = [pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()]
+idle_dark = [pygame.image.load('./images/alice/idle-dark2.png').convert_alpha()]
 
-camina = [pygame.image.load('./images/alice/walk/rigth-00.png').convert_alpha(),
+walk = [pygame.image.load('./images/alice/walk/rigth-00.png').convert_alpha(),
               pygame.image.load('./images/alice/walk/rigth-01.png').convert_alpha(),
               pygame.image.load('./images/alice/walk/rigth-02.png').convert_alpha(),
               pygame.image.load('./images/alice/walk/rigth-03.png').convert_alpha(),
               pygame.image.load('./images/alice/walk/rigth-04.png').convert_alpha(),
               pygame.image.load('./images/alice/walk/rigth-05.png').convert_alpha()]
+
+walk_dark = obtener_surface_de_spriteSheet('./images/alice/walk-dark.png', 7, 1, 1)
 
 floating = [pygame.image.load('./images/alice/floating/floating-01.png').convert_alpha(),
             pygame.image.load('./images/alice/floating/floating-02.png').convert_alpha(),
@@ -20,6 +23,9 @@ floating = [pygame.image.load('./images/alice/floating/floating-01.png').convert
             pygame.image.load('./images/alice/floating/floating-04.png').convert_alpha(),
             pygame.image.load('./images/alice/floating/floating-05.png').convert_alpha(),
             pygame.image.load('./images/alice/floating/floating-06.png').convert_alpha()]
+
+floating_dark = obtener_surface_de_spriteSheet(
+    './images/alice/floating-dark.png', 5, 1, 1)
 
 dead = [pygame.image.load('./images/alice/dead/dead-01.gif').convert_alpha(),
         pygame.image.load('./images/alice/dead/dead-02.gif').convert_alpha(),
@@ -36,13 +42,16 @@ reducir = [pygame.image.load('./images/alice/reduce/shrinking-01.png').convert_a
            pygame.image.load('./images/alice/reduce/shrinking-04.png').convert_alpha(),
            pygame.image.load('./images/alice/reduce/shrinking-05.png').convert_alpha()]
 
-lista_animaciones_alice = [quieto, camina, floating, angry]
-reescalar_imagen(lista_animaciones_alice, 2.25)
+list_alice = [idle, walk, floating, angry]
+reescalar_imagen(list_alice, 2.25)
+list_alice_dark = [idle_dark, walk_dark, floating_dark]
+reescalar_imagen(list_alice_dark, 2.25)
 
 lista_dead = [dead]
 reescalar_imagen(lista_dead, 2)
 
-burbuja_bala = pygame.image.load('./images/alice/disparo_magic/burbuja.png').convert_alpha()
+bubble = pygame.image.load('./images/alice/armas/burbuja.png').convert_alpha()
+knife = pygame.image.load('./images/alice/armas/knife.png').convert_alpha()
 explosion_burbuja = obtener_surface_de_spriteSheet('./images/explosiones/explosion1.png', 8, 1, 1)
 
 live = obtener_surface_de_spriteSheet('./images/live.png', 1, 4, 1)

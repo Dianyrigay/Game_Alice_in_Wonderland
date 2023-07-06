@@ -4,14 +4,14 @@
     "path_platforms": "./images/platforms/roca.jpg",
     "platforms": [
       {
-        "cantidad": 3,
+        "cantidad": 2,
         "separacion": 0,
         "x": 900,
         "y": 500,
         "animations": "./images/items/taza1.png"
       },
       {
-        "cantidad": 4,
+        "cantidad": 3,
         "separacion": 0,
         "x": 300,
         "y": 200,
@@ -91,7 +91,7 @@
         "separacion": 0,
         "x": 700,
         "y": 350,
-        "change_x": 1,
+        "change_x": 2,
         "change_y": 0,
         "limit_left": 500,
         "limit_rigth": 1000,
@@ -115,12 +115,12 @@
     "enemy_moving": [
       {
         "x": 700,
-        "y": 250,
+        "y": 150,
         "animation": "pig_fly"
       },
       {
         "x": 100,
-        "y": 500,
+        "y": 450,
         "animation": "pig_fly"
       }
     ],

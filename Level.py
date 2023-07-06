@@ -46,6 +46,12 @@ class Level():
       data = json.load(file)
       self.level_data = data[self.level]
 
+    if self.level == "level_2":
+      ambient_suspence.stop()
+      ambient_fantasy.play()
+    elif self.level == "level_3":
+      ambient_fantasy.stop()
+      ambient_horror.play()
     self.background = pygame.transform.scale(pygame.image.load(self.level_data['background']).convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 
     for platform in self.level_data['platforms']:
@@ -125,13 +131,13 @@ class Level():
   def update(self, screen):
     self.player.update(screen, self.platforms_list, self.piso_rect)
 
-    self.bullets_group.update()
-    self.bubbles_group.update()
+    self.bullets_group.update(screen)
+    self.bubbles_group.update(screen)
     self.items_group.update()
 
     for enemigo in self.enemy_list:
       if type(enemigo) == Enemy_Shooter:
-        enemigo.update(self.piso_rect, self.bullets_group)
+        enemigo.update(self.piso_rect, self.bullets_group, screen)
       else:
         enemigo.update()
 

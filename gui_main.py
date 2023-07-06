@@ -48,6 +48,8 @@ def play(level_play = "level_1"):
           player.saltar()
 
     player.eventos(bubbles_group)
+    if level_play == "level_2":
+      player.transition_dark = True
 
     if not game_over:
       if player.muerto or level.time_restante == 0:

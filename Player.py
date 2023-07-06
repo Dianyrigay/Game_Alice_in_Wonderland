@@ -7,7 +7,7 @@ class Player(Personaje):
   def __init__(self) -> None:
     super().__init__()
     # -- Attributos
-    self.rect = quieto[0].get_rect(topleft=(0, 0))
+    self.rect = idle[0].get_rect(topleft=(0, 0))
     self.velocidad_x = 0
     self.velocidad_y = 0
     self.gravedad = 0.9
@@ -18,12 +18,15 @@ class Player(Personaje):
     self.rect_lives = live[0].get_rect(topleft=(1340, 20))
     self.cadencia = 10
     self.contador_cambio_animacion = 30
-    self.score = 300
+    self.score = 0
     self.key_recogida = False
     self.invertir_movimientos = False
     self.tiempo_invertido = 10 * FPS
     self.can_double_jump = False
     self.enter_portal = False
+    self.list_animations = list_alice
+    self.transition_dark = False
+    self.dark = False
 
   def mover_personaje_x(self):
     self.rect.x += self.velocidad_x
@@ -56,7 +59,7 @@ class Player(Personaje):
       self.player_collide_platforms(platforms_list)
       self.player_collide_floor(piso_rect)
       if self.esta_cayendo:
-        self.animacion = floating
+        self.animacion = self.list_animations[2]
     elif self.lives <= 0 and self.contador_muerte > 0:
       #TODO arreglar animacion de muerte
       self.animacion = dead
@@ -75,6 +78,15 @@ class Player(Personaje):
         self.invertir_movimientos = False
         suspence_invertion.stop()
         self.tiempo_invertido = 0
+
+    if self.rect.x >= WIDTH_PANTALLA / 2 and self.transition_dark:
+      self.list_animations = list_alice_dark
+    else:
+      self.list_animations = list_alice
+
+    # if self.dark:
+    #   self.list_animations = list_alice_dark
+
 
     # if self.enter_portal:
     #   animar_pantalla(screen, transition_alice)
@@ -99,11 +111,11 @@ class Player(Personaje):
       self.can_double_jump = False
 
   def flotar(self):
-    self.animacion = floating
+    self.animacion = self.list_animations[2]
     self.velocidad_y = 5
 
   def mover_izquierda(self):
-    self.animacion = camina
+    self.animacion = self.list_animations[1]
     if not self.invertir_movimientos:
       self.izquierda = True
       self.velocidad_x = -8
@@ -112,7 +124,7 @@ class Player(Personaje):
       self.velocidad_x = 8
 
   def mover_derecha(self):
-    self.animacion = camina
+    self.animacion = self.list_animations[1]
     if not self.invertir_movimientos:
       self.izquierda = False
       self.velocidad_x = 8
@@ -120,8 +132,8 @@ class Player(Personaje):
       self.izquierda = True
       self.velocidad_x = -8
 
-  def quieto(self):
-    self.animacion = quieto
+  def idle(self):
+    self.animacion = self.list_animations[0]
     self.velocidad_x = 0
 
   # Lives player
@@ -137,16 +149,20 @@ class Player(Personaje):
       screen.blit(live[indice_imagen], (x, self.rect_lives.y))
 
   def disparar(self, bubbles_group):
-    super().disparar(bubbles_group, burbuja_bala)
+    if self.rect.x >= WIDTH_PANTALLA / 2 and self.transition_dark:
+      arma = knife
+    else:
+      arma = bubble
+    super().disparar(bubbles_group, arma)
 
   def reducir(self):
     x = self.rect.x
     y = self.rect.y
     self.animacion = reducir
-    reescalar_imagen(lista_animaciones_alice, 0.35)
+    reescalar_imagen(list_alice, 0.35)
     #TODO reducir la burbuja tambien, ver donde debo reducirla
-    # reescalar_imagen([[burbuja_bala]],0.01)
-    self.rect = quieto[0].get_rect(topleft=(x, y))
+    # reescalar_imagen([[bubble]],0.01)
+    self.rect = idle[0].get_rect(topleft=(x, y))
 
   def eventos(self, bubbles_group):
     keys = pygame.key.get_pressed()
@@ -160,14 +176,14 @@ class Player(Personaje):
       elif keys[pygame.K_RIGHT]:
         self.mover_derecha()
       elif (keys[pygame.K_x]):
-        #TODO agregar que pueda disparar mientras camina
+        #TODO agregar que pueda disparar mientras walk
         self.disparar(bubbles_group)
       else:
         if self.contador_cambio_animacion <= 0 and self.animacion == angry:
-          self.quieto()
+          self.idle()
           self.contador_cambio_animacion = 30
         elif self.animacion != angry:
-          self.quieto()
+          self.idle()
 
   def player_collide_platforms(self, platforms_list):
     for plataforma in platforms_list:

@@ -1,2 +1,1 @@
-
-    for button in [PLAY_BUTTON, QUIT_BUTTON, LEVELS_BUTTON]:
+transition_dark
