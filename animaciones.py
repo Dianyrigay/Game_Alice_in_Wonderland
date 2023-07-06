@@ -94,6 +94,7 @@ reescalar_imagen(lista_animaciones_bunny, 2)
 # ITEMS
 pocion_reduce = './images/items/pocion.png'
 key_yellow = './images/items/key-yellow.png'
+key_red = './images/items/key-red.png'
 taza1 = './images/items/taza1.png'
 
 # TRAMPAS

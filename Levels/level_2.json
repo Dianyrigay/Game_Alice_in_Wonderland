@@ -4,18 +4,24 @@
     "path_platforms": "./images/platforms/roca.png",
     "platforms": [
       {
-        "cantidad": 2,
-        "separacion": 0,
-        "x": 900,
-        "y": 500,
-        "animations": "./images/items/taza1.png"
-      },
-      {
         "cantidad": 3,
         "separacion": 0,
         "x": 300,
         "y": 200,
         "animations": "./images/items/sombrero.png"
+      },
+      {
+        "cantidad": 2,
+        "separacion": 0,
+        "x": 1000,
+        "y": 200
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 1200,
+        "y": 500,
+        "animations": "./images/items/key-red.png"
       },
       {
         "cantidad": 1,
@@ -125,8 +131,8 @@
       }
     ],
     "exit_portal": {
-      "x": 100,
-      "y": 650,
+      "x": 1050,
+      "y": 250,
       "animation": "./images/portal/blue.png"
     }
   }

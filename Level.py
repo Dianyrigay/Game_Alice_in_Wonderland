@@ -11,15 +11,15 @@ from Platform import Platform, MovingPlatform
 from collitions import Collition
 
 class Level():
-  def __init__(self, bullets_group, bubbles_group, items_group, traps_group, player: Player, level) -> None:
+  def __init__(self, player: Player, level) -> None:
     # --List
     self.platforms_list = []
     self.enemy_list = []
     # --Group
-    self.items_group = items_group
-    self.traps_group = traps_group
-    self.bullets_group = bullets_group
-    self.bubbles_group = bubbles_group
+    self.items_group = pygame.sprite.Group()
+    self.traps_group = pygame.sprite.Group()
+    self.bullets_group = pygame.sprite.Group()
+    self.bubbles_group = pygame.sprite.Group()
     #-------
     self.piso_rect = None
     self.background = None
@@ -150,6 +150,7 @@ class Level():
     animation_portal = obtener_surface_de_spriteSheet(animation_portal, 8, 1, 1)
 
     self.portal = Portal(x_portal, y_portal, animation_portal)
+
   # Update all in this level
   def update(self, screen):
     self.player.update(screen, self.platforms_list, self.piso_rect)

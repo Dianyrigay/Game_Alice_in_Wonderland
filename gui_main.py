@@ -19,18 +19,12 @@ icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
 
 def play(level_play = "level_1"):
-  # Grupos de sprites
-  bullets_group = pygame.sprite.Group()
-  bubbles_group = pygame.sprite.Group()
-  items_group = pygame.sprite.Group()
-  traps_group = pygame.sprite.Group()
-
   # Instanciacion del personaje principal
   player = Player()
 
   list_level = []
 
-  level = Level(bullets_group, bubbles_group, items_group, traps_group, player, level_play)
+  level = Level(player, level_play)
   list_level.append(level.level)
   running_game = True
   game_over = False
@@ -45,7 +39,7 @@ def play(level_play = "level_1"):
         if event.key == pygame.K_SPACE:
           player.saltar()
 
-    player.eventos(bubbles_group)
+    player.eventos(level.bubbles_group)
     if level_play == "level_2":
       player.transition_dark = True
     elif level_play == "level_3":
@@ -60,14 +54,12 @@ def play(level_play = "level_1"):
 
       if level.next_level == "level_2":
         level_play = "level_2"
-        level = Level(bullets_group, bubbles_group, items_group,
-                      traps_group, player, level_play)
+        level = Level(player, level_play)
         game_over = False
         list_level.append(level.level)
       elif level.next_level == "level_3":
         level_play = "level_3"
-        level = Level(bullets_group, bubbles_group, items_group,
-                      traps_group, player, level_play)
+        level = Level(player, level_play)
         list_level.append(level.level)
     else:
       ambient_suspence.stop()

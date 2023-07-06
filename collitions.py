@@ -65,7 +65,7 @@ class Collition:
 
     if collide:
       for item in collide:
-        if item.animacion == key_yellow:
+        if item.animacion == key_yellow or item.animacion == key_red:
           self.player.key_recogida = True
         if item.animacion == pocion_reduce:
           self.player.reducir()
