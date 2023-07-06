@@ -56,8 +56,9 @@ class Collition:
             enemigo.muerto = True
           elif type(enemigo) == Enemy_Attack:
             enemigo.lives -= 1
-            enemigo.animacion = cuervo_hit
+            enemigo.animacion = enemigo.list_animations[1]
             if enemigo.lives == 0:
+              enemigo.animacion = enemigo.list_animations[1]
               enemigo.muerto = True
           else:
             plant_dead_sound.play()

@@ -73,10 +73,11 @@ class Enemy_Moving(Enemigo):
         self.izquierda = False
 
 class Enemy_Attack(Enemigo):
-  def __init__(self, posicion: tuple, animacion: list) -> None:
-    super().__init__(posicion, animacion)
+  def __init__(self, posicion: tuple, list_animations: list) -> None:
+    super().__init__(posicion, list_animations[0])
     self.velocidad_x = 2
     self.lives = 3
+    self.list_animations = list_animations
 
   def update(self, player_rect, platforms_list):
     super().update()
@@ -86,18 +87,18 @@ class Enemy_Attack(Enemigo):
       if self.rect.y <= player_rect.y and abs(self.rect.x - player_rect.x) <= 500:
         self.attack_player(player_rect, platforms_list)
       else:
-        self.animacion = cuervo_walk
+        self.animacion = self.list_animations[0]
       if self.velocidad_x > 0:
         self.izquierda = False
       else:
         self.izquierda = True
 
   def draw(self, screen):
-    super().draw(screen, cuervo_hit)
+    super().draw(screen, self.list_animations[1])
 
   def attack_player(self, player_rect, platforms_list):
     self.check_collision(platforms_list)
-    self.animacion = cuervo_attack
+    self.animacion = self.list_animations[2]
     if self.rect.x < player_rect.x:
         self.velocidad_x = 3
     else:

@@ -18,6 +18,13 @@
         "animations": "./images/items/taza1.png"
       }
     ],
+    "enemy_attack": [
+      {
+        "x": 900,
+        "y": 680,
+        "animation": "cuervo"
+      }
+    ],
     "exit_portal": {
       "x": 1200,
       "y": 400,
