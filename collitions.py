@@ -3,7 +3,7 @@ import pygame
 from animaciones import *
 from constantes import *
 
-from Enemigo import Enemy_Moving, Enemy_Attack
+from Enemigo import Enemy_Moving, Enemy_Attack, Enemy_Boss
 from Player import Player
 
 class Collition:
@@ -54,12 +54,15 @@ class Collition:
           if type(enemigo) == Enemy_Moving:
             pig_dead_sound.play()
             enemigo.muerto = True
-          elif type(enemigo) == Enemy_Attack:
+          elif type(enemigo) == Enemy_Attack or type(enemigo) == Enemy_Boss:
             enemigo.lives -= 1
             enemigo.animacion = enemigo.list_animations[1]
             if enemigo.lives == 0:
               enemigo.animacion = enemigo.list_animations[1]
               enemigo.muerto = True
+            if type(enemigo) == Enemy_Boss:
+              enemigo.lives
+              enemigo.recibir_disparo()
           else:
             plant_dead_sound.play()
             enemigo.muerto = True

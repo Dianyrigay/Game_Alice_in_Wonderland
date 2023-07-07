@@ -195,7 +195,7 @@ class Level():
       elif type(enemigo) == Enemy_Attack:
         enemigo.update(self.player.rect, self.platforms_list)
       elif type(enemigo) == Enemy_Boss:
-        enemigo.update(self.player.rect, self.platforms_list, self.bullets_group)
+        enemigo.update(self.player.rect, self.piso_rect, self.bullets_group, self.enemy_list)
       else:
         enemigo.update()
 

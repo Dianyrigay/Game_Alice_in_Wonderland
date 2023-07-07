@@ -130,7 +130,7 @@ dead_attack = obtener_surface_de_spriteSheet(
 dead = [dead_idle, dead_attack, dead_hit]
 
 bala_dead = pygame.image.load('./images/enemigos/dead/bullet.png').convert_alpha()
-reescalar_imagen(dead, 3.5)
+reescalar_imagen(dead, 3.8)
 reescalar_imagen(cuervo, 2)
 reescalar_imagen(sombrero, 2.5)
 

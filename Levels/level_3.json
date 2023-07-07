@@ -7,14 +7,14 @@
         "cantidad": 3,
         "separacion": 0,
         "x": 300,
-        "y": 500,
+        "y": 200,
         "animations": "./images/items/queen.png"
       },
       {
         "cantidad": 4,
         "separacion": 0,
         "x": 1000,
-        "y": 280,
+        "y": 400,
         "animations": "./images/items/king.png"
       }
     ],
@@ -25,11 +25,11 @@
         "x": 700,
         "y": 400,
         "change_x": 2,
-        "change_y": 0,
+        "change_y": 2,
         "limit_left": 500,
         "limit_right": 900,
-        "limit_top": 0,
-        "limit_bottom": 0
+        "limit_top": 100,
+        "limit_bottom": 500
       }
     ],
     "enemy_attack": [
@@ -46,7 +46,7 @@
     ],
     "enemy_boss": [
       {
-        "x": 1000,
+        "x": 1200,
         "y": 720,
         "animation": "dead"
       }

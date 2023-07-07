@@ -1,7 +1,10 @@
+import random
+
 from constantes import *
 from animaciones import *
 
 from Personaje import Personaje
+from healthbar import HealthBar
 
 class Enemigo(Personaje):
   def __init__(self, posicion: tuple, animacion: list) -> None:
@@ -122,23 +125,26 @@ class Enemy_Boss(Enemigo):
   def __init__(self, posicion: tuple, list_animations: list) -> None:
     super().__init__(posicion, list_animations[0])
     self.list_animations = list_animations
-    self.lives = 5
+    self.lives = 10
     self.is_jumping = False
-    self.jump_height = 150
+    self.jump_height = 200
     self.jump_duration = 60
     self.jump_timer = 0
     self.velocidad_x = 0
     self.izquierda = True
-    self.velocidad_animacion = 40
+    self.velocidad_animacion = 25
     self.cadencia = 100
+    self.spawn_timer = pygame.time.get_ticks()
+    self.spawn_interval = 5000
+    self.health_bar = HealthBar(200, 20, self.lives)
 
-  def update(self, player_rect, platforms_list, bullets_group):
+  def update(self, player_rect, piso_rect, bullets_group, enemy_list):
     super().update()
     if not self.muerto:
       if not self.is_jumping:
         self.mover_personaje_x()
         self.check_collision()
-        if self.rect.y <= player_rect.y and abs(self.rect.x - player_rect.x) <= 300:
+        if self.rect.y <= player_rect.y and abs(self.rect.x - player_rect.x) <= 700:
           self.attack_player(player_rect, bullets_group)
         else:
           self.velocidad_x = 0
@@ -157,10 +163,17 @@ class Enemy_Boss(Enemigo):
       else:
         self.izquierda = True
 
+      self.player_collide_floor(piso_rect)
+
+      if self.lives < 8 and pygame.time.get_ticks() - self.spawn_timer >= self.spawn_interval:
+        self.create_random_enemy(enemy_list)
+        self.spawn_timer = pygame.time.get_ticks()
+
   def draw(self, screen):
     super().draw(screen, self.list_animations[2])
+    self.health_bar.draw(screen, (self.rect.centerx, self.rect.top))
 
-  def attack_player(self, player_rect, bullets_group, ):
+  def attack_player(self, player_rect, bullets_group):
     self.animacion = self.list_animations[1]
     if self.rect.x < player_rect.x:
       self.velocidad_x = 3
@@ -177,14 +190,20 @@ class Enemy_Boss(Enemigo):
     else:
       self.rect.y += self.jump_height // (self.jump_duration // 2)
 
+  def player_collide_floor(self, piso_rect):
+    if self.rect.colliderect(piso_rect) and not self.is_jumping:
+      self.rect.bottom = piso_rect.top + 40
+      self.is_jumping = False
+      self.jump_timer = 0
+
   def disparar(self, bullets_group):
     super().disparar(bullets_group, bala_dead)
-    if self.lives < 5:
-      self.create_random_enemy()
 
-  def create_random_enemy(self):
-    print('generar enemigo random')
-    pass
+  def create_random_enemy(self, enemy_list):
+    enemy_types = [Enemy_Attack]
+    random_enemy_type = random.choice(enemy_types)
+    random_enemy = random_enemy_type((800,680), cuervo)
+    enemy_list.append(random_enemy)
 
   def check_collision(self):
     if self.rect.left < 0 or self.rect.right > WIDTH_PANTALLA:
@@ -194,6 +213,7 @@ class Enemy_Boss(Enemigo):
     self.velocidad_x *= -1
 
   def recibir_disparo(self):
+    self.health_bar.health = self.lives
     if not self.is_jumping:
       self.is_jumping = True
-      self.animacion = self.list_animations[2]
+      self.animacion = self.list_animations[0]
