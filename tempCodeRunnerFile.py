@@ -1,3 +1,2 @@
 
-
-    if not game_over:
+    for button in [PLAY_BUTTON, QUIT_BUTTON, LEVELS_BUTTON]:

@@ -107,6 +107,8 @@ pygame.image.load('./images/enemigos/sombrero/death/3.png.').convert_alpha(),
 pygame.image.load('./images/enemigos/sombrero/death/4.png.').convert_alpha(),
 pygame.image.load('./images/enemigos/sombrero/death/5.png.').convert_alpha()]
 
+sombrero = [sombrero_walk, sombrero_hit, sombrero_attack]
+
 #cuervo
 cuervo_walk = obtener_surface_de_spriteSheet(
     './images/enemigos/cuervo/walk.png', 6, 1, 1)
@@ -114,11 +116,23 @@ cuervo_hit = obtener_surface_de_spriteSheet(
     './images/enemigos/cuervo/hit.png', 3, 1, 1)
 cuervo_attack = obtener_surface_de_spriteSheet(
     './images/enemigos/cuervo/attack.png', 7, 1, 1)
-cuervo = [cuervo_walk, cuervo_hit, cuervo_attack]
-sombrero = [sombrero_walk, sombrero_hit, sombrero_attack]
 
-reescalar_imagen(cuervo, 3)
-reescalar_imagen(sombrero, 2)
+cuervo = [cuervo_walk, cuervo_hit, cuervo_attack]
+
+# dead
+dead_idle = obtener_surface_de_spriteSheet(
+    './images/enemigos/dead/idle.png', 3, 3, 1)
+dead_hit = obtener_surface_de_spriteSheet(
+    './images/enemigos/dead/death.png', 3, 3, 1)
+dead_attack = obtener_surface_de_spriteSheet(
+    './images/enemigos/dead/attack.png', 2, 3, 1)
+
+dead = [dead_idle, dead_attack, dead_hit]
+
+bala_dead = pygame.image.load('./images/enemigos/dead/bullet.png').convert_alpha()
+reescalar_imagen(dead, 3.5)
+reescalar_imagen(cuervo, 2)
+reescalar_imagen(sombrero, 2.5)
 
 # ITEMS
 pocion_reduce = './images/items/pocion.png'
@@ -143,13 +157,12 @@ game_over_image = pygame.image.load("./images/game_over.png").convert_alpha()
 game_over_image = pygame.transform.scale(
     game_over_image, (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 
-
 dict_animations = {
     "pig_fly": pig_fly,
     "pig_dead": pig_dead,
     "plant_attack": plant_attack,
     "plant_idle": plant_idle,
-    "sombrero_walk": sombrero_walk,
     "cuervo": cuervo,
-    "sombrero": sombrero
+    "sombrero": sombrero,
+    "dead": dead
 }

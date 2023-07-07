@@ -8,21 +8,47 @@
         "separacion": 0,
         "x": 300,
         "y": 500,
-        "animations": "./images/items/taza1.png"
+        "animations": "./images/items/queen.png"
       },
       {
-        "cantidad": 5,
+        "cantidad": 4,
+        "separacion": 0,
+        "x": 1000,
+        "y": 280,
+        "animations": "./images/items/king.png"
+      }
+    ],
+    "moving_platforms": [
+      {
+        "cantidad": 3,
         "separacion": 0,
         "x": 700,
-        "y": 280,
-        "animations": "./images/items/taza1.png"
+        "y": 400,
+        "change_x": 2,
+        "change_y": 0,
+        "limit_left": 500,
+        "limit_right": 900,
+        "limit_top": 0,
+        "limit_bottom": 0
       }
     ],
     "enemy_attack": [
       {
-        "x": 900,
+        "x": 1000,
         "y": 680,
         "animation": "cuervo"
+      },
+      {
+        "x": 600,
+        "y": 680,
+        "animation": "cuervo"
+      }
+    ],
+    "enemy_boss": [
+      {
+        "x": 1000,
+        "y": 720,
+        "animation": "dead"
       }
     ],
     "exit_portal": {

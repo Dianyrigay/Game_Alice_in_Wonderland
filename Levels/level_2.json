@@ -37,7 +37,7 @@
         "separacion": 0,
         "x": 700,
         "y": 300,
-        "change_x": 2,
+        "change_x": 1,
         "change_y": 0,
         "limit_left": 500,
         "limit_right": 1000,
@@ -68,7 +68,7 @@
         "animation": "pig_fly"
       },
       {
-        "x": 100,
+        "x": 200,
         "y": 150,
         "limit_left": 100,
         "limit_right": 600,

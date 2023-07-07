@@ -84,7 +84,7 @@ class Enemy_Attack(Enemigo):
     if not self.muerto:
       self.mover_personaje_x()
       self.check_collision(platforms_list)
-      if self.rect.y <= player_rect.y and abs(self.rect.x - player_rect.x) <= 500:
+      if self.rect.y <= player_rect.y and abs(self.rect.x - player_rect.x) <= 200:
         self.attack_player(player_rect, platforms_list)
       else:
         self.animacion = self.list_animations[0]
@@ -117,3 +117,83 @@ class Enemy_Attack(Enemigo):
 
   def invert_direction(self):
       self.velocidad_x *= -1
+
+class Enemy_Boss(Enemigo):
+  def __init__(self, posicion: tuple, list_animations: list) -> None:
+    super().__init__(posicion, list_animations[0])
+    self.list_animations = list_animations
+    self.lives = 5
+    self.is_jumping = False
+    self.jump_height = 150
+    self.jump_duration = 60
+    self.jump_timer = 0
+    self.velocidad_x = 0
+    self.izquierda = True
+    self.velocidad_animacion = 40
+    self.cadencia = 100
+
+  def update(self, player_rect, platforms_list, bullets_group):
+    super().update()
+    if not self.muerto:
+      if not self.is_jumping:
+        self.mover_personaje_x()
+        self.check_collision()
+        if self.rect.y <= player_rect.y and abs(self.rect.x - player_rect.x) <= 300:
+          self.attack_player(player_rect, bullets_group)
+        else:
+          self.velocidad_x = 0
+          self.animacion = self.list_animations[0]
+      else:
+        self.jump_timer += 1
+        if self.jump_timer <= self.jump_duration:
+          self.mover_personaje_y()
+        else:
+          self.is_jumping = False
+          self.jump_timer = 0
+          self.animacion = self.list_animations[0]
+          self.rect.y = self.posicion[1]
+      if self.velocidad_x > 0:
+        self.izquierda = False
+      else:
+        self.izquierda = True
+
+  def draw(self, screen):
+    super().draw(screen, self.list_animations[2])
+
+  def attack_player(self, player_rect, bullets_group, ):
+    self.animacion = self.list_animations[1]
+    if self.rect.x < player_rect.x:
+      self.velocidad_x = 3
+    else:
+      self.velocidad_x = -3
+    self.disparar(bullets_group)
+
+  def mover_personaje_x(self):
+    self.rect.x += self.velocidad_x
+
+  def mover_personaje_y(self):
+    if self.jump_timer <= self.jump_duration // 2:
+      self.rect.y -= self.jump_height // (self.jump_duration // 2)
+    else:
+      self.rect.y += self.jump_height // (self.jump_duration // 2)
+
+  def disparar(self, bullets_group):
+    super().disparar(bullets_group, bala_dead)
+    if self.lives < 5:
+      self.create_random_enemy()
+
+  def create_random_enemy(self):
+    print('generar enemigo random')
+    pass
+
+  def check_collision(self):
+    if self.rect.left < 0 or self.rect.right > WIDTH_PANTALLA:
+      self.invert_direction()
+
+  def invert_direction(self):
+    self.velocidad_x *= -1
+
+  def recibir_disparo(self):
+    if not self.is_jumping:
+      self.is_jumping = True
+      self.animacion = self.list_animations[2]

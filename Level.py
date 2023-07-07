@@ -5,7 +5,7 @@ from utilidades import *
 from animaciones import *
 
 from Player import Player
-from Enemigo import Enemy_Shooter, Enemy_Moving, Enemy_Attack
+from Enemigo import Enemy_Shooter, Enemy_Moving, Enemy_Attack, Enemy_Boss
 from Item import Portal
 from Platform import Platform, MovingPlatform
 from collitions import Collition
@@ -52,6 +52,7 @@ class Level():
     self.load_enemy_shooters()
     self.load_enemy_movings()
     self.load_enemy_attack()
+    self.load_enemy_boss()
     self.create_collisions()
     self.create_floor_surface()
     self.create_portal()
@@ -152,6 +153,17 @@ class Level():
         enemy = Enemy_Attack((x, y), animation)
         self.enemy_list.append(enemy)
 
+  def load_enemy_boss(self):
+    if 'enemy_boss' in self.level_data:
+      for enemy in self.level_data['enemy_boss']:
+        x = enemy['x']
+        y = enemy['y']
+        animation_name = enemy['animation']
+        animation = dict_animations[animation_name]
+
+        enemy = Enemy_Boss((x, y), animation)
+        self.enemy_list.append(enemy)
+
   def create_collisions(self):
     collitions = Collition(self.player, self.enemy_list, self.platforms_list,
                              self.bullets_group, self.bubbles_group, self.items_group, sonidos_caracters, self.traps_group, self.portal)
@@ -182,6 +194,8 @@ class Level():
         enemigo.update(self.piso_rect, self.bullets_group)
       elif type(enemigo) == Enemy_Attack:
         enemigo.update(self.player.rect, self.platforms_list)
+      elif type(enemigo) == Enemy_Boss:
+        enemigo.update(self.player.rect, self.platforms_list, self.bullets_group)
       else:
         enemigo.update()
 
