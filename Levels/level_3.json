@@ -11,11 +11,11 @@
         "animations": "./images/items/queen.png"
       },
       {
-        "cantidad": 4,
+        "cantidad": 3,
         "separacion": 0,
         "x": 1000,
-        "y": 400,
-        "animations": "./images/items/king.png"
+        "y": 350,
+        "animations": "./images/items/key-red.png"
       }
     ],
     "moving_platforms": [

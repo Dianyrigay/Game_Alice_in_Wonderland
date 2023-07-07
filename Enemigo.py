@@ -135,8 +135,8 @@ class Enemy_Boss(Enemigo):
     self.velocidad_animacion = 25
     self.cadencia = 100
     self.spawn_timer = pygame.time.get_ticks()
-    self.spawn_interval = 5000
-    self.health_bar = HealthBar(200, 20, self.lives)
+    self.spawn_interval = 4000
+    self.health_bar = HealthBar(100, 15, self.lives)
 
   def update(self, player_rect, piso_rect, bullets_group, enemy_list):
     super().update()
@@ -171,7 +171,7 @@ class Enemy_Boss(Enemigo):
 
   def draw(self, screen):
     super().draw(screen, self.list_animations[2])
-    self.health_bar.draw(screen, (self.rect.centerx, self.rect.top))
+    self.health_bar.draw(screen, (self.rect.centerx, self.rect.top + 50))
 
   def attack_player(self, player_rect, bullets_group):
     self.animacion = self.list_animations[1]
