@@ -28,7 +28,14 @@ def play(level_play = "level_1"):
   running_game = True
   game_over = False
 
+  PAUSE_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=200, y=750,
+                        text_input="PAUSE", base_color="white", hovering_color="yellow")
+  RESTART_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1200, y=750,
+                          text_input="RESTART", base_color="white", hovering_color="yellow")
+
   while running_game:
+    MENU_MOUSE_POS = pygame.mouse.get_pos()
+
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         running_game = False
@@ -37,6 +44,12 @@ def play(level_play = "level_1"):
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_SPACE:
           player.saltar()
+
+      if event.type == pygame.MOUSEBUTTONDOWN:
+        if PAUSE_BUTTON.checkForInput(MENU_MOUSE_POS):
+            running_game = False
+        if RESTART_BUTTON.checkForInput(MENU_MOUSE_POS):
+            play(level_play)
 
     player.eventos(level.bubbles_group)
     if level_play == "level_2":
@@ -60,6 +73,9 @@ def play(level_play = "level_1"):
         level_play = "level_3"
         level = Level(player, level_play)
         list_level.append(level.level)
+
+      PAUSE_BUTTON.update(screen)
+      RESTART_BUTTON.update(screen)
     else:
       ambient_suspence.stop()
       game_over_sound.play()
@@ -67,6 +83,9 @@ def play(level_play = "level_1"):
 
     pygame.display.update()
     clock.tick(FPS)
+
+  if not running_game:
+    main_menu()
 
 def levels():
   while True:
