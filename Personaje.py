@@ -16,8 +16,7 @@ class Personaje():
     self.muerto = False
     self.contador_muerte = 30
 
-  def animar_personaje(self, screen):
-    # Asegurar que el índice esté dentro del rango válido
+  def animar_personaje(self, screen) -> None:
     indice_imagen = self.cuenta_pasos // self.velocidad_animacion % len(self.animacion)
     screen.blit(pygame.transform.flip(self.animacion[indice_imagen], self.izquierda, False), self.rect)
 

@@ -11,7 +11,7 @@ from Platform import Platform, MovingPlatform
 from collitions import Collition
 
 class Level():
-  def __init__(self, player: Player, level) -> None:
+  def __init__(self, player: Player, level: str) -> None:
     # --List
     self.platforms_list = []
     self.enemy_list = []
@@ -134,12 +134,10 @@ class Level():
       for enemy in self.level_data['enemy_moving']:
         x = enemy['x']
         y = enemy['y']
-        limit_left = enemy['limit_left']
-        limit_right = enemy['limit_right']
         animation_name = enemy['animation']
         animation = dict_animations[animation_name]
 
-        enemy = Enemy_Moving((x, y), animation, limit_left, limit_right)
+        enemy = Enemy_Moving((x, y), animation)
         self.enemy_list.append(enemy)
 
   def load_enemy_attack(self):
@@ -191,13 +189,13 @@ class Level():
 
     for enemigo in self.enemy_list:
       if type(enemigo) == Enemy_Shooter:
-        enemigo.update(self.piso_rect, self.bullets_group)
+        enemigo.update(self.bullets_group, self.platforms_list)
       elif type(enemigo) == Enemy_Attack:
         enemigo.update(self.player.rect, self.platforms_list)
       elif type(enemigo) == Enemy_Boss:
-        enemigo.update(self.player.rect, self.piso_rect, self.bullets_group, self.enemy_list)
+        enemigo.update(self.player.rect, self.piso_rect, self.bullets_group, self.enemy_list, self.platforms_list)
       else:
-        enemigo.update()
+        enemigo.update(self.platforms_list)
 
     if self.player.key_recogida and self.portal:
       portal_magic.play()
@@ -232,9 +230,9 @@ class Level():
     self.items_group.draw(screen)
 
     for enemigo in self.enemy_list:
-      if type(enemigo) == Enemy_Shooter:
-        enemigo.draw(screen)
-      else:
+      # if type(enemigo) == Enemy_Shooter:
+      #   enemigo.draw(screen)
+      # else:
         enemigo.draw(screen)
 
     self.player.draw(screen)

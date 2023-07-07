@@ -19,7 +19,6 @@ icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
 
 def play(level_play = "level_1"):
-  # Instanciacion del personaje principal
   player = Player()
 
   list_level = []

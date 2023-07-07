@@ -57,8 +57,6 @@
       {
         "x": 700,
         "y": 250,
-        "limit_left": 200,
-        "limit_right": 700,
         "animation": "pig_fly"
       }
     ],

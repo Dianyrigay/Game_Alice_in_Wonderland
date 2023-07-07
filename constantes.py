@@ -9,6 +9,8 @@ FPS = 60
 
 TIEMPO_ENTRE_DISPAROS = 200
 
+PISO_TOP = 680
+
 # ------------------------Sonidos------------------------
 pygame.mixer.init()
 # ambient sound
