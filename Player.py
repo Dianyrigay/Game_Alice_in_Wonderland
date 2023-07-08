@@ -88,9 +88,6 @@ class Player(Personaje):
     else:
       self.list_animations = list_alice
 
-    # if self.dark:
-    #   self.list_animations = list_alice_dark
-
     # if self.enter_portal:
     #   animar_pantalla(screen, transition_alice)
 
@@ -214,3 +211,6 @@ class Player(Personaje):
         self.velocidad_y = 0
         self.rect.bottom = piso_rect.top
         self.esta_cayendo = False
+
+  def reset_position(self):
+    self.rect.topleft = (0, 0)

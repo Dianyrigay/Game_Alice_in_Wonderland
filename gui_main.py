@@ -64,11 +64,12 @@ def play(level_play="level_1"):
             if level.next_level == "level_2":
                 level_play = "level_2"
                 level = Level(player, level_play)
-                game_over = False
+                player.reset_position()
                 list_level.append(level.level)
             elif level.next_level == "level_3":
                 level_play = "level_3"
                 level = Level(player, level_play)
+                player.reset_position()
                 list_level.append(level.level)
 
         else:
