@@ -28,7 +28,5 @@ class Button():
   def changeColor(self, position):
     if self.rect.collidepoint(position):
       self.text = self.font.render(self.text_input, True, self.hovering_color)
-      # pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
     else:
       self.text = self.font.render(self.text_input, True, self.base_color)
-      # pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)

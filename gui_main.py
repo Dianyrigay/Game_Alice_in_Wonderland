@@ -46,7 +46,6 @@ def play(level_play="level_1"):
                 if event.key == pygame.K_ESCAPE:
                     is_paused = True
                     return_to_play = pause_menu(level_play)
-                    print(return_to_play)
 
         player.eventos(level.bubbles_group)
         if level_play == "level_2":
@@ -82,20 +81,19 @@ def play(level_play="level_1"):
             is_paused = False
             return_to_play = False
 
-
 def main_menu():
     alice_intro.play()
 
     while True:
-        main_menu = MainMenu()
-        ejecutar =  main_menu.update()
-        main_menu.draw(screen)
-        if ejecutar == "play":
-            play()
-        elif ejecutar == "levels_menu":
-            levels_menu()
-        pygame.display.update()
-
+      main_menu = MainMenu()
+      ejecutar =  main_menu.update()
+      main_menu.draw(screen)
+      if ejecutar == "play":
+        alice_intro.stop()
+        play()
+      elif ejecutar == "levels_menu":
+        levels_menu()
+      pygame.display.update()
 
 def levels_menu():
     alice_intro.stop()
@@ -112,7 +110,6 @@ def levels_menu():
       elif ejecutar == "play_3":
         play("level_3")
       pygame.display.update()
-
 
 def pause_menu(level_play):
   alice_intro.stop()

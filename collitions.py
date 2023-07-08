@@ -44,7 +44,6 @@ class Collition:
       impact.play()
       self.player.score -= 50
       self.player.animacion = angry
-      # self.player.rect.x += -10
 
   def enemy_collide_bubbles(self):
     if self.enemy_list != None:
@@ -55,13 +54,15 @@ class Collition:
             pig_dead_sound.play()
             enemigo.muerto = True
           elif type(enemigo) == Enemy_Attack or type(enemigo) == Enemy_Boss:
+            impact2.play()
             enemigo.lives -= 1
             enemigo.animacion = enemigo.list_animations[1]
             if enemigo.lives == 0:
+              if type(enemigo) == Enemy_Boss:
+                scream.play()
               enemigo.animacion = enemigo.list_animations[1]
               enemigo.muerto = True
             if type(enemigo) == Enemy_Boss:
-              enemigo.lives
               enemigo.recibir_disparo()
           else:
             plant_dead_sound.play()
