@@ -213,4 +213,7 @@ class Player(Personaje):
         self.esta_cayendo = False
 
   def reset_position(self):
+    self.entrada_cayendo = True
     self.rect.topleft = (0, 0)
+    self.key_recogida = False
+    self.enter_portal = False

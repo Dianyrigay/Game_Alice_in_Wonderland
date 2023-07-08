@@ -209,11 +209,11 @@ class Level():
     if self.player.enter_portal and self.level == "level_1":
       portal_magic.stop()
       self.next_level = "level_2"
-      self.player.enter_portal = False
+      self.player.reset_position()
     elif self.player.enter_portal and self.level == "level_2":
       portal_magic.stop()
       self.next_level = "level_3"
-      self.player.enter_portal = False
+      self.player.reset_position()
 
     self.update_time()
 
@@ -230,9 +230,6 @@ class Level():
     self.items_group.draw(screen)
 
     for enemigo in self.enemy_list:
-      # if type(enemigo) == Enemy_Shooter:
-      #   enemigo.draw(screen)
-      # else:
         enemigo.draw(screen)
 
     self.player.draw(screen)

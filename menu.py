@@ -28,12 +28,14 @@ class Menu:
                 return self.handle_button_click()
 
     def draw(self, screen):
-        if self.fill:
-          screen.fill("black")
-        if self.background != None:
-            screen.blit(self.background, self.coordenadas)
-        for button in self.buttons:
-            button.update(screen)
+      MENU_MOUSE_POS = pygame.mouse.get_pos()
+      if self.fill:
+        screen.fill("black")
+      if self.background != None:
+        screen.blit(self.background, self.coordenadas)
+      for button in self.buttons:
+        button.changeColor(MENU_MOUSE_POS)
+        button.update(screen)
 
 
 class MainMenu(Menu):
