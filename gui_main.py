@@ -18,6 +18,9 @@ pygame.display.set_caption('Alice in Worderland')
 icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
 
+global is_paused
+global return_to_play
+
 def play(level_play = "level_1"):
   player = Player()
 
@@ -27,14 +30,14 @@ def play(level_play = "level_1"):
   list_level.append(level.level)
   running_game = True
   game_over = False
-
-  PAUSE_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=200, y=750,
-                        text_input="PAUSE", base_color="white", hovering_color="yellow")
-  RESTART_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1200, y=750,
-                          text_input="RESTART", base_color="white", hovering_color="yellow")
+  is_paused = False
+  return_to_play = False
 
   while running_game:
-    MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+    if is_paused:
+      pygame.display.update()
+      continue
 
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
@@ -44,12 +47,10 @@ def play(level_play = "level_1"):
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_SPACE:
           player.saltar()
-
-      if event.type == pygame.MOUSEBUTTONDOWN:
-        if PAUSE_BUTTON.checkForInput(MENU_MOUSE_POS):
-            running_game = False
-        if RESTART_BUTTON.checkForInput(MENU_MOUSE_POS):
-            play(level_play)
+        if event.key == pygame.K_ESCAPE:
+          is_paused = True
+          return_to_play = pause_menu(level_play)
+          print(return_to_play)
 
     player.eventos(level.bubbles_group)
     if level_play == "level_2":
@@ -74,8 +75,6 @@ def play(level_play = "level_1"):
         level = Level(player, level_play)
         list_level.append(level.level)
 
-      PAUSE_BUTTON.update(screen)
-      RESTART_BUTTON.update(screen)
     else:
       ambient_suspence.stop()
       game_over_sound.play()
@@ -84,21 +83,21 @@ def play(level_play = "level_1"):
     pygame.display.update()
     clock.tick(FPS)
 
-  if not running_game:
-    main_menu()
+    if return_to_play:
+      is_paused = False
+      return_to_play = False
 
-def levels():
+def levels_menu():
+  LEVEL_1 = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=320,
+                        text_input="LEVEL 1", base_color="white", hovering_color="yellow")
+  LEVEL_2 = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=400,
+                          text_input="LEVEL 2", base_color="white", hovering_color="yellow")
+  LEVEL_3 = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=480,
+                        text_input="LEVEL 3", base_color="white", hovering_color="yellow")
   while True:
     screen.fill("black")
 
     MENU_MOUSE_POS = pygame.mouse.get_pos()
-
-    LEVEL_1 = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=320,
-                        text_input="LEVEL 1", base_color="white", hovering_color="yellow")
-    LEVEL_2 = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=400,
-                          text_input="LEVEL 2", base_color="white", hovering_color="yellow")
-    LEVEL_3 = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=480,
-                        text_input="LEVEL 3", base_color="white", hovering_color="yellow")
 
     for button in [LEVEL_1, LEVEL_2, LEVEL_3]:
       button.changeColor(MENU_MOUSE_POS)
@@ -122,19 +121,56 @@ def levels():
 
     pygame.display.update()
 
+def pause_menu(level_play):
+  alice_intro.play()
+
+  CONTINUE_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=250,
+                        text_input="CONTINUE", base_color="white", hovering_color="yellow")
+  RESTART_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=310,
+                          text_input="RESTART", base_color="white", hovering_color="yellow")
+  MAIN_MENU_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=370,
+                          text_input="MAIN MENU", base_color="white", hovering_color="yellow")
+  QUIT_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=430,
+                            text_input="QUIT", base_color="white", hovering_color="yellow")
+  while True:
+    screen.blit(background_pause, ((WIDTH_PANTALLA - background_pause.get_width()) // 2, (HEIGHT_PANTALLA - background_pause.get_height()) // 2))
+
+    MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+    for button in [CONTINUE_BUTTON, RESTART_BUTTON, MAIN_MENU_BUTTON, QUIT_BUTTON]:
+      button.changeColor(MENU_MOUSE_POS)
+      button.update(screen)
+
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+        exit()
+
+      if event.type == pygame.MOUSEBUTTONDOWN:
+        if CONTINUE_BUTTON.checkForInput(MENU_MOUSE_POS):
+          return True
+        if RESTART_BUTTON.checkForInput(MENU_MOUSE_POS):
+          play(level_play)
+          return False
+        if MAIN_MENU_BUTTON.checkForInput(MENU_MOUSE_POS):
+          main_menu()
+        if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+          pygame.quit()
+          exit()
+    pygame.display.update()
+
 def main_menu():
   alice_intro.play()
+
+  PLAY_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x= 1060, y=320,
+                      text_input="PLAY", base_color="white", hovering_color="yellow")
+  LEVELS_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1060, y=400,
+                         text_input="LEVELS", base_color="white", hovering_color="yellow")
+  QUIT_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1060, y=480,
+                         text_input="QUIT", base_color="white", hovering_color="yellow")
   while True:
     screen.blit(background_menu, (0,0))
 
     MENU_MOUSE_POS = pygame.mouse.get_pos()
-
-    PLAY_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x= 1060, y=320,
-                      text_input="PLAY", base_color="white", hovering_color="yellow")
-    LEVELS_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1060, y=400,
-                         text_input="LEVELS", base_color="white", hovering_color="yellow")
-    QUIT_BUTTON = Button(image=pygame.image.load("./images/play-rect2.png"), x=1060, y=480,
-                         text_input="QUIT", base_color="white", hovering_color="yellow")
 
     for button in [PLAY_BUTTON, QUIT_BUTTON, LEVELS_BUTTON]:
       button.changeColor(MENU_MOUSE_POS)
@@ -150,7 +186,7 @@ def main_menu():
             if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
               play()
             if LEVELS_BUTTON.checkForInput(MENU_MOUSE_POS):
-              levels()
+              levels_menu()
             if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
               pygame.quit()
               exit()
