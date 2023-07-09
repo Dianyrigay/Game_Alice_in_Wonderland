@@ -6,7 +6,7 @@ from animaciones import *
 
 from Player import Player
 from Level import Level
-from menu import MainMenu, LevelsMenu, PauseMenu
+from menu import MainMenu, LevelsMenu, PauseMenu, FinalMenu
 
 pygame.init()
 
@@ -17,6 +17,7 @@ pygame.display.set_caption('Alice in Worderland')
 icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
 
+
 def play(level_play="level_1"):
     player = Player()
 
@@ -26,6 +27,7 @@ def play(level_play="level_1"):
     list_level.append(level.level)
     running_game = True
     game_over = False
+    game_win = False
     is_paused = False
     return_to_play = False
 
@@ -53,9 +55,12 @@ def play(level_play="level_1"):
         elif level_play == "level_3":
             player.dark = True
 
-        if not game_over:
+        if not game_over and not game_win:
             if player.muerto or level.time_restante == 0:
                 game_over = True
+
+            if level.game_win:
+               game_win = True
 
             level.draw(screen)
             level.update(screen)
@@ -70,9 +75,7 @@ def play(level_play="level_1"):
                 list_level.append(level.level)
 
         else:
-            ambient_suspence.stop()
-            game_over_sound.play()
-            screen.blit(game_over_image, (0, 0))
+            win_lose_menu(level_play, game_over, game_win, player.score, level_play)
 
         pygame.display.update()
         clock.tick(FPS)
@@ -125,6 +128,29 @@ def pause_menu(level_play):
       play(level_play)
     elif ejecutar == "main_menu":
       main_menu()
+    pygame.display.update()
+
+
+def win_lose_menu(level_play, game_over, game_win, score, level):
+  ambient_suspence.stop()
+  game_over_sound.play()
+
+  final_menu = FinalMenu(game_over, game_win, score, level)
+
+  while True:
+    ejecutar = final_menu.update()
+    final_menu.draw(screen)
+    if game_over:
+      if ejecutar == "retry":
+        play(level_play)
+      elif ejecutar == "main_menu":
+        main_menu()
+    elif game_win:
+      escribir_screen(screen, 'NAME:', "white","", (845, 280))
+      escribir_screen(screen, 'SCORE: ', "white",
+                    str(score), (845, 350))
+      if ejecutar == "guardar":
+         print('mostrar records')
     pygame.display.update()
 
 main_menu()

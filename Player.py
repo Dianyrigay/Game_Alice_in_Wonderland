@@ -9,7 +9,7 @@ class Player(Personaje):
     # -- Attributos
     self.entrada_cayendo = True
     self.rect = idle[0].get_rect(topleft=(0, 0))
-    self.rect_lives = live[0].get_rect(topleft=(1340, 20))
+    self.rect_lives = live[0].get_rect(topleft=(1450, 20))
     self.velocidad_x = 0
     self.velocidad_y = 0
     # -- salto

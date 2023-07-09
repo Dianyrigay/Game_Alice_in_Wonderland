@@ -1,2 +1,1 @@
-
-            player.dark = True
+handle_event

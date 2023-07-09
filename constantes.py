@@ -2,7 +2,7 @@ import pygame
 
 pygame.font.init()
 
-WIDTH_PANTALLA = 1400
+WIDTH_PANTALLA = 1500
 HEIGHT_PANTALLA = 800
 ALTURA_PISO = 120
 FPS = 60

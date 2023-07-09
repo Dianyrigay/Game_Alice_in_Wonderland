@@ -5,6 +5,8 @@ from constantes import *
 from animaciones import *
 
 from gui_button import Button
+from gui_form import TextInput
+from sql import *
 
 global is_paused
 global return_to_play
@@ -45,11 +47,13 @@ class MainMenu(Menu):
         self.fill = True
 
         self.buttons = [
-            Button(image=pygame.image.load("./images/play-rect2.png"), x=1060, y=320,
+            Button(image=pygame.image.load("./images/play-rect2.png"), x=1120, y=320,
                    text_input="PLAY", base_color="white", hovering_color="yellow"),
-            Button(image=pygame.image.load("./images/play-rect2.png"), x=1060, y=400,
+            Button(image=pygame.image.load("./images/play-rect2.png"), x=1120, y=400,
                    text_input="LEVELS", base_color="white", hovering_color="yellow"),
-            Button(image=pygame.image.load("./images/play-rect2.png"), x=1060, y=480,
+            Button(image=pygame.image.load("./images/play-rect2.png"), x=1120, y=480,
+                   text_input="RECORDS", base_color="white", hovering_color="yellow"),
+            Button(image=pygame.image.load("./images/play-rect2.png"), x=1120, y=560,
                    text_input="QUIT", base_color="white", hovering_color="yellow")
         ]
 
@@ -61,6 +65,8 @@ class MainMenu(Menu):
         if self.buttons[1].checkForInput(mouse_pos):
             return "levels_menu"
         if self.buttons[2].checkForInput(mouse_pos):
+            return "records"
+        if self.buttons[3].checkForInput(mouse_pos):
             pygame.quit()
             exit()
         else:
@@ -130,3 +136,63 @@ class PauseMenu(Menu):
             pygame.quit()
             exit()
         return False
+
+
+class FinalMenu(Menu):
+    def __init__(self, game_over, game_win, score, level):
+        super().__init__()
+        self.fill = True
+        self.game_over = game_over
+        self.game_win = game_win
+
+        if self.game_over:
+            self.background = game_over_image
+            self.buttons = [
+                Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=300,
+                    text_input="RETRY", base_color="white", hovering_color="yellow"),
+                Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=380,
+                    text_input="MAIN MENU", base_color="white", hovering_color="yellow")
+            ]
+        if self.game_win:
+            self.score = score
+            self.level = level
+            self.background = you_win
+            self.text_input = TextInput(980, 280, 300, 40, 20)
+            self.buttons = [
+                Button(image=pygame.image.load("./images/play-rect2.png"), x=1120, y=480,
+                    text_input="GUARDAR", base_color="white", hovering_color="yellow")
+            ]
+
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+            self.text_input.handle_event(event)
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                return self.handle_button_click()
+        return False
+
+    def handle_button_click(self):
+        mouse_pos = pygame.mouse.get_pos()
+        if self.game_over:
+            if self.buttons[0].checkForInput(mouse_pos):
+                return "retry"
+            if self.buttons[2].checkForInput(mouse_pos):
+                return "main_menu"
+        if self.game_win:
+            nombre = self.text_input.text
+            if self.buttons[0].checkForInput(mouse_pos):
+                #TODO descomentar para guardar datos en tabla
+                # create_table()
+                # save_score(nombre, self.score, self.level)
+                # get_score()
+                return "guardar"
+        return False
+
+    def draw(self, screen):
+        super().draw(screen)
+        if self.game_win:
+            self.text_input.draw(screen)

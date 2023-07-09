@@ -38,6 +38,8 @@ class Level():
     self.load_level_data(f"./Levels/{level}.json")
     self.level_data = None
     self.next_level = None
+    # win game
+    self.game_win = False
 
   # Get data JSON and instance of object
   def load_level_data(self, level_data_json):
@@ -214,6 +216,8 @@ class Level():
       portal_magic.stop()
       self.next_level = "level_3"
       self.player.reset_position()
+    elif self.player.enter_portal and self.level == "level_3":
+      self.game_win = True
 
     self.update_time()
 
@@ -239,7 +243,7 @@ class Level():
       portal_magic.stop()
 
     escribir_screen(screen, 'SCORE: ', "white", str(self.player.score), (20, 20))
-    escribir_screen(screen, '00:', "white", str(self.time_restante).zfill(2), (650, 20))
+    escribir_screen(screen, '00:', "white", str(self.time_restante).zfill(2), (WIDTH_PANTALLA//2, 20))
 
   def update_time(self):
     self.time_transcurrido = pygame.time.get_ticks() - self.time_actual
