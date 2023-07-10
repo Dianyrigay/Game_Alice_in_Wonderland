@@ -1,4 +1,8 @@
 import pygame
+import random
+
+from Enemigo import Enemy_Moving
+from animaciones import pig_fly
 
 class Item(pygame.sprite.Sprite):
   def __init__(self, x, y, animacion) -> None:
@@ -43,3 +47,14 @@ class Trap(pygame.sprite.Sprite):
         self.animacion)
     screen.blit(pygame.transform.flip(
         self.animacion[indice_imagen], self.izquierda, False), self.rect)
+
+  def create_random_enemy(self, enemy_list):
+    y = 200
+    x = 850
+    for _ in range(3):
+      enemy_types = [Enemy_Moving]
+      random_enemy_type = random.choice(enemy_types)
+      random_enemy = random_enemy_type((x, y), pig_fly)
+      enemy_list.append(random_enemy)
+      y += 200
+      x += 100

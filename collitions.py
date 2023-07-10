@@ -5,9 +5,10 @@ from constantes import *
 
 from Enemigo import Enemy_Moving, Enemy_Attack, Enemy_Boss
 from Player import Player
+from Item import Portal
 
 class Collition:
-  def __init__(self, player: Player, enemy_list, platforms_list, bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group, portal = None) -> None:
+  def __init__(self, player: Player, enemy_list: list, platforms_list: list, bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group, portal: Portal = None) -> None:
     self.player = player
     self.enemy_list = enemy_list
     self.platforms_list = platforms_list
@@ -25,7 +26,7 @@ class Collition:
     self.player_pick_up_items()
     self.enemy_collide_bubbles()
     if self.portal:
-      self.player_collide_portal()
+      self.player_collide_portal(screen)
 
   def player_collide_bullet(self, screen):
     collide = pygame.sprite.spritecollide(self.player, self.bullets_group, True)
@@ -82,18 +83,24 @@ class Collition:
           self.player.lives += 1
           break
       items_win.play()
-      self.player.score += 50
+      self.player.score += 100
 
   def player_collide_traps(self):
     collide = pygame.sprite.spritecollide(self.player, self.traps_group, True)
 
     if collide:
+      for trap in collide:
+        trap.create_random_enemy(self.enemy_list)
       self.player.invertir_movimientos = True
       suspence_invertion.play()
       self.player.score -= 50
 
-  def player_collide_portal(self):
+  def player_collide_portal(self, screen):
     if self.player.rect.colliderect(self.portal.rect):
-      self.player.enter_portal = True
+      self.player.rect.right = self.portal.rect.left + 5
+      if self.player.rect.height > self.portal.rect.height:
+        escribir_screen(screen, "DRINK ME", "white", "", (1200, 500))
+      else:
+        self.player.enter_portal = True
 
 

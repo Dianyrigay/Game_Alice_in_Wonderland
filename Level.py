@@ -174,12 +174,12 @@ class Level():
     self.piso_rect = piso_surf.get_rect(topleft=(0, HEIGHT_PANTALLA - ALTURA_PISO))
 
   def create_portal(self):
-    x_portal = self.level_data["exit_portal"]["x"]
-    y_portal = self.level_data["exit_portal"]["y"]
-    animation_portal = self.level_data["exit_portal"]["animation"]
-    animation_portal = obtener_surface_de_spriteSheet(animation_portal, 8, 1, 1)
+    x = self.level_data["exit_portal"]["x"]
+    y = self.level_data["exit_portal"]["y"]
+    animation_name = self.level_data["exit_portal"]["animation"]
+    animation = dict_portales[animation_name]
 
-    self.portal = Portal(x_portal, y_portal, animation_portal)
+    self.portal = Portal(x, y, animation)
 
   # Update all in this level
   def update(self, screen):

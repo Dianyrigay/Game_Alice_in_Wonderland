@@ -54,7 +54,7 @@
     "exit_portal": {
       "x": 1200,
       "y": 400,
-      "animation": "./images/portal/blue.png"
+      "animation": "portal_blue"
     }
   }
 }

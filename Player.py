@@ -14,13 +14,13 @@ class Player(Personaje):
     self.velocidad_y = 0
     # -- salto
     self.gravedad = 0.9
-    self.potencia_salto = -13
+    self.potencia_salto = -15
     self.esta_cayendo = False
     self.can_double_jump = False
     # --animaciones
     self.contador_cambio_animacion = 30
     self.cadencia = 10
-    self.lives = 3
+    self.lives = 5
     self.score = 0
     self.list_animations = list_alice
     # -- cambios segun niveles
@@ -66,7 +66,7 @@ class Player(Personaje):
         self.animacion = self.list_animations[2]
     elif self.lives <= 0 and self.contador_muerte > 0:
       #TODO arreglar animacion de muerte
-      self.animacion = dead
+      self.animacion = self.list_animations[4]
       self.contador_muerte -= 1
     else:
       self.muerto = True
