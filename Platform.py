@@ -1,8 +1,8 @@
 import pygame
 from constantes import *
-from animaciones import *
+from animations import *
 from Item import Item, Trap
-from Player import Player
+from player import Player
 
 class Platform:
   def __init__(self, path, cantidad, separacion, x, y, group, animation_items = None) -> None:
@@ -18,7 +18,7 @@ class Platform:
     self.rect = self.image.get_rect(topleft = (x,y))
     self.rect.width = self.image.get_width() * self.cantidad + \
         self.separacion * (self.cantidad - 1)
-    # Crear los objetos Item una sola vez
+    # Instancia los Items
     self.group = group
     self.draw_items()
 
@@ -76,7 +76,7 @@ class MovingPlatform(Platform):
     self.rect.x += self.change_x
 
     for item in self.group:
-        if item.animacion == taza1:
+        if item.animation == taza1:
             item.rect.x += self.change_x
 
     hit = pygame.sprite.collide_rect(self, self.player)

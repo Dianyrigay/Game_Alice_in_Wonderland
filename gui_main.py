@@ -2,9 +2,9 @@ import pygame
 from sys import exit
 
 from constantes import *
-from animaciones import *
+from animations import *
 
-from Player import Player
+from player import Player
 from Level import Level
 from menu import MainMenu, LevelsMenu, PauseMenu, FinalMenu, High_Scores
 
@@ -155,8 +155,8 @@ def win_lose_menu(level_play, game_over, game_win, score, level):
       elif ejecutar == "main_menu":
         main_menu()
     elif game_win:
-      escribir_screen(screen, 'NAME:', "white","", (845, 280))
-      escribir_screen(screen, 'SCORE: ', "white",
+      write_screen(screen, 'NAME:', "white","", (845, 280))
+      write_screen(screen, 'SCORE: ', "white",
                     str(score), (845, 350))
       if ejecutar == "guardar":
          high_scores_menu()

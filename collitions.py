@@ -1,10 +1,10 @@
 import pygame
 
-from animaciones import *
+from animations import *
 from constantes import *
 
-from Enemigo import Enemy_Moving, Enemy_Attack, Enemy_Boss
-from Player import Player
+from enemigo import Enemy_Moving, Enemy_Attack, Enemy_Boss
+from player import Player
 from Item import Portal
 
 class Collition:
@@ -33,7 +33,7 @@ class Collition:
 
     if collide:
       impact.play()
-      self.player.animacion = self.player.list_animations[3]
+      self.player.animation = self.player.list_animations[3]
       self.player.restar_lives(screen)
       self.player.rect.x += -10
 
@@ -42,7 +42,7 @@ class Collition:
 
     if collide:
       impact.play()
-      self.player.animacion = self.player.list_animations[3]
+      self.player.animation = self.player.list_animations[3]
 
   def enemy_collide_bubbles(self):
     if self.enemy_list != None:
@@ -55,11 +55,11 @@ class Collition:
           elif type(enemigo) == Enemy_Attack or type(enemigo) == Enemy_Boss:
             impact2.play()
             enemigo.lives -= 1
-            enemigo.animacion = enemigo.list_animations[1]
+            enemigo.animation = enemigo.list_animations[1]
             if enemigo.lives == 0:
               if type(enemigo) == Enemy_Boss:
                 scream.play()
-              enemigo.animacion = enemigo.list_animations[1]
+              enemigo.animation = enemigo.list_animations[1]
               enemigo.muerto = True
             if type(enemigo) == Enemy_Boss:
               enemigo.recibir_disparo()
@@ -75,11 +75,11 @@ class Collition:
 
     if collide:
       for item in collide:
-        if item.animacion == key_yellow or item.animacion == key_red:
+        if item.animation == key_yellow or item.animation == key_red:
           self.player.key_recogida = True
-        if item.animacion == pocion_reduce:
+        if item.animation == pocion_reduce:
           self.player.reducir()
-        if item.animacion == live_item:
+        if item.animation == live_item:
           self.player.lives += 1
           break
       items_win.play()
@@ -99,7 +99,7 @@ class Collition:
     if self.player.rect.colliderect(self.portal.rect):
       self.player.rect.right = self.portal.rect.left + 5
       if self.player.rect.height > self.portal.rect.height:
-        escribir_screen(screen, "DRINK ME", "white", "", (1200, 500))
+        write_screen(screen, "DRINK ME", "white", "", (1200, 500))
       else:
         self.player.enter_portal = True
 

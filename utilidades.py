@@ -1,7 +1,7 @@
 import pygame
 from constantes import *
 
-def obtener_surface_de_spriteSheet(path, columnas, filas, step=1):
+def get_surface_spritesheet(path, columnas, filas, step=1):
   lista = []
   surface_imagen = pygame.image.load(path).convert_alpha()
   fotograma_ancho = int(surface_imagen.get_width()/columnas)
@@ -16,23 +16,16 @@ def obtener_surface_de_spriteSheet(path, columnas, filas, step=1):
           lista.append(surface_fotograma)
   return lista
 
-def reescalar_imagen(lista_animaciones, tamanio):
-  for lista_imagenes in lista_animaciones:
-    for i in range(len(lista_imagenes)):
-        lista_imagenes[i] = pygame.transform.rotozoom(
-            lista_imagenes[i], 0, tamanio)
+def rescale_image(list_animations, size):
+  for list_images in list_animations:
+    for i in range(len(list_images)):
+        list_images[i] = pygame.transform.rotozoom(
+            list_images[i], 0, size)
 
-def escribir_screen(screen, texto, color, cantidad=".", posicion=None):
-  text_lives = font.render(texto + "{0}".format(cantidad), True, color)
-  if posicion is None:
+def write_screen(screen, text, color, cantidad=".", position=None):
+  text_lives = font.render(text + "{0}".format(cantidad), True, color)
+  if position is None:
       center = text_lives.get_rect(center=(WIDTH_PANTALLA/2, HEIGHT_PANTALLA/2))
       screen.blit(text_lives, center)
-  elif posicion is not None:
-      screen.blit(text_lives, posicion)
-
-def animar_pantalla(screen, animation):
-  # TODO arreglar animacion
-  for i in range(len(animation)):
-    image = pygame.transform.scale(animation[i], (WIDTH_PANTALLA, HEIGHT_PANTALLA))
-    # indice_imagen = i // 10 % len(animation)
-    screen.blit(image, (0, 0))
+  elif position is not None:
+      screen.blit(text_lives, position)

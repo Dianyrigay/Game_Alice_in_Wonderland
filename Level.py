@@ -2,10 +2,10 @@ import pygame
 import json
 
 from utilidades import *
-from animaciones import *
+from animations import *
 
-from Player import Player
-from Enemigo import Enemy_Shooter, Enemy_Moving, Enemy_Attack, Enemy_Boss
+from player import Player
+from enemigo import Enemy_Shooter, Enemy_Moving, Enemy_Attack, Enemy_Boss
 from Item import Portal
 from Platform import Platform, MovingPlatform
 from collitions import Collition
@@ -126,7 +126,7 @@ class Level():
         x = enemy['x']
         y = enemy['y']
         animation_name = enemy['animation']
-        animation = dict_animations[animation_name]
+        animation = dict_enemies[animation_name]
 
         enemy = Enemy_Shooter((x, y), animation)
         self.enemy_list.append(enemy)
@@ -137,7 +137,7 @@ class Level():
         x = enemy['x']
         y = enemy['y']
         animation_name = enemy['animation']
-        animation = dict_animations[animation_name]
+        animation = dict_enemies[animation_name]
 
         enemy = Enemy_Moving((x, y), animation)
         self.enemy_list.append(enemy)
@@ -148,7 +148,7 @@ class Level():
         x = enemy['x']
         y = enemy['y']
         animation_name = enemy['animation']
-        animation = dict_animations[animation_name]
+        animation = dict_enemies[animation_name]
 
         enemy = Enemy_Attack((x, y), animation)
         self.enemy_list.append(enemy)
@@ -159,7 +159,7 @@ class Level():
         x = enemy['x']
         y = enemy['y']
         animation_name = enemy['animation']
-        animation = dict_animations[animation_name]
+        animation = dict_enemies[animation_name]
 
         enemy = Enemy_Boss((x, y), animation)
         self.enemy_list.append(enemy)
@@ -243,8 +243,8 @@ class Level():
       self.portal.draw(screen)
       portal_magic.stop()
 
-    escribir_screen(screen, 'SCORE: ', "white", str(self.player.score), (20, 20))
-    escribir_screen(screen, '00:', "white", str(self.time_restante).zfill(2), (WIDTH_PANTALLA//2, 20))
+    write_screen(screen, 'SCORE: ', "white", str(self.player.score), (20, 20))
+    write_screen(screen, '00:', "white", str(self.time_restante).zfill(2), (WIDTH_PANTALLA//2, 20))
 
   def update_time(self):
     self.time_transcurrido = pygame.time.get_ticks() - self.time_actual

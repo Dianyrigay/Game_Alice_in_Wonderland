@@ -1,24 +1,24 @@
 from constantes import *
-from animaciones import *
+from animations import *
 
-from Personaje import Personaje
+from personaje import Character
 
-class Player(Personaje):
+class Player(Character):
   def __init__(self) -> None:
     super().__init__()
     # -- Attributos
     self.entrada_cayendo = True
     self.rect = idle[0].get_rect(topleft=(0, 0))
     self.rect_lives = live[0].get_rect(topleft=(1450, 20))
-    self.velocidad_x = 0
-    self.velocidad_y = 0
+    self.speed_x = 0
+    self.speed_y = 0
     # -- salto
     self.gravedad = 0.9
     self.potencia_salto = -14
     self.esta_cayendo = False
     self.can_double_jump = False
-    # --animaciones
-    self.contador_cambio_animacion = 30
+    # --animationes
+    self.contador_cambio_animation = 30
     self.cadencia = 10
     self.lives = 5
     self.score = 0
@@ -33,7 +33,7 @@ class Player(Personaje):
     self.enter_portal = False
 
   def mover_personaje_x(self):
-    self.rect.x += self.velocidad_x
+    self.rect.x += self.speed_x
 
     if self.rect.left < 0:
         self.rect.left = 0
@@ -41,17 +41,17 @@ class Player(Personaje):
         self.rect.right = WIDTH_PANTALLA
 
   def mover_personaje_y(self):
-    self.rect.y += self.velocidad_y
+    self.rect.y += self.speed_y
 
     if self.rect.top == HEIGHT_PANTALLA:
       self.rect.top = HEIGHT_PANTALLA
 
   def calcular_gravedad(self):
-    if self.velocidad_y == 0:
-      self.velocidad_y = 1
+    if self.speed_y == 0:
+      self.speed_y = 1
     else:
       self.esta_cayendo = True
-      self.velocidad_y += self.gravedad
+      self.speed_y += self.gravedad
 
   def update(self, screen, platforms_list, piso_rect):
     self.cuenta_pasos += 1
@@ -63,21 +63,20 @@ class Player(Personaje):
       self.player_collide_platforms(platforms_list)
       self.player_collide_floor(piso_rect)
       if self.esta_cayendo:
-        self.animacion = self.list_animations[2]
+        self.animation = self.list_animations[2]
     elif self.lives <= 0 and self.contador_muerte > 0:
-      #TODO arreglar animacion de muerte
-      self.animacion = self.list_animations[4]
+      self.animation = self.list_animations[4]
       self.contador_muerte -= 1
     else:
       self.muerto = True
 
-    if self.animacion == self.list_animations[3]:
-       self.contador_cambio_animacion -= 1
+    if self.animation == self.list_animations[3]:
+       self.contador_cambio_animation -= 1
 
     if self.invertir_movimientos:
       self.tiempo_invertido -= 1
       segundos = int(self.tiempo_invertido / 60)
-      escribir_screen(screen, "00:0", "white", str(segundos))
+      write_screen(screen, "00:0", "white", str(segundos))
       if self.tiempo_invertido <= 0:
         self.invertir_movimientos = False
         suspence_invertion.stop()
@@ -97,55 +96,55 @@ class Player(Personaje):
 
   # control de moivimientos del Personaje:
   def saltar(self):
-    if self.izquierda:
-      self.velocidad_x = -3
+    if self.left:
+      self.speed_x = -3
     else:
-      self.velocidad_x = 3
+      self.speed_x = 3
 
     #TODO arreglar doble salto
     if not self.esta_cayendo and not self.can_double_jump:
-      self.velocidad_y = self.potencia_salto
+      self.speed_y = self.potencia_salto
       self.can_double_jump = True
     elif self.can_double_jump:
-      self.velocidad_y = self.potencia_salto
+      self.speed_y = self.potencia_salto
       self.can_double_jump = False
 
   def flotar(self):
-    self.animacion = self.list_animations[2]
-    self.velocidad_y = 5
+    self.animation = self.list_animations[2]
+    self.speed_y = 5
 
-  def mover_izquierda(self):
-    self.animacion = self.list_animations[1]
+  def mover_left(self):
+    self.animation = self.list_animations[1]
     if not self.invertir_movimientos:
-      self.izquierda = True
-      self.velocidad_x = -8
+      self.left = True
+      self.speed_x = -8
     else:
-      self.izquierda = False
-      self.velocidad_x = 8
+      self.left = False
+      self.speed_x = 8
 
   def mover_derecha(self):
-    self.animacion = self.list_animations[1]
+    self.animation = self.list_animations[1]
     if not self.invertir_movimientos:
-      self.izquierda = False
-      self.velocidad_x = 8
+      self.left = False
+      self.speed_x = 8
     else:
-      self.izquierda = True
-      self.velocidad_x = -8
+      self.left = True
+      self.speed_x = -8
 
   def idle(self):
-    self.animacion = self.list_animations[0]
-    self.velocidad_x = 0
+    self.animation = self.list_animations[0]
+    self.speed_x = 0
 
   # Lives player
   def restar_lives(self, screen):
-    # self.animacion = self.list_animations[3]
+    # self.animation = self.list_animations[3]
     self.lives -= 1
 
   def animar_lives(self, screen):
     x = self.rect_lives.right
     for _ in range(self.lives):
       x -= self.rect_lives.width + 15
-      indice_imagen = self.cuenta_pasos // self.velocidad_animacion % len(live)
+      indice_imagen = self.cuenta_pasos // self.speed_animation % len(live)
       screen.blit(live[indice_imagen], (x, self.rect_lives.y))
 
   def disparar(self, bubbles_group):
@@ -158,9 +157,9 @@ class Player(Personaje):
   def reducir(self):
     x = self.rect.x
     y = self.rect.y
-    self.animacion = reducir
-    reescalar_imagen(list_alice, 0.4)
-    reescalar_imagen(list_alice_dark, 0.4)
+    self.animation = reducir
+    rescale_image(list_alice, 0.4)
+    rescale_image(list_alice_dark, 0.4)
     pygame.transform.rotozoom(bubble, 0, 0.3)
     pygame.transform.rotozoom(knife, 0, 0.3)
     self.rect = idle[0].get_rect(topleft=(x, y))
@@ -173,43 +172,43 @@ class Player(Personaje):
         self.flotar()
         self.entrada_cayendo = False
       elif keys[pygame.K_LEFT]:
-        self.mover_izquierda()
+        self.mover_left()
       elif keys[pygame.K_RIGHT]:
         self.mover_derecha()
       elif (keys[pygame.K_x]):
         #TODO agregar que pueda disparar mientras walk
         self.disparar(bubbles_group)
       else:
-        if self.contador_cambio_animacion <= 0 and self.animacion == self.list_animations[3]:
+        if self.contador_cambio_animation <= 0 and self.animation == self.list_animations[3]:
           self.idle()
-          self.contador_cambio_animacion = 30
-        elif self.animacion != self.list_animations[3]:
+          self.contador_cambio_animation = 30
+        elif self.animation != self.list_animations[3]:
           self.idle()
 
   def player_collide_platforms(self, platforms_list):
     for plataforma in platforms_list:
         if self.rect.colliderect(plataforma.rect):
-            if self.velocidad_y > 0 and self.esta_cayendo:
-                self.velocidad_y = 0
+            if self.speed_y > 0 and self.esta_cayendo:
+                self.speed_y = 0
                 self.rect.bottom = plataforma.rect.top
                 self.esta_cayendo = False
-            elif self.velocidad_y < 0:
+            elif self.speed_y < 0:
                 self.esta_cayendo = False
                 self.rect.top = plataforma.rect.bottom
-                self.velocidad_y = 0
+                self.speed_y = 0
 
             if not self.rect.bottom == plataforma.rect.top and not self.rect.top == plataforma.rect.bottom:
-                if self.velocidad_x > 0:
+                if self.speed_x > 0:
                     self.rect.right = plataforma.rect.left
-                    self.velocidad_x = 0
-                elif self.velocidad_x < 0:
+                    self.speed_x = 0
+                elif self.speed_x < 0:
                     self.rect.left = plataforma.rect.right
-                    self.velocidad_x = 0
+                    self.speed_x = 0
 
   def player_collide_floor(self, piso_rect):
     if self.rect.colliderect(piso_rect):
-      if self.velocidad_y > 0 and self.esta_cayendo:
-        self.velocidad_y = 0
+      if self.speed_y > 0 and self.esta_cayendo:
+        self.speed_y = 0
         self.rect.bottom = piso_rect.top
         self.esta_cayendo = False
 

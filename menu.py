@@ -2,7 +2,7 @@ import pygame
 from sys import exit
 
 from constantes import *
-from animaciones import *
+from animations import *
 
 from gui_button import Button
 from gui_form import TextInput
@@ -229,13 +229,13 @@ class High_Scores(Menu):
 
     def draw(self, screen):
         super().draw(screen)
-        escribir_screen(screen, "PLAYER", "yellow", "", (300, 300))
-        escribir_screen(screen, "SCORE", "yellow", "", (1050, 300))
+        write_screen(screen, "PLAYER", "yellow", "", (300, 300))
+        write_screen(screen, "SCORE", "yellow", "", (1050, 300))
         rows = get_score()
         y = 380
         for row in rows:
-            escribir_screen(screen, "", "white", str(row[1]), (300, y))
-            escribir_screen(screen, "", "white", str(row[2]), (1050, y))
+            write_screen(screen, "", "white", str(row[1]), (300, y))
+            write_screen(screen, "", "white", str(row[2]), (1050, y))
             y += 60
 
 

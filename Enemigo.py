@@ -1,44 +1,44 @@
 import random
 
 from constantes import *
-from animaciones import *
+from animations import *
 
-from Personaje import Personaje
+from personaje import Character
 from healthbar import HealthBar
 
-class Enemigo(Personaje):
-  def __init__(self, posicion: tuple, animacion: list) -> None:
+class Enemy(Character):
+  def __init__(self, posicion: tuple, animation: list) -> None:
     super().__init__()
     # -- Attributos
-    self.velocidad_animacion = 10
+    self.speed_animation = 10
     self.posicion = posicion
-    self.rect = animacion[0].get_rect(midbottom=posicion)
-    self.animacion = animacion
+    self.rect = animation[0].get_rect(midbottom=posicion)
+    self.animation = animation
     self.cadencia = TIEMPO_ENTRE_DISPAROS
     self.ultimo_disparo = pygame.time.get_ticks()
     self.animation_death = None
-    self.velocidad_x = 0
+    self.speed_x = 0
 
   def update(self, platforms_list):
     self.cuenta_pasos += 1
     if not self.muerto:
       self.mover_personaje_x()
       self.check_collision(platforms_list)
-    if self.velocidad_x > 0:
-      self.izquierda = False
+    if self.speed_x > 0:
+      self.left = False
     else:
-      self.izquierda = True
+      self.left = True
 
   def draw(self, screen):
     if not self.muerto:
       self.animar_personaje(screen)
     elif self.muerto and self.contador_muerte > 0:
-      self.animacion = self.animation_death
+      self.animation = self.animation_death
       self.animar_personaje(screen)
       self.contador_muerte -= 1
 
   def mover_personaje_x(self):
-    self.rect.x += self.velocidad_x
+    self.rect.x += self.speed_x
 
   def check_collision(self, platforms_list):
     for plataforma in platforms_list:
@@ -49,14 +49,14 @@ class Enemigo(Personaje):
         self.invert_direction()
 
   def invert_direction(self):
-    self.velocidad_x *= -1
+    self.speed_x *= -1
 
-class Enemy_Shooter(Enemigo):
-  def __init__(self, posicion: tuple, animacion: list) -> None:
-    super().__init__(posicion, animacion)
-    self.izquierda = True
+class Enemy_Shooter(Enemy):
+  def __init__(self, posicion: tuple, animation: list) -> None:
+    super().__init__(posicion, animation)
+    self.left = True
     self.animation_death = plant_dead
-    self.velocidad_x = 0
+    self.speed_x = 0
 
   def update(self, bullets_group, platforms_list):
     super().update(platforms_list)
@@ -66,16 +66,16 @@ class Enemy_Shooter(Enemigo):
   def disparar(self, bullets_group):
     super().disparar(bullets_group, bala_plant)
 
-class Enemy_Moving(Enemigo):
-  def __init__(self, posicion: tuple, animacion: list) -> None:
-    super().__init__(posicion, animacion)
-    self.velocidad_x = 3
+class Enemy_Moving(Enemy):
+  def __init__(self, posicion: tuple, animation: list) -> None:
+    super().__init__(posicion, animation)
+    self.speed_x = 3
     self.animation_death = pig_dead
 
-class Enemy_Attack(Enemigo):
+class Enemy_Attack(Enemy):
   def __init__(self, posicion: tuple, list_animations: list) -> None:
     super().__init__(posicion, list_animations[0])
-    self.velocidad_x = 2
+    self.speed_x = 2
     self.lives = 3
     self.list_animations = list_animations
     self.animation_death = self.list_animations[1]
@@ -86,20 +86,20 @@ class Enemy_Attack(Enemigo):
       if self.rect.y <= player_rect.y and abs(self.rect.x - player_rect.x) <= 400:
         self.attack_player(player_rect, platforms_list)
       else:
-        self.animacion = self.list_animations[0]
-      if self.velocidad_x > 0:
-        self.izquierda = False
+        self.animation = self.list_animations[0]
+      if self.speed_x > 0:
+        self.left = False
       else:
-        self.izquierda = True
+        self.left = True
 
   def attack_player(self, player_rect, platforms_list):
-    self.animacion = self.list_animations[2]
+    self.animation = self.list_animations[2]
     if self.rect.x < player_rect.x:
-        self.velocidad_x = 3
+        self.speed_x = 3
     else:
-        self.velocidad_x = -3
+        self.speed_x = -3
 
-class Enemy_Boss(Enemigo):
+class Enemy_Boss(Enemy):
   def __init__(self, posicion: tuple, list_animations: list) -> None:
     super().__init__(posicion, list_animations[0])
     self.list_animations = list_animations
@@ -108,9 +108,9 @@ class Enemy_Boss(Enemigo):
     self.jump_height = 200
     self.jump_duration = 60
     self.jump_timer = 0
-    self.velocidad_x = 0
-    self.izquierda = True
-    self.velocidad_animacion = 25
+    self.speed_x = 0
+    self.left = True
+    self.speed_animation = 25
     self.cadencia = 100
     self.spawn_timer = pygame.time.get_ticks()
     self.spawn_interval = 4000
@@ -125,8 +125,8 @@ class Enemy_Boss(Enemigo):
         if self.rect.y <= player_rect.y and abs(self.rect.x - player_rect.x) <= 800:
           self.attack_player(player_rect, bullets_group)
         else:
-          self.velocidad_x = 0
-          self.animacion = self.list_animations[0]
+          self.speed_x = 0
+          self.animation = self.list_animations[0]
       else:
         self.jump_timer += 1
         if self.jump_timer <= self.jump_duration:
@@ -134,12 +134,12 @@ class Enemy_Boss(Enemigo):
         else:
           self.is_jumping = False
           self.jump_timer = 0
-          self.animacion = self.list_animations[0]
+          self.animation = self.list_animations[0]
           self.rect.y = self.posicion[1]
-      if self.velocidad_x > 0:
-        self.izquierda = False
+      if self.speed_x > 0:
+        self.left = False
       else:
-        self.izquierda = True
+        self.left = True
 
       self.player_collide_floor(piso_rect)
 
@@ -152,11 +152,11 @@ class Enemy_Boss(Enemigo):
     self.health_bar.draw(screen, (self.rect.centerx, self.rect.top + 50))
 
   def attack_player(self, player_rect, bullets_group):
-    self.animacion = self.list_animations[1]
+    self.animation = self.list_animations[1]
     if self.rect.x < player_rect.x:
-      self.velocidad_x = 3
+      self.speed_x = 3
     else:
-      self.velocidad_x = -3
+      self.speed_x = -3
     self.disparar(bullets_group)
 
   def mover_personaje_y(self):
@@ -185,10 +185,10 @@ class Enemy_Boss(Enemigo):
       self.invert_direction()
 
   def invert_direction(self):
-    self.velocidad_x *= -1
+    self.speed_x *= -1
 
   def recibir_disparo(self):
     self.health_bar.health = self.lives
     if not self.is_jumping:
       self.is_jumping = True
-      self.animacion = self.list_animations[0]
+      self.animation = self.list_animations[0]
