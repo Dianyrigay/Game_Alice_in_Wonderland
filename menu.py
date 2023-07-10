@@ -44,7 +44,6 @@ class MainMenu(Menu):
     def __init__(self):
         super().__init__()
         self.background = background_menu
-        self.fill = True
 
         self.buttons = [
             Button(image=pygame.image.load("./images/play-rect2.png"), x=1120, y=320,
@@ -76,14 +75,15 @@ class MainMenu(Menu):
 class LevelsMenu(Menu):
     def __init__(self):
         super().__init__()
-        self.fill = True
         self.buttons = [
             Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=320,
                    text_input="LEVEL 1", base_color="white", hovering_color="yellow"),
             Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=400,
                    text_input="LEVEL 2", base_color="white", hovering_color="yellow"),
             Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=480,
-                   text_input="LEVEL 3", base_color="white", hovering_color="yellow")
+                   text_input="LEVEL 3", base_color="white", hovering_color="yellow"),
+            Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=650,
+                   text_input="MAIN MENU", base_color="white", hovering_color="yellow")
         ]
 
     def handle_button_click(self):
@@ -96,6 +96,8 @@ class LevelsMenu(Menu):
             return "play_2"
         if self.buttons[2].checkForInput(mouse_pos):
             return "play_3"
+        if self.buttons[3].checkForInput(mouse_pos):
+            return "main_menu"
 
 class PauseMenu(Menu):
     def __init__(self):
@@ -137,11 +139,9 @@ class PauseMenu(Menu):
             exit()
         return False
 
-
 class FinalMenu(Menu):
     def __init__(self, game_over, game_win, score, level):
         super().__init__()
-        self.fill = True
         self.game_over = game_over
         self.game_win = game_win
 
@@ -180,7 +180,7 @@ class FinalMenu(Menu):
         if self.game_over:
             if self.buttons[0].checkForInput(mouse_pos):
                 return "retry"
-            if self.buttons[2].checkForInput(mouse_pos):
+            if self.buttons[1].checkForInput(mouse_pos):
                 return "main_menu"
         if self.game_win:
             nombre = self.text_input.text
@@ -196,3 +196,32 @@ class FinalMenu(Menu):
         super().draw(screen)
         if self.game_win:
             self.text_input.draw(screen)
+
+class High_Scores(Menu):
+    def __init__(self):
+        super().__init__()
+        self.background = high_scores_image
+        self.buttons = [
+            Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=750,
+                text_input="MAIN MANU", base_color="white", hovering_color="yellow"),
+        ]
+
+    def handle_button_click(self):
+        mouse_pos = pygame.mouse.get_pos()
+        click_magic.play()
+        if self.buttons[0].checkForInput(mouse_pos):
+            return "main_menu"
+
+    def draw(self, screen):
+        super().draw(screen)
+        escribir_screen(screen, "PLAYER", "yellow", "", (300, 300))
+        escribir_screen(screen, "SCORE", "yellow", "", (1050, 300))
+        rows = get_score()
+        y = 380
+        for row in rows:
+            escribir_screen(screen, "", "white", str(row[1]), (300, y))
+            escribir_screen(screen, "", "white", str(row[2]), (1050, y))
+            y += 60
+
+
+

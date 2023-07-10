@@ -73,6 +73,11 @@
     ],
     "enemy_attack": [
       {
+        "x": 400,
+        "y": 680,
+        "animation": "sombrero"
+      },
+      {
         "x": 900,
         "y": 680,
         "animation": "sombrero"

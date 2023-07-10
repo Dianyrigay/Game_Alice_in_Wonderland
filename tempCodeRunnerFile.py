@@ -1,1 +1,2 @@
-handle_event
+
+      escribir_screen(screen, 'SCORE: ', "white",

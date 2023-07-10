@@ -28,12 +28,9 @@ def save_score(name, score, level):
   except sqlite3.OperationalError as error:
      print("Error ", error)
 
-
 def get_score():
   with sqlite3.connect("game_alice.db") as conexion:
-      sql_select = "SELECT * FROM players"
+      sql_select = "SELECT * FROM players ORDER BY score DESC"
       cur = conexion.cursor()
       res = cur.execute(sql_select)
-      print("res", res.fetchall())
       return cur.execute(sql_select).fetchall()
-# print(get_score())

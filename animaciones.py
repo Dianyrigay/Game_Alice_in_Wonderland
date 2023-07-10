@@ -153,13 +153,14 @@ mirror = [pygame.image.load('./images/trampas/mirror/0.png').convert_alpha(),
 # Backgrounds
 background_menu = pygame.transform.scale(pygame.image.load(
     "./images/background-menu.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
-game_over_image = pygame.image.load("./images/game_over.png").convert_alpha()
+game_over_image = pygame.image.load("./images/you_lose.png").convert_alpha()
 game_over_image = pygame.transform.scale(
     game_over_image, (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 you_win = pygame.transform.scale(pygame.image.load(
 "./images/you_win.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 background_pause = pygame.transform.scale(pygame.image.load("./images/menu_pause.png").convert_alpha(), (500,600))
-
+high_scores_image = pygame.transform.scale(pygame.image.load(
+    "./images/high_scores.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
 dict_animations = {
     "pig_fly": pig_fly,
     "pig_dead": pig_dead,

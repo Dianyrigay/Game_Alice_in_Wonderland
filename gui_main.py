@@ -6,7 +6,7 @@ from animaciones import *
 
 from Player import Player
 from Level import Level
-from menu import MainMenu, LevelsMenu, PauseMenu, FinalMenu
+from menu import MainMenu, LevelsMenu, PauseMenu, FinalMenu, High_Scores
 
 pygame.init()
 
@@ -17,22 +17,19 @@ pygame.display.set_caption('Alice in Worderland')
 icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
 
-
 def play(level_play="level_1"):
-    player = Player()
+  player = Player()
+  list_level = []
 
-    list_level = []
+  level = Level(player, level_play)
+  list_level.append(level.level)
+  running_game = True
+  game_over = False
+  game_win = False
+  is_paused = False
+  return_to_play = False
 
-    level = Level(player, level_play)
-    list_level.append(level.level)
-    running_game = True
-    game_over = False
-    game_win = False
-    is_paused = False
-    return_to_play = False
-
-    while running_game:
-
+  while running_game:
         if is_paused:
             pygame.display.update()
             continue
@@ -51,9 +48,9 @@ def play(level_play="level_1"):
 
         player.eventos(level.bubbles_group)
         if level_play == "level_2":
-            player.transition_dark = True
+          player.transition_dark = True
         elif level_play == "level_3":
-            player.dark = True
+          player.dark = True
 
         if not game_over and not game_win:
             if player.muerto or level.time_restante == 0:
@@ -96,6 +93,8 @@ def main_menu():
         play()
       elif ejecutar == "levels_menu":
         levels_menu()
+      elif ejecutar == "records":
+        high_scores_menu()
       pygame.display.update()
 
 def levels_menu():
@@ -112,6 +111,8 @@ def levels_menu():
         play("level_2")
       elif ejecutar == "play_3":
         play("level_3")
+      elif ejecutar == "main_menu":
+        main_menu()
       pygame.display.update()
 
 def pause_menu(level_play):
@@ -132,8 +133,11 @@ def pause_menu(level_play):
 
 
 def win_lose_menu(level_play, game_over, game_win, score, level):
-  ambient_suspence.stop()
-  game_over_sound.play()
+  if game_over:
+    game_over_sound.play()
+  if game_win:
+    #TODO agrega musica de win
+    pass
 
   final_menu = FinalMenu(game_over, game_win, score, level)
 
@@ -150,7 +154,17 @@ def win_lose_menu(level_play, game_over, game_win, score, level):
       escribir_screen(screen, 'SCORE: ', "white",
                     str(score), (845, 350))
       if ejecutar == "guardar":
-         print('mostrar records')
+         high_scores_menu()
+    pygame.display.update()
+
+def high_scores_menu():
+  high_scores = High_Scores()
+
+  while True:
+    ejecutar = high_scores.update()
+    high_scores.draw(screen)
+    if ejecutar == "main_menu":
+      main_menu()
     pygame.display.update()
 
 main_menu()
