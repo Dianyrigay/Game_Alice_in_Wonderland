@@ -32,7 +32,7 @@ class Collition:
 
     if collide:
       impact.play()
-      self.player.animacion = angry
+      self.player.animacion = self.player.list_animations[3]
       self.player.restar_lives(screen)
       self.player.rect.x += -10
 
@@ -41,7 +41,7 @@ class Collition:
 
     if collide:
       impact.play()
-      self.player.animacion = angry
+      self.player.animacion = self.player.list_animations[3]
 
   def enemy_collide_bubbles(self):
     if self.enemy_list != None:

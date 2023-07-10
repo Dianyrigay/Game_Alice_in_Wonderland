@@ -71,7 +71,7 @@ class Player(Personaje):
     else:
       self.muerto = True
 
-    if self.animacion == angry or self.animacion == reducir:
+    if self.animacion == self.list_animations[3] or self.animacion == reducir:
        self.contador_cambio_animacion -= 1
 
     if self.invertir_movimientos:
@@ -138,7 +138,7 @@ class Player(Personaje):
 
   # Lives player
   def restar_lives(self, screen):
-    self.animacion = angry
+    # self.animacion = self.list_animations[3]
     self.lives -= 1
 
   def animar_lives(self, screen):
@@ -179,10 +179,10 @@ class Player(Personaje):
         #TODO agregar que pueda disparar mientras walk
         self.disparar(bubbles_group)
       else:
-        if self.contador_cambio_animacion <= 0 and self.animacion == angry:
+        if self.contador_cambio_animacion <= 0 and self.animacion == self.list_animations[3]:
           self.idle()
           self.contador_cambio_animacion = 30
-        elif self.animacion != angry:
+        elif self.animacion != self.list_animations[3]:
           self.idle()
 
   def player_collide_platforms(self, platforms_list):

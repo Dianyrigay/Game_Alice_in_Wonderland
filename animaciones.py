@@ -5,7 +5,7 @@ pygame.init()
 pygame.display.set_mode((WIDTH_PANTALLA,HEIGHT_PANTALLA))
 # Alice
 idle = [pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()]
-idle_dark = [pygame.image.load('./images/alice/idle-dark2.png').convert_alpha()]
+idle_dark = [pygame.image.load('./images/alice/evil/idle.png').convert_alpha()]
 
 walk = [pygame.image.load('./images/alice/walk/rigth-00.png').convert_alpha(),
               pygame.image.load('./images/alice/walk/rigth-01.png').convert_alpha(),
@@ -14,7 +14,7 @@ walk = [pygame.image.load('./images/alice/walk/rigth-00.png').convert_alpha(),
               pygame.image.load('./images/alice/walk/rigth-04.png').convert_alpha(),
               pygame.image.load('./images/alice/walk/rigth-05.png').convert_alpha()]
 
-walk_dark = obtener_surface_de_spriteSheet('./images/alice/walk-dark.png', 7, 1, 1)
+walk_dark = obtener_surface_de_spriteSheet('./images/alice/evil/walk.png', 7, 1, 1)
 
 floating = [pygame.image.load('./images/alice/floating/floating-01.png').convert_alpha(),
             pygame.image.load('./images/alice/floating/floating-02.png').convert_alpha(),
@@ -24,7 +24,7 @@ floating = [pygame.image.load('./images/alice/floating/floating-01.png').convert
             pygame.image.load('./images/alice/floating/floating-06.png').convert_alpha()]
 
 floating_dark = obtener_surface_de_spriteSheet(
-    './images/alice/floating-dark.png', 5, 1, 1)
+    './images/alice/evil/floating.png', 5, 1, 1)
 
 dead = [pygame.image.load('./images/alice/dead/dead-01.gif').convert_alpha(),
         pygame.image.load('./images/alice/dead/dead-02.gif').convert_alpha(),
@@ -34,6 +34,9 @@ dead = [pygame.image.load('./images/alice/dead/dead-01.gif').convert_alpha(),
         pygame.image.load('./images/alice/dead/dead-06.gif').convert_alpha()]
 
 angry = obtener_surface_de_spriteSheet('./images/alice/angry/angry.png', 8, 1, 1)
+angry_dark = obtener_surface_de_spriteSheet(
+    './images/alice/evil/angry.png', 8, 1, 1)
+
 
 reducir = [pygame.image.load('./images/alice/reduce/shrinking-01.png').convert_alpha(),
            pygame.image.load('./images/alice/reduce/shrinking-02.png').convert_alpha(),
@@ -43,7 +46,7 @@ reducir = [pygame.image.load('./images/alice/reduce/shrinking-01.png').convert_a
 
 list_alice = [idle, walk, floating, angry]
 reescalar_imagen(list_alice, 2.25)
-list_alice_dark = [idle_dark, walk_dark, floating_dark]
+list_alice_dark = [idle_dark, walk_dark, floating_dark, angry_dark]
 reescalar_imagen(list_alice_dark, 2.25)
 
 lista_dead = [dead]

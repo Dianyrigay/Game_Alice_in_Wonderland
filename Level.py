@@ -215,6 +215,7 @@ class Level():
     elif self.player.enter_portal and self.level == "level_2":
       portal_magic.stop()
       self.next_level = "level_3"
+      self.player.dark = True
       self.player.reset_position()
     elif self.player.enter_portal and self.level == "level_3":
       self.game_win = True

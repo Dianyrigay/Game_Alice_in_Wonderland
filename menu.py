@@ -169,7 +169,8 @@ class FinalMenu(Menu):
                 pygame.quit()
                 exit()
 
-            self.text_input.handle_event(event)
+            if self.game_win:
+                self.text_input.handle_event(event)
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 return self.handle_button_click()
