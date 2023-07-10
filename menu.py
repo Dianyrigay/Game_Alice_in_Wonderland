@@ -39,7 +39,6 @@ class Menu:
         button.changeColor(MENU_MOUSE_POS)
         button.update(screen)
 
-
 class MainMenu(Menu):
     def __init__(self):
         super().__init__()
@@ -75,16 +74,31 @@ class MainMenu(Menu):
 class LevelsMenu(Menu):
     def __init__(self):
         super().__init__()
+        self.background = levels_image
+        self.level_blocked = level_blocked
+        self.level_active = level_active
+        self.rect_level = level_blocked.get_rect(midbottom = (0, 500))
         self.buttons = [
-            Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=320,
+            Button(image=pygame.image.load("./images/play-rect2.png"), x=200, y=510,
                    text_input="LEVEL 1", base_color="white", hovering_color="yellow"),
-            Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=400,
+            Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=510,
                    text_input="LEVEL 2", base_color="white", hovering_color="yellow"),
-            Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=480,
+            Button(image=pygame.image.load("./images/play-rect2.png"), x=1300, y=510,
                    text_input="LEVEL 3", base_color="white", hovering_color="yellow"),
-            Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=650,
-                   text_input="MAIN MENU", base_color="white", hovering_color="yellow")
-        ]
+            Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA / 2, y=750,
+                   text_input="BACK", base_color="white", hovering_color="yellow")]
+        self.level_status = [True] + [False] * (len(self.buttons) - 1)
+
+    def draw(self, screen):
+        super().draw(screen)
+        x = self.rect_level.right
+        for i, button in enumerate(self.buttons):
+            if self.level_status[i]:
+                image = self.level_active
+            else:
+                image = self.level_blocked
+            screen.blit(image, (x, self.rect_level.y))
+            x += self.rect_level.width + 350
 
     def handle_button_click(self):
         mouse_pos = pygame.mouse.get_pos()

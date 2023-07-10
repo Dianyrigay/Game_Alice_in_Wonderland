@@ -14,7 +14,7 @@ class Player(Personaje):
     self.velocidad_y = 0
     # -- salto
     self.gravedad = 0.9
-    self.potencia_salto = -15
+    self.potencia_salto = -14
     self.esta_cayendo = False
     self.can_double_jump = False
     # --animaciones
@@ -71,7 +71,7 @@ class Player(Personaje):
     else:
       self.muerto = True
 
-    if self.animacion == self.list_animations[3] or self.animacion == reducir:
+    if self.animacion == self.list_animations[3]:
        self.contador_cambio_animacion -= 1
 
     if self.invertir_movimientos:
@@ -159,9 +159,10 @@ class Player(Personaje):
     x = self.rect.x
     y = self.rect.y
     self.animacion = reducir
-    reescalar_imagen(list_alice, 0.35)
-    #TODO reducir la burbuja tambien, ver donde debo reducirla
-    # reescalar_imagen([[bubble]],0.01)
+    reescalar_imagen(list_alice, 0.4)
+    reescalar_imagen(list_alice_dark, 0.4)
+    pygame.transform.rotozoom(bubble, 0, 0.3)
+    pygame.transform.rotozoom(knife, 0, 0.3)
     self.rect = idle[0].get_rect(topleft=(x, y))
 
   def eventos(self, bubbles_group):

@@ -167,6 +167,12 @@ you_win = pygame.transform.scale(pygame.image.load(
 background_pause = pygame.transform.scale(pygame.image.load("./images/menu_pause.png").convert_alpha(), (500,600))
 high_scores_image = pygame.transform.scale(pygame.image.load(
     "./images/high_scores.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
+levels_image = pygame.transform.scale(pygame.image.load(
+    "./images/levels.png").convert_alpha(), (WIDTH_PANTALLA, HEIGHT_PANTALLA))
+level_blocked = pygame.transform.scale(pygame.image.load(
+    "./images/level_blocked.png").convert_alpha(), (202, 300))
+level_active = pygame.transform.scale(pygame.image.load(
+    "./images/level_active.png").convert_alpha(), (202, 300))
 
 #PORTALES
 portal_piedra = obtener_surface_de_spriteSheet(

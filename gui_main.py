@@ -17,9 +17,11 @@ pygame.display.set_caption('Alice in Worderland')
 icono = pygame.image.load('./images/alice/idle/rigth.png').convert_alpha()
 pygame.display.set_icon(icono)
 
+global list_level
+list_level = []
+
 def play(level_play="level_1"):
   player = Player()
-  list_level = []
 
   level = Level(player, level_play)
   list_level.append(level.level)
@@ -63,12 +65,14 @@ def play(level_play="level_1"):
             level.update(screen)
 
             if level.next_level == "level_2":
-                level_play = "level_2"
-                level = Level(player, level_play)
+              level_play = "level_2"
+              level = Level(player, level_play)
+              if level not in list_level:
                 list_level.append(level.level)
             elif level.next_level == "level_3":
-                level_play = "level_3"
-                level = Level(player, level_play)
+              level_play = "level_3"
+              level = Level(player, level_play)
+              if level not in list_level:
                 list_level.append(level.level)
 
         else:
@@ -100,17 +104,18 @@ def main_menu():
 def levels_menu():
     alice_intro.stop()
     click_magic.play()
-
     while True:
       levels_menu = LevelsMenu()
+      for i in range(len(list_level)):
+        levels_menu.level_status[i] = True
       ejecutar = levels_menu.update()
       levels_menu.draw(screen)
-      if ejecutar == "play_1":
-        play("level_1")
-      elif ejecutar == "play_2":
-        play("level_2")
-      elif ejecutar == "play_3":
-        play("level_3")
+      if ejecutar == "play_1" and levels_menu.level_status[0]:
+          play("level_1")
+      elif ejecutar == "play_2" and levels_menu.level_status[1]:
+          play("level_2")
+      elif ejecutar == "play_3" and levels_menu.level_status[2]:
+          play("level_3")
       elif ejecutar == "main_menu":
         main_menu()
       pygame.display.update()

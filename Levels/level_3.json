@@ -20,6 +20,18 @@
     ],
     "moving_platforms": [
       {
+        "cantidad": 2,
+        "separacion": 0,
+        "x": 150,
+        "y": 350,
+        "change_x": 0,
+        "change_y": 2,
+        "limit_left": 0,
+        "limit_right": 0,
+        "limit_top": 200,
+        "limit_bottom": 600
+      },
+      {
         "cantidad": 3,
         "separacion": 0,
         "x": 700,
