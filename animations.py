@@ -139,6 +139,8 @@ key_yellow = './images/items/key-yellow.png'
 key_red = './images/items/key-red.png'
 taza1 = './images/items/taza1.png'
 live_item = './images/items/live.png'
+tarta = './images/items/tarta.png'
+
 
 # TRAMPAS
 

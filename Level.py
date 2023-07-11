@@ -6,8 +6,8 @@ from animations import *
 
 from player import Player
 from enemigo import Enemy_Shooter, Enemy_Moving, Enemy_Attack, Enemy_Boss
-from Item import Portal
-from Platform import Platform, MovingPlatform
+from item import Portal
+from platforms import Platform, MovingPlatform
 from collitions import Collition
 
 class Level():
@@ -243,6 +243,8 @@ class Level():
       self.portal.draw(screen)
       portal_magic.stop()
 
+    if self.level == "level_3":
+      write_screen(screen, "EAT ME", "white", "", (350, 550))
     write_screen(screen, 'SCORE: ', "white", str(self.player.score), (20, 20))
     write_screen(screen, '00:', "white", str(self.time_restante).zfill(2), (WIDTH_PANTALLA//2, 20))
 

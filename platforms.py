@@ -1,7 +1,7 @@
 import pygame
 from constantes import *
 from animations import *
-from Item import Item, Trap
+from item import Item, Trap
 from player import Player
 
 class Platform:

@@ -164,6 +164,16 @@ class Player(Character):
     pygame.transform.rotozoom(knife, 0, 0.3)
     self.rect = idle[0].get_rect(topleft=(x, y))
 
+  def agrandar(self):
+    x = self.rect.x
+    y = self.rect.y
+    self.animation = reducir
+    rescale_image(list_alice, 2.25)
+    rescale_image(list_alice_dark, 2.25)
+    pygame.transform.rotozoom(bubble, 0, 0.3)
+    pygame.transform.rotozoom(knife, 0, 0.3)
+    self.rect = idle[0].get_rect(topleft=(x, y))
+
   def eventos(self, bubbles_group):
     keys = pygame.key.get_pressed()
 
@@ -176,7 +186,6 @@ class Player(Character):
       elif keys[pygame.K_RIGHT]:
         self.mover_derecha()
       elif (keys[pygame.K_x]):
-        #TODO agregar que pueda disparar mientras walk
         self.disparar(bubbles_group)
       else:
         if self.contador_cambio_animation <= 0 and self.animation == self.list_animations[3]:

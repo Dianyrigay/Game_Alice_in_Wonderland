@@ -5,7 +5,7 @@ from constantes import *
 
 from enemigo import Enemy_Moving, Enemy_Attack, Enemy_Boss
 from player import Player
-from Item import Portal
+from item import Portal
 
 class Collition:
   def __init__(self, player: Player, enemy_list: list, platforms_list: list, bullets_group, bubbles_group, items_group, sonidos_caracters, traps_group, portal: Portal = None) -> None:
@@ -79,6 +79,8 @@ class Collition:
           self.player.key_recogida = True
         if item.animation == pocion_reduce:
           self.player.reducir()
+        if item.animation == tarta:
+          self.player.agrandar()
         if item.animation == live_item:
           self.player.lives += 1
           break

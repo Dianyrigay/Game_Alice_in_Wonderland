@@ -5,7 +5,7 @@ from constantes import *
 from animations import *
 
 from player import Player
-from Level import Level
+from level import Level
 from menu import MainMenu, LevelsMenu, PauseMenu, FinalMenu, High_Scores
 
 pygame.init()

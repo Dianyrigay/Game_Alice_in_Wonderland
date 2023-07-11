@@ -16,6 +16,13 @@
         "x": 1000,
         "y": 350,
         "animations": "./images/items/key-red.png"
+      },
+      {
+        "cantidad": 1,
+        "separacion": 0,
+        "x": 300,
+        "y": 600,
+        "animations": "./images/items/tarta.png"
       }
     ],
     "moving_platforms": [

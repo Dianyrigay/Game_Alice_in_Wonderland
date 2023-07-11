@@ -20,8 +20,8 @@
         "cantidad": 1,
         "separacion": 0,
         "x": 1200,
-        "y": 400,
-        "animations": "./images/items/key-red.png"
+        "y": 500,
+        "animations": "./images/items/key-yellow.png"
       },
       {
         "cantidad": 2,
