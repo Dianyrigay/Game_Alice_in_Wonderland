@@ -4,7 +4,38 @@ from animations import *
 from character import Character
 
 class Player(Character):
+  """
+  Clase que representa al jugador en el juego Alicia in Wonderland.
+
+  Atributos:
+  - entrada_cayendo (bool): Indica si el jugador está en estado de caída al inicio.
+  - rect (pygame.Rect): Rectángulo de colisión del jugador.
+  - rect_lives (pygame.Rect): Rectángulo de visualización de las vidas del jugador.
+  - speed_x (int): Velocidad horizontal del jugador.
+  - speed_y (int): Velocidad vertical del jugador.
+  - gravedad (float): Valor de la gravedad aplicada al jugador.
+  - potencia_salto (int): Potencia del salto del jugador.
+  - esta_cayendo (bool): Indica si el jugador está en estado de caída.
+  - can_double_jump (bool): Indica si el jugador puede realizar un doble salto.
+  - contador_cambio_animation (int): Contador para el cambio de animaciones del jugador.
+  - cadencia (int): Cadencia para poder disparar.
+  - lives (int): Vidas restantes del jugador.
+  - score (int): Puntuación del jugador.
+  - list_animations (list): Lista de animaciones del jugador.
+  - immune_time (int): Tiempo de inmunidad después de una colisión con un enemigo.
+  - last_collision_time (int): Tiempo de la última colisión con un enemigo.
+  - tiempo_invertido (int): Tiempo restante de inversión de movimientos.
+  - invertir_movimientos (bool): Indica si los movimientos del jugador están invertidos.
+  - transition_dark (bool): Indica si se está produciendo una transición a la versión oscura del jugador.
+  - dark (bool): Indica si el jugador está en su versión oscura.
+  - key_recogida (bool): Indica si el jugador ha recogido la llave.
+  - enter_portal (bool): Indica si el jugador ha entrado en el portal.
+  - boss_death (bool): Indica si el jefe final ha sido derrotado.
+  """
   def __init__(self) -> None:
+    """
+    Inicializa una instancia de la clase Player.
+    """
     super().__init__()
     # -- Attributos
     self.entrada_cayendo = True
@@ -36,6 +67,9 @@ class Player(Character):
     self.boss_death = False
 
   def mover_personaje_x(self):
+    """
+    Actualiza la posición horizontal del personaje en función de su velocidad.
+    """
     self.rect.x += self.speed_x
 
     if self.rect.left < 0:
@@ -44,12 +78,18 @@ class Player(Character):
         self.rect.right = WIDTH_PANTALLA
 
   def mover_personaje_y(self):
+    """
+    Actualiza la posición vertical del personaje en función de su velocidad.
+    """
     self.rect.y += self.speed_y
 
     if self.rect.top == HEIGHT_PANTALLA:
       self.rect.top = HEIGHT_PANTALLA
 
   def calcular_gravedad(self):
+    """
+    Calcula la gravedad que afecta al personaje y actualiza su velocidad vertical.
+    """
     if self.speed_y == 0:
       self.speed_y = 1
     else:
@@ -57,6 +97,15 @@ class Player(Character):
       self.speed_y += self.gravedad
 
   def update(self, screen, platforms_list, piso_rect):
+    """
+    Actualiza el estado del jugador en función de la interacción con el entorno del juego.
+
+    Args:
+    - screen (pygame.Surface): Superficie de la pantalla del juego.
+    - platforms_list (list): Lista de plataformas en el nivel.
+    - piso_rect (pygame.Rect): Rectángulo de colisión del suelo.
+
+    """
     self.cuenta_pasos += 1
 
     if self.lives > 0:
@@ -91,11 +140,20 @@ class Player(Character):
       self.list_animations = list_alice
 
   def draw(self, screen):
+    """
+    Dibuja el jugador en la pantalla.
+
+    Args:
+    - screen (pygame.Surface): Superficie de la pantalla del juego.
+    """
     self.animar_lives(screen)
     self.animar_personaje(screen)
 
   # control de moivimientos del Personaje:
   def saltar(self):
+    """
+    Realiza la acción de salto del jugador.
+    """
     if self.left:
       self.speed_x = -3
     else:
@@ -109,10 +167,16 @@ class Player(Character):
       self.can_double_jump = False
 
   def flotar(self):
+    """
+    Realiza la acción de flotar del jugador.
+    """
     self.animation = self.list_animations[2]
     self.speed_y = 5
 
   def mover_left(self):
+    """
+    Realiza el movimiento hacia la izquierda del jugador.
+    """
     self.animation = self.list_animations[1]
     if not self.invertir_movimientos:
       self.left = True
@@ -122,6 +186,9 @@ class Player(Character):
       self.speed_x = 8
 
   def mover_derecha(self):
+    """
+    Realiza el movimiento hacia la derecha del jugador.
+    """
     self.animation = self.list_animations[1]
     if not self.invertir_movimientos:
       self.left = False
@@ -131,15 +198,27 @@ class Player(Character):
       self.speed_x = -8
 
   def idle(self):
+    """
+    Realiza la acción de reposo del jugador.
+    """
     self.animation = self.list_animations[0]
     self.speed_x = 0
 
   # Lives player
   def restar_lives(self):
+    """
+    Resta una vida al jugador.
+    """
     self.animation = self.list_animations[3]
     self.lives -= 1
 
   def animar_lives(self, screen):
+    """
+    Muestra las vidas restantes del jugador en la pantalla.
+
+    Args:
+    - screen (pygame.Surface): Superficie de la pantalla del juego.
+    """
     x = self.rect_lives.right
     for _ in range(self.lives):
       x -= self.rect_lives.width + 15
@@ -147,6 +226,12 @@ class Player(Character):
       screen.blit(live[indice_imagen], (x, self.rect_lives.y))
 
   def disparar(self, bubbles_group):
+    """
+    Realiza la acción de disparar proyectiles del jugador.
+
+    Args:
+    - bubbles_group (pygame.sprite.Group): Grupo de burbujas del juego.
+    """
     if (self.rect.x >= WIDTH_PANTALLA / 2 and self.transition_dark) or self.dark:
       arma = knife
     else:
@@ -154,6 +239,9 @@ class Player(Character):
     super().disparar(bubbles_group, arma)
 
   def reducir(self):
+    """
+    Reduce el tamaño del jugador.
+    """
     x = self.rect.x
     y = self.rect.y
     self.animation = reducir
@@ -162,6 +250,9 @@ class Player(Character):
     self.rect = idle[0].get_rect(topleft=(x, y))
 
   def agrandar(self):
+    """
+    Aumenta el tamaño del jugador.
+    """
     x = self.rect.x
     y = self.rect.y
     self.animation = reducir
@@ -172,6 +263,12 @@ class Player(Character):
     self.rect = idle[0].get_rect(topleft=(x, y))
 
   def eventos(self, bubbles_group):
+    """
+    Maneja los eventos del jugador (teclado) y realiza las acciones correspondientes.
+
+    Args:
+    - bubbles_group (pygame.sprite.Group): Grupo de burbujas del juego.
+    """
     keys = pygame.key.get_pressed()
 
     if not self.esta_cayendo or (self.esta_cayendo and self.can_double_jump):
@@ -192,6 +289,12 @@ class Player(Character):
           self.idle()
 
   def player_collide_platforms(self, platforms_list):
+    """
+    Detecta y maneja las colisiones del jugador con las plataformas.
+
+    Args:
+    - platforms_list (list): Lista de plataformas en el nivel.
+    """
     for plataforma in platforms_list:
         if self.rect.colliderect(plataforma.rect):
             if self.speed_y > 0 and self.esta_cayendo:
@@ -212,6 +315,12 @@ class Player(Character):
                     self.speed_x = 0
 
   def player_collide_floor(self, piso_rect):
+    """
+    Detecta y maneja la colisión del jugador con el suelo.
+
+    Args:
+    - piso_rect (pygame.Rect): Rectángulo de colisión del suelo.
+    """
     if self.rect.colliderect(piso_rect):
       if self.speed_y > 0 and self.esta_cayendo:
         self.speed_y = 0
@@ -219,6 +328,9 @@ class Player(Character):
         self.esta_cayendo = False
 
   def reset_position(self):
+    """
+    Reinicia la posición y los atributos del jugador.
+    """
     self.entrada_cayendo = True
     self.rect.topleft = (0, 0)
     self.key_recogida = False
