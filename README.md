@@ -27,7 +27,7 @@ El objetivo principal del juego es ayudar a Alice a encontrar la llave que abrir
 </p>
 
 # Controles
-Para controlar a nuestro héroe, podremos utilizar las siguientes teclas:
+Para controlar a Alice, podremos utilizar las siguientes teclas:
 
 `TECLA →:` movimiento hacia la derecha.
 

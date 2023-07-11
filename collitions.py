@@ -20,7 +20,7 @@ class Collition:
     self.sonidos_caracters = sonidos_caracters
 
   def update(self, screen):
-    self.player_collide_bullet(screen)
+    self.player_collide_bullet()
     self.player_collide_enemy()
     self.player_collide_traps()
     self.player_pick_up_items()
@@ -28,21 +28,24 @@ class Collition:
     if self.portal:
       self.player_collide_portal(screen)
 
-  def player_collide_bullet(self, screen):
+  def player_collide_bullet(self):
     collide = pygame.sprite.spritecollide(self.player, self.bullets_group, True)
 
     if collide:
       impact.play()
       self.player.animation = self.player.list_animations[3]
-      self.player.restar_lives(screen)
+      self.player.restar_lives()
       self.player.rect.x += -10
 
   def player_collide_enemy(self):
-    collide = pygame.sprite.spritecollide(self.player, self.enemy_list, False)
+    if pygame.time.get_ticks() - self.player.last_collision_time > self.player.immune_time:
+      collide = pygame.sprite.spritecollide(self.player, self.enemy_list, False)
 
-    if collide:
-      impact.play()
-      self.player.animation = self.player.list_animations[3]
+      if collide:
+        impact.play()
+        self.player.animation = self.player.list_animations[3]
+        self.player.last_collision_time = pygame.time.get_ticks()
+        self.player.restar_lives()
 
   def enemy_collide_bubbles(self):
     if self.enemy_list != None:

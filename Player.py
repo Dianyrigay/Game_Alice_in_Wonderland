@@ -23,6 +23,8 @@ class Player(Character):
     self.lives = 5
     self.score = 0
     self.list_animations = list_alice
+    self.immune_time = 10000
+    self.last_collision_time = 0
     # -- cambios segun niveles
     self.tiempo_invertido = 10 * FPS
     self.invertir_movimientos = False
@@ -87,9 +89,6 @@ class Player(Character):
     else:
       self.list_animations = list_alice
 
-    # if self.enter_portal:
-    #   animar_pantalla(screen, transition_alice)
-
   def draw(self, screen):
     self.animar_lives(screen)
     self.animar_personaje(screen)
@@ -101,7 +100,6 @@ class Player(Character):
     else:
       self.speed_x = 3
 
-    #TODO arreglar doble salto
     if not self.esta_cayendo and not self.can_double_jump:
       self.speed_y = self.potencia_salto
       self.can_double_jump = True
@@ -136,8 +134,8 @@ class Player(Character):
     self.speed_x = 0
 
   # Lives player
-  def restar_lives(self, screen):
-    # self.animation = self.list_animations[3]
+  def restar_lives(self):
+    self.animation = self.list_animations[3]
     self.lives -= 1
 
   def animar_lives(self, screen):
