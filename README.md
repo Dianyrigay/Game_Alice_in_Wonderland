@@ -1,7 +1,6 @@
 <h1 align="center">Alice in Wonderland</h1>
 
 <h4> Hola! 👋 Mi nombre es Dianyeli Yrigay y soy Estudiante de Programación en la UTN.</h4>
-<h4> Estudiante de Programación en la UTN </h4>
 
 <p>Alice in Wonderland es un juego de plataformas inspirado en el cuento de Lewis Carrol <em>“Alicia en el País de las Maravillas”</em> dónde nada es lo que parece. Los jugadores asumen el papel de Alice y viven con ella la transformación de su personaje, pasando de ser una niña tierna a una niña trastornada en busca de matar a los demonios que la perturban.
 
