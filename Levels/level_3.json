@@ -47,7 +47,7 @@
         "change_y": 2,
         "limit_left": 500,
         "limit_right": 900,
-        "limit_top": 100,
+        "limit_top": 200,
         "limit_bottom": 500
       }
     ],

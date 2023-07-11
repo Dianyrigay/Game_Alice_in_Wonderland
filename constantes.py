@@ -36,8 +36,8 @@ knife_sound = pygame.mixer.Sound('./sonidos/knife.wav')
 scream = pygame.mixer.Sound('./sonidos/scream.wav')
 
 sonidos_caracters = [items_win, game_over_sound,
-                     pig_dead_sound, impact, plant_dead_sound, ambient_fantasy, alice_intro, click_magic, bubble_sound, suspence_invertion, knife_sound, game_win_sound]
-sonidos_005 = [ambient_suspence, portal_magic, ambient_horror]
+                     pig_dead_sound, impact, plant_dead_sound, ambient_fantasy, click_magic, bubble_sound, suspence_invertion, knife_sound, game_win_sound]
+sonidos_005 = [ambient_suspence, portal_magic, ambient_horror, alice_intro]
 
 for sonido in sonidos_005:
   sonido.set_volume(0.05)

@@ -122,7 +122,7 @@ class Enemy_Boss(Enemy):
     if not self.muerto:
       if not self.is_jumping:
         self.check_collision(platforms_list)
-        if self.rect.y <= player_rect.y and abs(self.rect.x - player_rect.x) <= 800:
+        if self.rect.y <= player_rect.y and abs(self.rect.x - player_rect.x) <= 1000:
           self.attack_player(player_rect, bullets_group)
         else:
           self.speed_x = 0

@@ -157,16 +157,16 @@ class Player(Character):
     x = self.rect.x
     y = self.rect.y
     self.animation = reducir
-    rescale_image(list_alice, 0.6)
-    rescale_image(list_alice_dark, 0.6)
+    rescale_image(list_alice, 0.5)
+    rescale_image(list_alice_dark, 0.5)
     self.rect = idle[0].get_rect(topleft=(x, y))
 
   def agrandar(self):
     x = self.rect.x
     y = self.rect.y
     self.animation = reducir
-    rescale_image(list_alice, 2.25)
-    rescale_image(list_alice_dark, 2.25)
+    rescale_image(list_alice, 1.8)
+    rescale_image(list_alice_dark, 1.8)
     pygame.transform.rotozoom(bubble, 0, 0.3)
     pygame.transform.rotozoom(knife, 0, 0.3)
     self.rect = idle[0].get_rect(topleft=(x, y))
