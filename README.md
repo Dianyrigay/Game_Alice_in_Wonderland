@@ -46,49 +46,51 @@ Si Alice pierde todas sus vidas o se queda sin tiempo, el juego terminará y se 
 
 # Enemigos
 
-### - Porkwing:
-![flypig](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/d633d343-ee52-4101-9b24-ae6ab7f42323)
+### - Flypig:
+![flypig](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/7607979c-ae59-406b-96fc-3d319bb5f890)
 
 Estos cerditos voladores no son lo que parece, cuidado con tocarlos que pueden restarte una vida.
 
 ### - Flor Mortal:
-![plantaMortal](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/0d4fda89-54c2-44e4-9678-288bdc371a52)
+![plantaMortal](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/e9c1fb3f-8b84-43b4-b94e-8b4f0e62f68c)
 
 Que no te engañen! disparan constantemente, deberás esquivar sus proyectiles.
 
 ### - EL Sombrerero:
-![sombrerero](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/f3773b85-31d8-4154-a5c9-b9385e22fb74)
+![sombrerero](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/ec9ebc10-d84c-4af1-930d-4698aaad74e1)
 
 Este sombrerero si detecta tus movimientos cerca busca clavarte los dientes.
 
 ### - Cuervo de la Muerte:
-![cuervoDead](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/c0ab0ca5-1e30-44c9-a0ae-3ced7ca479ca)
+![cuervoDead](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/97cf7a9b-38af-43ee-9f64-037b0f19bd4a)
 
 Este cuervo es el guardían de nuestro enemigo final, vigila la zona y si detecta movimientos cerca buscará matarte.
 
 ### - El demonio de la Muerte:
-![dead](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/7d999dce-09e0-41bd-a523-5582586949b2)
+![dead](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/23f30e53-ae41-4704-92f6-96df2def61cd)
 
 El Jefe Final. La peor pesadilla de Alice, te perseguirá y buscará matarte, apuntale bien, intentará esquivar tus cuchillazos.
 
 # Consumibles
 ### - Objetos:
-![hongo-violet](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/230e1f96-a621-470b-901a-c2cda4f4c0b5)![queen](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/1cd1beeb-1860-4a84-92ac-2f310b3607e2)![sombrero](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/28f74a9a-33b2-4518-b333-1cca3426844e)![taza1](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/68f3f0d0-cb5e-4bc1-b98d-9b5c8305eeea)
+![hongo-yellow](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/ecdae036-8949-499c-b29b-b047b88f01a2) ![queen](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/e2bf5ad9-3281-4fa6-a6c9-fd07df41c47a) ![sombrero](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/9110cb53-b4c8-4d12-8bea-1f260d6a5c5c) ![taza1](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/f917a687-4a64-468a-8d48-2704702cd25e)
 
 Podrás escontrar objetos a lo largo de los niveles que te ayudarán a subir puntos.
 
 ### - Vidas:
-![live](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/9b9fc8f6-8f07-4824-b68e-62c2366ee2df)
+![live](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/dd208bb3-bb04-49f2-b30f-2e2f4ed14cb3)
 
 Aumentarán tus vidas! menor probabilidad a que te maten.
 
 ### - Poción de Encogimiento / Tarta Mágica:
-![pocion](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/0a588276-2111-42f8-a77f-33dad1d60dc2)![tarta](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/5f26ecce-7145-4ba8-a994-fa1f40f5e5fc)
+![pocion](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/3468e4e2-7e76-4914-9271-8421247b2155) ![tarta](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/f06e7347-56de-41e7-839a-17d8fb26586e)
 
 Ayudarán a que Alice se adapte al tamaño que necesite para continuar los niveles.
 
 ### - Keys:
-![key-red](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/ad37cf10-a766-4688-a559-9c5540202ee0)![key-yellow](https://github.com/Dianyrigay/Game_Alice_in_Wonderland/assets/80293439/61448a93-f44b-4384-8c57-03d50d5b55ea)
+![key-red](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/17e59fbd-cbec-4104-bda6-c41a8e14709d) ![key-yellow](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/960fe2f4-940a-47ae-a1e5-1626391a7089)
+
+
 
 Ayudarán a descubrir el portal y poder avanzar al siguiente nivel.
 
