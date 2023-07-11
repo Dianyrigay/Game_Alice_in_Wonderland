@@ -218,7 +218,7 @@ class High_Scores(Menu):
         self.background = high_scores_image
         self.buttons = [
             Button(image=pygame.image.load("./images/play-rect2.png"), x=WIDTH_PANTALLA/2, y=750,
-                text_input="MAIN MANU", base_color="white", hovering_color="yellow"),
+                text_input="BACK", base_color="white", hovering_color="yellow"),
         ]
 
     def handle_button_click(self):

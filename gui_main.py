@@ -163,6 +163,7 @@ def win_lose_menu(level_play, game_over, game_win, score, level):
     pygame.display.update()
 
 def high_scores_menu():
+  alice_intro.stop()
   high_scores = High_Scores()
 
   while True:

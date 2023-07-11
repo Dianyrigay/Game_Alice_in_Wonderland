@@ -1,7 +1,7 @@
 from constantes import *
 from animations import *
 
-from personaje import Character
+from character import Character
 
 class Player(Character):
   def __init__(self) -> None:

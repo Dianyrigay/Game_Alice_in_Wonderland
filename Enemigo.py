@@ -3,7 +3,7 @@ import random
 from constantes import *
 from animations import *
 
-from personaje import Character
+from character import Character
 from healthbar import HealthBar
 
 class Enemy(Character):
