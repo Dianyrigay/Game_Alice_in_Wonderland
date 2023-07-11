@@ -1,21 +1,21 @@
 <h1 align="center">Alice in Wonderland</h1>
 
-### Hola, soy Dianyeli Yrigay! 👋
-<h3> Estudiante de Programación en la UTN </h1>
+<h4> Hola! Soy Dianyeli yrigay 👋</h4>
+<h4> Estudiante de Programación en la UTN </h4>
 
-<p>Alice in Wonderland es un juego de plataformas inspirado en el cuento de Alice en el País de las Maravillas, donde nada es lo que parece. Los jugadores asumen el papel de Alice y viven con ella la transformación de su personaje, donde Alice pasa a ser una niña trastornada en busca de matar a los demonios que la perturban.
+<p>Alice in Wonderland es un juego de plataformas inspirado en el cuento de Alicia en el País de las Maravillas, donde nada es lo que parece. Los jugadores asumen el papel de Alice y viven con ella la transformación de su personaje, pasando de ser una niña tierna a una niña trastornada en busca de matar a los demonios que la perturban.
 
-El objetivo principal del juego es ayudar a Alice a encontrar la llave que abrirá el portal para sumergirse a un nuevo nivel, tratando de escapar de sus pesadillas que cada vez son mas perturbadoras.</p>
+El objetivo principal del juego es ayudar a Alice a encontrar la llave que abrirá el portal para sumergirse a un nuevo mundo, tratando de escapar de sus pesadillas que cada vez son mas perturbadoras.</p>
 
 # Niveles
 ### Nivel 1: El país de las maravillas
-<p>Alice se adentra en el país de las maravillas donde deberás guiarla a recoger la llave y luego llevarla al portal de salida. Durante esta búsqueda deberás enfrentar a los enemigos y ten cuidado con las trampas! Podrían distorsionar la realidad...</p>
+<p>Alice se adentra en el país de las maravillas donde deberás guiarla a buscar la llave que abrirá el portal de salida. Durante esta búsqueda deberás enfrentar a los enemigos y ten cuidado con las trampas! Podrían distorsionar la realidad...</p>
 <p align="center">
  <img height=300px src="./images/readme/level_1.gif" alt="banner" />
 </p>
 
 ### Nivel 2: La hora del Té
-<p>Un nuevo desafío espera a Alice y parece que su tamaño no le favorece, deberás ayudarla a escapar de un nuevo enemigo... el sombrerero (aunque un poco distorcionado no?). Y no llegues a mitad del camino, en Alice se despierta una nueva personalidad...</p>
+<p>Un nuevo desafío espera a Alice y parece que su tamaño no le favorece, deberás ayudarla a escapar de un nuevo enemigo... el sombrerero (¡parece que ha perdido la cabeza!). Y no llegues a mitad del camino, en Alice se despierta una nueva personalidad...</p>
 <p align="center">
  <img height=300px src="./images/readme/level_2.gif" alt="banner" />
 </p>
@@ -29,20 +29,13 @@ El objetivo principal del juego es ayudar a Alice a encontrar la llave que abrir
 # Controles
 Para controlar a Alice, podremos utilizar las siguientes teclas:
 
-`TECLA →:` movimiento hacia la derecha.
+`TECLA →:` Movimiento hacia la derecha.
 
-`TECLA ←:` movimiento hacia la izquierda
+`TECLA ←:` Movimiento hacia la izquierda.
 
-`TECLA BARRA ESPACIADORA:` salto (doble barra / doble salto)
+`TECLA BARRA ESPACIADORA:` Salto (doble barra / doble salto).
 
-`TECLA X:` disparar
-
-# Cómo perder
-
-- Perdiendo todas las vidas (se van restando al colisionar con un enemigo o al recibir algún disparo)
-- Si te quedas sin tiempo en el nivel, cada uno tiene un tiempo de 60 segundos.
-
-Si Alice pierde todas sus vidas o se queda sin tiempo, el juego terminará y se mostrará el menú de juego perdido.
+`TECLA X:` Disparar.
 
 # Enemigos
 
@@ -59,7 +52,7 @@ Que no te engañen! disparan constantemente, deberás esquivar sus proyectiles.
 ### - EL Sombrerero:
 ![sombrerero](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/ec9ebc10-d84c-4af1-930d-4698aaad74e1)
 
-Este sombrerero si detecta tus movimientos cerca busca clavarte los dientes.
+Ha perdido la cabeza y si detecta tus movimientos cerca buscará clavarte los dientes.
 
 ### - Cuervo de la Muerte:
 ![cuervoDead](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/97cf7a9b-38af-43ee-9f64-037b0f19bd4a)
@@ -93,6 +86,13 @@ Ayudarán a que Alice se adapte al tamaño que necesite para continuar los nivel
 
 
 Ayudarán a descubrir el portal y poder avanzar al siguiente nivel.
+
+# Cómo perder
+
+- Perdiendo todas las vidas (se van restando al colisionar con un enemigo o al recibir algún disparo)
+- Si te quedas sin tiempo en el nivel, cada uno tiene un tiempo de 60 segundos.
+
+Si Alice pierde todas sus vidas o se queda sin tiempo, el juego terminará y se mostrará el menú de juego perdido.
 
 #
 <h3 align="center">Alice in Wonderland ha sido desarrollado con Pygame como entrega final para la asignatura Programación 1 de la Universidad Tecnológica Nacional (UTN)</h3>
