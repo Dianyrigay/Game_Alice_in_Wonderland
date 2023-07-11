@@ -62,6 +62,7 @@ class Collition:
             if enemigo.lives == 0:
               if type(enemigo) == Enemy_Boss:
                 scream.play()
+                self.player.boss_death = True
               enemigo.animation = enemigo.list_animations[1]
               enemigo.muerto = True
             if type(enemigo) == Enemy_Boss:

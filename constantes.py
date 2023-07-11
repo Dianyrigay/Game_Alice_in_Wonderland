@@ -18,8 +18,9 @@ ambient_suspence = pygame.mixer.Sound('./sonidos/ambient-suspence.wav')
 ambient_fantasy = pygame.mixer.Sound('./sonidos/ambient-fantasy.wav')
 ambient_horror = pygame.mixer.Sound('./sonidos/ambient-horror.wav')
 
-alice_intro = pygame.mixer.Sound('./sonidos/alice-intro.mp3')
+alice_intro = pygame.mixer.Sound('./sonidos/intro.wav')
 game_over_sound = pygame.mixer.Sound('./sonidos/game_over.wav')
+game_win_sound = pygame.mixer.Sound('./sonidos/win.mp3')
 
 # items and object sound
 items_win = pygame.mixer.Sound('./sonidos/items-win.wav')
@@ -33,7 +34,6 @@ portal_magic = pygame.mixer.Sound('./sonidos/portal-magic.wav')
 suspence_invertion = pygame.mixer.Sound('./sonidos/suspence_invertion.wav')
 knife_sound = pygame.mixer.Sound('./sonidos/knife.wav')
 scream = pygame.mixer.Sound('./sonidos/scream.wav')
-game_win_sound = pygame.mixer.Sound('./sonidos/win.mp3')
 
 sonidos_caracters = [items_win, game_over_sound,
                      pig_dead_sound, impact, plant_dead_sound, ambient_fantasy, alice_intro, click_magic, bubble_sound, suspence_invertion, knife_sound, game_win_sound]

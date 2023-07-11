@@ -168,6 +168,7 @@ class FinalMenu(Menu):
                     text_input="MAIN MENU", base_color="white", hovering_color="yellow")
             ]
         if self.game_win:
+            ambient_horror.stop()
             self.score = score
             self.level = level
             self.background = you_win

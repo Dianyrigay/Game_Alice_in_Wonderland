@@ -33,6 +33,7 @@ class Player(Character):
     # --cumplimiento nivel
     self.key_recogida = False
     self.enter_portal = False
+    self.boss_death = False
 
   def mover_personaje_x(self):
     self.rect.x += self.speed_x
@@ -156,10 +157,8 @@ class Player(Character):
     x = self.rect.x
     y = self.rect.y
     self.animation = reducir
-    rescale_image(list_alice, 0.4)
-    rescale_image(list_alice_dark, 0.4)
-    pygame.transform.rotozoom(bubble, 0, 0.3)
-    pygame.transform.rotozoom(knife, 0, 0.3)
+    rescale_image(list_alice, 0.6)
+    rescale_image(list_alice_dark, 0.6)
     self.rect = idle[0].get_rect(topleft=(x, y))
 
   def agrandar(self):

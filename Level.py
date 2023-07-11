@@ -217,7 +217,7 @@ class Level():
       self.next_level = "level_3"
       self.player.dark = True
       self.player.reset_position()
-    elif self.player.enter_portal and self.level == "level_3":
+    elif self.player.enter_portal and self.player.boss_death and self.level == "level_3":
       self.game_win = True
 
     self.update_time()
@@ -244,6 +244,7 @@ class Level():
       portal_magic.stop()
 
     if self.level == "level_3":
+      #TODO arreglar
       write_screen(screen, "EAT ME", "white", "", (350, 550))
     write_screen(screen, 'SCORE: ', "white", str(self.player.score), (20, 20))
     write_screen(screen, '00:', "white", str(self.time_restante).zfill(2), (WIDTH_PANTALLA//2, 20))

@@ -67,12 +67,12 @@ def play(level_play="level_1"):
             if level.next_level == "level_2":
               level_play = "level_2"
               level = Level(player, level_play)
-              if level not in list_level:
+              if not level in list_level:
                 list_level.append(level.level)
             elif level.next_level == "level_3":
               level_play = "level_3"
               level = Level(player, level_play)
-              if level not in list_level:
+              if not level in list_level:
                 list_level.append(level.level)
 
         else:
