@@ -23,7 +23,7 @@ class Player(Character):
     self.lives = 5
     self.score = 0
     self.list_animations = list_alice
-    self.immune_time = 10000
+    self.immune_time = 5000
     self.last_collision_time = 0
     # -- cambios segun niveles
     self.tiempo_invertido = 10 * FPS

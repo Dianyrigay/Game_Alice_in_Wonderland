@@ -136,13 +136,12 @@ def pause_menu(level_play):
       main_menu()
     pygame.display.update()
 
-
 def win_lose_menu(level_play, game_over, game_win, score, level):
   if game_over:
     game_over_sound.play()
   if game_win:
-    #TODO agrega musica de win
-    pass
+    ambient_horror.stop()
+    game_win_sound.play()
 
   final_menu = FinalMenu(game_over, game_win, score, level)
 

@@ -111,7 +111,7 @@ class Enemy_Boss(Enemy):
     self.speed_x = 0
     self.left = True
     self.speed_animation = 25
-    self.cadencia = 50
+    self.cadencia = 70
     self.spawn_timer = pygame.time.get_ticks()
     self.spawn_interval = 4000
     self.health_bar = HealthBar(100, 15, self.lives)

@@ -1,2 +1,1 @@
-
-                list_level.append(level.level)
+click_magic.play()

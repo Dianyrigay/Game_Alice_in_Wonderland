@@ -200,10 +200,9 @@ class FinalMenu(Menu):
         if self.game_win:
             nombre = self.text_input.text
             if self.buttons[0].checkForInput(mouse_pos):
-                #TODO descomentar para guardar datos en tabla
-                # create_table()
-                # save_score(nombre, self.score, self.level)
-                # get_score()
+                create_table()
+                save_score(nombre, self.score, self.level)
+                get_score()
                 return "guardar"
         return False
 

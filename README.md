@@ -1,27 +1,27 @@
 <h1 align="center">Alice in Wonderland</h1>
 
-<h4> Hola! Soy Dianyeli yrigay 👋</h4>
+<h4> Hola! 👋 Mi nombre es Dianyeli Yrigay y soy Estudiante de Programación en la UTN.</h4>
 <h4> Estudiante de Programación en la UTN </h4>
 
-<p>Alice in Wonderland es un juego de plataformas inspirado en el cuento de Alicia en el País de las Maravillas, donde nada es lo que parece. Los jugadores asumen el papel de Alice y viven con ella la transformación de su personaje, pasando de ser una niña tierna a una niña trastornada en busca de matar a los demonios que la perturban.
+<p>Alice in Wonderland es un juego de plataformas inspirado en el cuento de Lewis Carrol <em>“Alicia en el País de las Maravillas”</em> dónde nada es lo que parece. Los jugadores asumen el papel de Alice y viven con ella la transformación de su personaje, pasando de ser una niña tierna a una niña trastornada en busca de matar a los demonios que la perturban.
 
-El objetivo principal del juego es ayudar a Alice a encontrar la llave que abrirá el portal para sumergirse a un nuevo mundo, tratando de escapar de sus pesadillas que cada vez son mas perturbadoras.</p>
+<strong>El objetivo principal del juego es ayudar a Alice a encontrar la llave que abrirá el portal</strong> para sumergirse a un nuevo mundo, tratando de escapar de sus pesadillas que cada vez son más perturbadoras.</p>
 
 # Niveles
 ### Nivel 1: El país de las maravillas
-<p>Alice se adentra en el país de las maravillas donde deberás guiarla a buscar la llave que abrirá el portal de salida. Durante esta búsqueda deberás enfrentar a los enemigos y ten cuidado con las trampas! Podrían distorsionar la realidad...</p>
+<p>Alice se adentra en el país de las maravillas, en él deberás guiarla a buscar la llave que abrirá el portal de salida. Durante esta búsqueda deberás enfrentar a sus enemigos, pero ¡ten cuidado con las trampas! Éstas podrían distorsionar la realidad...</p>
 <p align="center">
  <img height=300px src="./images/readme/level_1.gif" alt="banner" />
 </p>
 
 ### Nivel 2: La hora del Té
-<p>Un nuevo desafío espera a Alice y parece que su tamaño no le favorece, deberás ayudarla a escapar de un nuevo enemigo... el sombrerero (¡parece que ha perdido la cabeza!). Y no llegues a mitad del camino, en Alice se despierta una nueva personalidad...</p>
+<p>Un nuevo desafío espera a Alice y parece que su tamaño no le favorece. En este nivel deberás ayudarla a escapar de un nuevo enemigo... el Sombrerero (¡Quien parece que ha perdido la cabeza!). Quédate atento cuando llegues a mitad del camino, en Alice se despierta una nueva personalidad...</p>
 <p align="center">
  <img height=300px src="./images/readme/level_2.gif" alt="banner" />
 </p>
 
 ### Nivel 3: El bosque maldito
-<p>En este nivel deberás acompañar a Alice a enfrentar a sus peores pesadillas, los demonios que perturbaron su país de las maravillas...</p>
+<p>En este nivel deberás acompañar a Alice a enfrentar a sus peores pesadillas, en él encontrarás los demonios que perturbaron su país de las maravillas...</p>
 <p align="center">
  <img height=300px src="./images/readme/level_3.gif" alt="banner" />
 </p>
@@ -47,12 +47,12 @@ Estos cerditos voladores no son lo que parece, cuidado con tocarlos que pueden r
 ### - Flor Mortal:
 ![plantaMortal](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/e9c1fb3f-8b84-43b4-b94e-8b4f0e62f68c)
 
-Que no te engañen! disparan constantemente, deberás esquivar sus proyectiles.
+¡Que no te engañen! disparan constantemente, deberás esquivar sus proyectiles.
 
 ### - EL Sombrerero:
 ![sombrerero](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/ec9ebc10-d84c-4af1-930d-4698aaad74e1)
 
-Ha perdido la cabeza y si detecta tus movimientos cerca buscará clavarte los dientes.
+Ha perdido la cabeza y, si detecta tus movimientos, buscará clavarte los dientes.
 
 ### - Cuervo de la Muerte:
 ![cuervoDead](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/97cf7a9b-38af-43ee-9f64-037b0f19bd4a)
@@ -62,7 +62,7 @@ Este cuervo es el guardían de nuestro enemigo final, vigila la zona y si detect
 ### - El demonio de la Muerte:
 ![dead](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/23f30e53-ae41-4704-92f6-96df2def61cd)
 
-El Jefe Final. La peor pesadilla de Alice, te perseguirá y buscará matarte, apuntale bien, intentará esquivar tus cuchillazos.
+El Jefe Final. La peor pesadilla de Alice, te perseguirá y buscará hasta la muerte. Tendrás que tener buena puntería pues intentará esquivar todos tus cuchillazos.
 
 # Consumibles
 ### - Objetos:
@@ -73,7 +73,7 @@ Podrás escontrar objetos a lo largo de los niveles que te ayudarán a subir pun
 ### - Vidas:
 ![live](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/dd208bb3-bb04-49f2-b30f-2e2f4ed14cb3)
 
-Aumentarán tus vidas! menor probabilidad a que te maten.
+¡Aumentarán tus vidas! menor probabilidad a que te maten.
 
 ### - Poción de Encogimiento / Tarta Mágica:
 ![pocion](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/3468e4e2-7e76-4914-9271-8421247b2155) ![tarta](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/f06e7347-56de-41e7-839a-17d8fb26586e)
@@ -82,8 +82,6 @@ Ayudarán a que Alice se adapte al tamaño que necesite para continuar los nivel
 
 ### - Keys:
 ![key-red](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/17e59fbd-cbec-4104-bda6-c41a8e14709d) ![key-yellow](https://github.com/Dianyrigay/yrigayDianyeli-pygame-tp-final/assets/80293439/960fe2f4-940a-47ae-a1e5-1626391a7089)
-
-
 
 Ayudarán a descubrir el portal y poder avanzar al siguiente nivel.
 
@@ -96,8 +94,3 @@ Si Alice pierde todas sus vidas o se queda sin tiempo, el juego terminará y se 
 
 #
 <h3 align="center">Alice in Wonderland ha sido desarrollado con Pygame como entrega final para la asignatura Programación 1 de la Universidad Tecnológica Nacional (UTN)</h3>
-
-
-
-
-
